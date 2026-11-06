@@ -51,6 +51,18 @@ return [
         // Verificación SSL: recomendado true. Algunos XAMPP en Windows no traen CA bundle; usar false solo en local.
         'verify_ssl' => $envBool('HTTP_VERIFY_SSL', false),
     ],
+    // Plataforma Digital Nacional (SNA) — Sistema 3: servidores públicos y
+    // particulares sancionados. FUENTE FUNDAMENTAL ANTICORRUPCIÓN de la suite.
+    // API pública JSON sin autenticación; salida SIEMPRE a contraste, nunca a canónico.
+    'pdn' => [
+        'api_base' => 'https://api.plataformadigitalnacional.org/s3-wrapper',
+        'portal_url' => 'https://www.plataformadigitalnacional.org/servidores',
+        'providers_url' => 'https://api.plataformadigitalnacional.org/s3-wrapper/api/v1/providers',
+        'timeout' => (int) $env('HTTP_TIMEOUT', '30'),
+        'rate_limit_ms' => (int) $env('HTTP_RATE_LIMIT_MS', '1250'),
+        'user_agent' => $env('HTTP_USER_AGENT', 'PulsoCivicoBot/1.0 (+https://github.com/elpulsocivico/pulso-civico)'),
+        'verify_ssl' => $envBool('HTTP_VERIFY_SSL', true),
+    ],
     'paths' => [
         'root' => dirname(__DIR__),
         'storage' => dirname(__DIR__) . '/storage',
