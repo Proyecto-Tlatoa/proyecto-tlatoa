@@ -130,6 +130,11 @@ def extract_leg_num(path: Path) -> int:
     return int(m.group(1)) if m else 0
 
 
+def is_federal_executive(path: Path, data: dict) -> bool:
+    """True si el archivo es Ejecutivo Federal (presidencia_*.json o nivel federal)."""
+    return path.name.startswith("presidencia_") or data.get("nivel") == "federal" or data.get("ambito") == "federal"
+
+
 def init_database(conn: sqlite3.Connection):
     cursor = conn.cursor()
     cursor.execute("PRAGMA journal_mode = OFF;")
@@ -224,15 +229,21 @@ def build_database(allow_drop_pct=5.0, min_total=15000, backup=True, dry_run=Fal
         except Exception as e:
             print(f"  [Aviso] Omitiendo {fed_file.name}: {e}")
 
-    # 2. Procesar Gobernadores y Jefes de Gobierno (32 Entidades)
+    # 2. Procesar Ejecutivo Federal (presidencia_*.json, primero) y
+    # Gobernadores y Jefes de Gobierno (32 Entidades). El slug es por
+    # mandato (nombre-entidad), asi una persona tiene una fila por cargo;
+    # la invariante es una sola fila activa por persona y cargo vigente.
     dir_ejecutivo = DATA_DIR / "ejecutivo"
     if dir_ejecutivo.exists():
-        ejec_files = sorted(dir_ejecutivo.glob("*.json"))
+        ejec_files = sorted(dir_ejecutivo.glob("*.json"),
+                            key=lambda p: (0 if p.name.startswith("presidencia_") else 1, p.name))
         for gob_file in ejec_files:
             try:
                 data = load_json_file(gob_file)
                 if not isinstance(data, dict):
                     continue
+                es_federal = is_federal_executive(gob_file, data)
+                camara_ejec = "Ejecutivo Federal" if es_federal else "Ejecutivo Estatal"
                 entidad = data.get("entidad") or "Nacional"
                 mandatarios = data.get("mandatarios", [])
                 if not isinstance(mandatarios, list):
@@ -249,7 +260,7 @@ def build_database(allow_drop_pct=5.0, min_total=15000, backup=True, dry_run=Fal
                     cargo_base = m.get("cargo_oficial") or f"Gobernador(a) de {entidad}"
                     cargo = cargo_base if es_activo else f"Ex {cargo_base}"
                     foto = m.get("foto_url") or m.get("foto_oficial_url") or ""
-                    if insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo, "Ejecutivo Estatal", entidad, es_activo, foto, m):
+                    if insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo, camara_ejec, entidad, es_activo, foto, m):
                         counts["ejecutivo"] += 1
             except Exception as e:
                 print(f"  [Aviso] Omitiendo {gob_file.name}: {e}")

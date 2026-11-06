@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import safe_overwrite as so
-from build_mobile_db import check_counts
+from build_mobile_db import check_counts, is_federal_executive
 
 LEGISLADOR = {
     "referencia_sil": "1", "nombre_completo": "Perez Lopez Ana",
@@ -222,6 +222,31 @@ class GuardTests(unittest.TestCase):
         self.assertTrue(check_counts(16136, 16000, allow_drop_pct=5.0, min_total=15000))
         self.assertTrue(check_counts(None, 16136, allow_drop_pct=5.0, min_total=15000))
         self.assertTrue(check_counts(16136, 16136, allow_drop_pct=5.0, min_total=15000))
+
+
+class PresidenciaTests(unittest.TestCase):
+    def test_presidencia_es_federal_y_gobernador_no(self):
+        self.assertTrue(is_federal_executive(
+            Path("presidencia_mexico.json"), {"nivel": "federal"}))
+        self.assertTrue(is_federal_executive(
+            Path("presidencia_mexico.json"), {}))
+        self.assertFalse(is_federal_executive(
+            Path("gobernadores_jalisco.json"), {"entidad": "Jalisco"}))
+
+    def test_presidencia_json_valida_y_sheinbaum_vigente(self):
+        path = Path(__file__).resolve().parent.parent / "storage" / "data" / "json" / "ejecutivo" / "presidencia_mexico.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(so.validate_dataset(data, str(path)), [])
+        mans = {m["nombre_completo"]: m for m in data["mandatarios"]}
+        sheinbaum = mans["Claudia Sheinbaum Pardo"]
+        self.assertTrue(sheinbaum["es_vigente"])
+        self.assertEqual(sheinbaum["fecha_inicio"], "2024-10-01")
+        self.assertEqual(sheinbaum["fecha_conclusion"], "2030-09-30")
+        self.assertEqual(sheinbaum["partido"], "MORENA")
+        self.assertEqual(mans["Andrés Manuel López Obrador"]["es_vigente"], False)
+        self.assertEqual(
+            sheinbaum["trayectoria_administrativa"][0]["cargo"],
+            "Jefa de Gobierno de la Ciudad de México")
 
 
 if __name__ == "__main__":
