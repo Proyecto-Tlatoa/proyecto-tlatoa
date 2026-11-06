@@ -7,7 +7,8 @@
     "periodo": "2024-2027",
     "generado_en": "2026-10-13T21:22:31+00:00",
     "fuente_url": "https://www.congresobc.gob.mx/TrabajoLegislativo/Diputados",
-    "total_legisladores": 25
+    "total_legisladores": 25,
+    "fecha_actualizacion": "2026-11-06"
   },
   "legisladores": [
     {
@@ -474,7 +475,7 @@
     },
     {
       "referencia_sil": "bc_leg25_12",
-      "nombre_completo": "Dip. Ramón Vázquez Valdivia",
+      "nombre_completo": "Dip. Jesús Daniel Razo Córdova",
       "camara": "Congreso del Estado de Baja California",
       "legislatura": 25,
       "partido": "MORENA",
@@ -483,7 +484,7 @@
       "distrito": "Distrito XII (Tijuana)",
       "tipo_cargo": "Propietario",
       "suplente_nombre": "Jesús Daniel Razo Córdova",
-      "fecha_toma_protesta": "2024-08-01",
+      "fecha_toma_protesta": null,
       "fecha_nacimiento": null,
       "correo_institucional": "ramon.vazquez@congresobc.gob.mx",
       "telefono": "(686) 559-5600 Ext. 329",
@@ -506,7 +507,7 @@
       "metadata": {
         "fuente_url": "https://www.congresobc.gob.mx/TrabajoLegislativo/Diputados",
         "sha256_evidencia": "fc66b5b83b19458f32224a99a15c295251f3c232355120fb2fc059d117f6710c",
-        "fecha_extraccion": "2026-10-13 21:22:31",
+        "fecha_extraccion": "2026-11-06",
         "entidad_tipo": "Congreso Local"
       },
       "foto_origen_url": "https://www.congresobc.gob.mx/imgs/diputados/D12.png"
@@ -552,7 +553,7 @@
     },
     {
       "referencia_sil": "bc_leg25_14",
-      "nombre_completo": "Dip. Araceli Geraldo Núñez",
+      "nombre_completo": "Dip. Gabriela Ponce Velázquez",
       "camara": "Congreso del Estado de Baja California",
       "legislatura": 25,
       "partido": "MORENA",
@@ -561,7 +562,7 @@
       "distrito": "Distrito XIV (Tijuana)",
       "tipo_cargo": "Propietario",
       "suplente_nombre": "Gabriela Ponce Velázquez",
-      "fecha_toma_protesta": "2024-08-01",
+      "fecha_toma_protesta": null,
       "fecha_nacimiento": null,
       "correo_institucional": "araceli.geraldo@congresobc.gob.mx",
       "telefono": "(686) 559-5600 Ext. 321",
@@ -584,7 +585,7 @@
       "metadata": {
         "fuente_url": "https://www.congresobc.gob.mx/TrabajoLegislativo/Diputados",
         "sha256_evidencia": "552a86b5d6852ac4988ae06b7bc9168cd891f786be1c162a00e29a21a9986cbd",
-        "fecha_extraccion": "2026-10-13 21:22:31",
+        "fecha_extraccion": "2026-11-06",
         "entidad_tipo": "Congreso Local"
       },
       "foto_origen_url": "https://www.congresobc.gob.mx/imgs/diputados/D14.png"
