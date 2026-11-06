@@ -133,6 +133,10 @@ storage/*.db
 ~/crates/
 crates/tlatoa-core/Cargo.toml
 
+# --- Copias de seguridad locales de safe_overwrite (no se commitean) ---
+storage/backup/
+storage/data/backup/
+
 # --- Obsidian Visor
 .obsidian/
 .obsidian/workspace.json

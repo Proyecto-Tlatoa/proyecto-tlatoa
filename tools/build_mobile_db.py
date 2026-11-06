@@ -2,13 +2,30 @@
 """
 tools/build_mobile_db.py — Compilador de Base de Datos SQLite Ultracompacta (Proyecto Tlatoa)
 Convierte los datasets JSON en un archivo SQLite 'storage/tlatoa.db' optimizado con FTS5.
+
+Sobreescritura segura: se construye siempre en un archivo temporal
+('tlatoa.db.tmp'), se verifica con PRAGMA integrity_check y una prueba
+FTS5, se compara el total con la DB anterior (si la caida supera
+--allow-drop-pct o el total es menor que --min-total, se aborta y la
+DB vieja queda intacta) y solo entonces se reemplaza, guardando antes
+una copia de seguridad de la DB anterior en storage/backup/.
+
+Orden y fechas: los archivos se procesan por legislatura descendente
+y el primer slug visto gana (insert_record descarta duplicados). Por
+eso una sobreescritura parcial debe respetar la fecha: un registro
+nuevo solo sustituye a uno viejo si su fecha es >= a la existente
+(vease tools/safe_overwrite.py, upsert_db). Reescribir un JSON viejo
+encima de uno nuevo sin --force corrompe esa prioridad en silencio.
 """
 
+import argparse
 import json
 import re
+import shutil
 import sqlite3
 import sys
 import unicodedata
+from datetime import datetime
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -31,6 +48,48 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "storage" / "data" / "json"
 OUTPUT_DB = BASE_DIR / "storage" / "tlatoa.db"
+DB_BACKUP_DIR = BASE_DIR / "storage" / "backup"
+
+
+def previous_total():
+    """Total de politicos en la DB anterior, o None si no existe o esta rota."""
+    if not OUTPUT_DB.exists():
+        return None
+    try:
+        conn = sqlite3.connect(f"file:{OUTPUT_DB}?mode=ro", uri=True)
+        try:
+            return conn.execute("SELECT COUNT(*) FROM politicos").fetchone()[0]
+        finally:
+            conn.close()
+    except sqlite3.Error:
+        return None
+
+
+def check_counts(old_total, new_total, allow_drop_pct=5.0, min_total=15000):
+    """Aborta si el total nuevo es demasiado bajo o la caida supera el umbral."""
+    if new_total < min_total:
+        raise SystemExit(
+            f"ABORTADO: total nuevo {new_total} < minimo {min_total}; "
+            "la DB anterior queda intacta"
+        )
+    if old_total is not None and old_total > 0:
+        drop_pct = (old_total - new_total) / old_total * 100
+        if drop_pct > allow_drop_pct:
+            raise SystemExit(
+                f"ABORTADO: caida de {old_total} a {new_total} "
+                f"({drop_pct:.1f}% > {allow_drop_pct}% permitido); "
+                "la DB anterior queda intacta"
+            )
+    return True
+
+
+def backup_db():
+    """Copia la DB actual a storage/backup/ con sello de tiempo."""
+    DB_BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup = DB_BACKUP_DIR / f"{OUTPUT_DB.stem}.{stamp}{OUTPUT_DB.suffix}"
+    shutil.copy2(OUTPUT_DB, backup)
+    return backup
 
 
 def slugify(text: str) -> str:
@@ -69,6 +128,11 @@ def get_party_color(partido: str) -> str:
 def extract_leg_num(path: Path) -> int:
     m = re.search(r"_leg_(\d+)\.json$", path.name)
     return int(m.group(1)) if m else 0
+
+
+def is_federal_executive(path: Path, data: dict) -> bool:
+    """True si el archivo es Ejecutivo Federal (presidencia_*.json o nivel federal)."""
+    return path.name.startswith("presidencia_") or data.get("nivel") == "federal" or data.get("ambito") == "federal"
 
 
 def init_database(conn: sqlite3.Connection):
@@ -127,7 +191,8 @@ def insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo,
     return True
 
 
-def build_database():
+def build_database(allow_drop_pct=5.0, min_total=15000, backup=True, dry_run=False):
+    old_total = previous_total()
     OUTPUT_DB.parent.mkdir(parents=True, exist_ok=True)
     tmp_db = OUTPUT_DB.with_suffix(".db.tmp")
     if tmp_db.exists():
@@ -164,15 +229,21 @@ def build_database():
         except Exception as e:
             print(f"  [Aviso] Omitiendo {fed_file.name}: {e}")
 
-    # 2. Procesar Gobernadores y Jefes de Gobierno (32 Entidades)
+    # 2. Procesar Ejecutivo Federal (presidencia_*.json, primero) y
+    # Gobernadores y Jefes de Gobierno (32 Entidades). El slug es por
+    # mandato (nombre-entidad), asi una persona tiene una fila por cargo;
+    # la invariante es una sola fila activa por persona y cargo vigente.
     dir_ejecutivo = DATA_DIR / "ejecutivo"
     if dir_ejecutivo.exists():
-        ejec_files = sorted(dir_ejecutivo.glob("*.json"))
+        ejec_files = sorted(dir_ejecutivo.glob("*.json"),
+                            key=lambda p: (0 if p.name.startswith("presidencia_") else 1, p.name))
         for gob_file in ejec_files:
             try:
                 data = load_json_file(gob_file)
                 if not isinstance(data, dict):
                     continue
+                es_federal = is_federal_executive(gob_file, data)
+                camara_ejec = "Ejecutivo Federal" if es_federal else "Ejecutivo Estatal"
                 entidad = data.get("entidad") or "Nacional"
                 mandatarios = data.get("mandatarios", [])
                 if not isinstance(mandatarios, list):
@@ -189,7 +260,7 @@ def build_database():
                     cargo_base = m.get("cargo_oficial") or f"Gobernador(a) de {entidad}"
                     cargo = cargo_base if es_activo else f"Ex {cargo_base}"
                     foto = m.get("foto_url") or m.get("foto_oficial_url") or ""
-                    if insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo, "Ejecutivo Estatal", entidad, es_activo, foto, m):
+                    if insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo, camara_ejec, entidad, es_activo, foto, m):
                         counts["ejecutivo"] += 1
             except Exception as e:
                 print(f"  [Aviso] Omitiendo {gob_file.name}: {e}")
@@ -263,12 +334,43 @@ def build_database():
     cursor.execute("VACUUM;")
     cursor.execute("ANALYZE;")
     conn.commit()
+
+    # Verificacion en el archivo temporal, antes de tocar la DB anterior.
+    total = sum(counts.values())
+    integrity = cursor.execute("PRAGMA integrity_check").fetchone()[0]
+    if integrity != "ok":
+        conn.close()
+        tmp_db.unlink(missing_ok=True)
+        raise SystemExit(f"ABORTADO: integrity_check fallo en la DB temporal: {integrity}")
+    fts_hits = cursor.execute(
+        "SELECT COUNT(*) FROM politicos_fts WHERE politicos_fts MATCH ?", ("lopez",)
+    ).fetchone()[0]
+    if fts_hits <= 0:
+        conn.close()
+        tmp_db.unlink(missing_ok=True)
+        raise SystemExit("ABORTADO: prueba FTS5 fallo (MATCH 'lopez' devolvio 0 filas)")
+    try:
+        check_counts(old_total, total, allow_drop_pct, min_total)
+    except SystemExit:
+        conn.close()
+        tmp_db.unlink(missing_ok=True)
+        raise
     conn.close()
+
+    if dry_run:
+        tmp_db.unlink(missing_ok=True)
+        print("DRY-RUN: no se reemplazo la DB anterior.")
+        print(f"   - Total anterior: {old_total}")
+        print(f"   - Total nuevo (temporal): {total} (FTS5 'lopez': {fts_hits} filas)")
+        return counts
+
+    backup_path = None
+    if backup and OUTPUT_DB.exists():
+        backup_path = backup_db()
 
     tmp_db.replace(OUTPUT_DB)
 
     size_mb = OUTPUT_DB.stat().st_size / (1024 * 1024)
-    total = sum(counts.values())
     print("✅ Base de datos SQLite compilada con éxito!")
     print(f"   - Legisladores Federales: {counts['federales']}")
     print(f"   - Gobernadores / Ejecutivo: {counts['ejecutivo']}")
@@ -276,7 +378,18 @@ def build_database():
     print(f"   - Diputados Locales: {counts['locales']}")
     print(f"   - Total de actores políticos indexados: {total}")
     print(f"   - Tamaño final del archivo SQLite: {size_mb:.2f} MB")
+    if backup_path:
+        print(f"   - Copia de seguridad de la DB anterior: {backup_path}")
+    return counts
 
 
 if __name__ == "__main__":
-    build_database()
+    parser = argparse.ArgumentParser(description="Compila storage/tlatoa.db con guardas de sobreescritura segura")
+    parser.add_argument("--backup", dest="backup", action="store_true", default=True)
+    parser.add_argument("--no-backup", dest="backup", action="store_false")
+    parser.add_argument("--allow-drop-pct", type=float, default=5.0)
+    parser.add_argument("--min-total", type=int, default=15000)
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+    build_database(allow_drop_pct=args.allow_drop_pct, min_total=args.min_total,
+                   backup=args.backup, dry_run=args.dry_run)
