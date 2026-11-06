@@ -5,6 +5,48 @@ Registro vivo de las fuentes de la suite. La fuente de verdad ejecutable es
 catálogo y las decisiones. Solo se registran URLs verificadas con petición
 real; ninguna URL de este documento fue inventada.
 
+**Total del registro: 73 fuentes** — 18 originales en `config/sources.php`
++ 32 portales estatales en `config/sources_estatales.php` + 23 medios en
+`config/sources_medios.php` (fusionados con `array_merge`). Niveles:
+A 47 (15 originales + 32 estatales), B contraste 16, C pista 10.
+Contrastado el 2026-11-06 contra el catálogo de 66 fuentes
+(`~/workspace/tlatoa/fuentes-scrapeo-catalogo-2026-11-06.md`).
+
+## Contraste de las 18 fuentes originales contra el catálogo (2026-11-06)
+
+| ID | Veredicto del contraste |
+|---|---|
+| pdn-s3 (fundamental) | Sin entrada en el catálogo (no es fuente de rosters/medios); se mantiene tal cual. |
+| sna | Sin entrada en el catálogo; se mantiene como complemento institucional. |
+| buengobierno | Sin entrada en el catálogo; se mantiene como complemento de verificación. |
+| pnt | Coincide: PNT degradada, sin rosters; verificación caso por caso. |
+| transparencia-pueblo | Coincide en espíritu: el catálogo confirma al INAI extinguido y a la PNT degradada; la entrada sigue bloqueada (HTTP 000). |
+| gaceta | Coincide, con corrección: robots.txt da 403 por WAF (no legible). Home y gp_hoy.html dan 200. |
+| dof | **Corregida**: robots.txt prohíbe `nota_detalle.php?` y `nota_to_doc.php?`; la ruta pasa a índices por fecha (`index_111.php`). Buscador 000. |
+| sitl | **Corregida**: NO está totalmente bloqueado. Las rutas .php directas dan 200 (listado LXVI 229 KB, 500 enlaces); solo el índice da 403. Se documentan las rutas y el parámetro `pert` (verificar qué `pert` cubre 2026). |
+| sil | Coincide, con precisión: robots.txt prohíbe solo 3 rutas (perfil y 2 clases); el resto está permitido. https muerta (000). |
+| senado | Coincide: 403 Incapsula total, incluido comunicacion.senado.gob.mx. |
+| ine | Coincide, con precisión: robots.txt permisivo (200) con sitemap; computos.ine.mx muerto (000). |
+| inafed | **Corregida**: dominio MUERTO, sin registro A en DNS público. Estado pasa de activa a bloqueada; no usar para alcaldes históricos. |
+| presidencia | Coincide, con precisión: no hay página de gabinete ni RSS. |
+| tepjf | **Corregida**: home con muro Radware; la vía es sicje.te.gob.mx (IUS/SISREL, 200) y PDF de sentencias directos. |
+| congresos-locales | **Corregida**: SLP NO es `Disallow:/` (es Crawl-delay: 10; el bloqueo real es Sucuri con reto JS, requiere navegador). Campeche `Disallow:/` para `*` (solo consulta manual). Veracruz caído. |
+| expansion | Coincide: RSS válido (`/rss`), robots `Allow: /`. |
+| milenio | Coincide: 403 hoy (bloqueo no necesariamente permanente). |
+| wikipedia-anexos | Coincide: solo pista; columna de partido a menudo vacía. |
+
+## Fuentes añadidas del catálogo (2026-11-06)
+
+| Grupo | Añadidas | Estado |
+|---|---|---|
+| Portales estatales (Nivel A, canónico) | 32 (los 32 congresos locales como entradas individuales) | activa 12, parcial 17, bloqueada 3 (Campeche robots, SLP Sucuri, Veracruz caído) |
+| Medios Nivel B (contraste, RSS/sitemap) | 14 (El Financiero, Excélsior, Infobae, SinEmbargo, El Sol, N+, EFE, France 24, BBC Mundo RSS-solamente, Aristegui, Animal Político, El Universal solo-cita-manual, El País, DW) | activa 9, parcial 4, bloqueada 1 (El Universal robots) |
+| Medios Nivel C (pista) | 9 (Reuters, AP, La Jornada, Proceso, La Silla Rota, AFP, Reforma, Latinus, Eje Central) | activa 1, bloqueada 8 |
+
+Detalle por fuente en `config/sources_estatales.php` y `config/sources_medios.php`.
+No añadidas a propósito: Senado (403 total), INAFED (muerto), INAI (extinguido),
+SIL `pp_PerfilLegislador.php` (vetado), DOF `nota_detalle.php` (vetado).
+
 ## Fuente fundamental: anticorrupción
 
 **Elegida: Plataforma Digital Nacional (PDN), Sistema 3 — servidores
@@ -58,25 +100,38 @@ existen en Tlatoa, no crean rosters.
 | sil | A | canonico | parcial (perfil `pp_PerfilLegislador.php` VETADO por robots.txt) |
 | senado | A | canonico | bloqueada (403 Incapsula) |
 | ine | A | canonico | parcial (votos y acuerdos, no roster con nombres) |
-| inafed | A | canonico | activa (nombre y periodo, sin partido) |
-| presidencia | A | canonico | activa |
-| tepjf | A | canonico | activa (verificación de casos) |
-| congresos-locales | A | canonico | parcial (32 servicios en la suite; SLP vetado) |
-| expansion | B | contraste | activa (200) |
+| inafed | A | canonico | **bloqueada (CORRECCIÓN catálogo: dominio muerto, sin registro A en DNS)** |
+| tepjf | A | canonico | parcial (home Radware; vía sicje.te.gob.mx IUS/SISREL) |
+| congresos-locales | A | canonico | parcial (32 servicios en la suite; SLP requiere navegador, Campeche solo manual) |
+| + 32 estatales individuales | A | canonico | ver `config/sources_estatales.php` (activa 12, parcial 17, bloqueada 3) |
+| expansion | B | contraste | activa (200, RSS válido) |
 | milenio | B | contraste | bloqueada (403) |
+| + 14 medios B | B | contraste | ver `config/sources_medios.php` (activa 9, parcial 4, bloqueada 1) |
 | wikipedia-anexos | C | pista | activa (solo respaldo; partido a menudo vacío) |
+| + 9 medios C | C | pista | ver `config/sources_medios.php` (activa 1, bloqueada 8) |
 
 ## Qué NO se usa
 
 - **SIL `pp_PerfilLegislador.php`:** vetado por robots.txt. Nunca se abre.
-- **Congreso de San Luis Potosí:** robots.txt `Disallow: /`. No se scrapea.
+- **Congreso de San Luis Potosí (por curl):** su robots.txt NO es `Disallow:/`
+  (es `Crawl-delay: 10`); el bloqueo real es Sucuri CloudProxy con reto JS.
+  Requiere navegador real; no se evade.
+- **Congreso de Campeche (scraping):** robots `Disallow:/` para `*`.
+  Solo consulta manual y cita.
+- **DOF `nota_detalle.php?` y `nota_to_doc.php?`:** `Disallow` en
+  robots.txt. Usar índices por fecha (`index_111.php`).
+- **INAFED (dominio muerto):** sin registro A en DNS público; la
+  Enciclopedia es inaccesible. No hay fuente federal única de alcaldes
+  históricos; rutas: cómputos OPLE/IEEM y sitios municipales uno por uno.
 - **Senado (`senado.gob.mx`):** 403 Incapsula. Reintentar manualmente; no evadir.
 - **Milenio:** 403 en robots.txt y en /politica. Bloquea bots.
 - **Declaraciones patrimoniales (PDN Sistema 1):** datos personales; fuera del scraper.
-- **Medios sin verificar:** Animal Político, BBC News Mundo, Reuters,
-  Excélsior, El Universal, AP y EFE fueron evaluados en rondas anteriores
-  pero no probados en esta sesión; re-verificar HTTP y robots.txt antes de
-  registrarlos en `config/sources.php`.
+- **Medios ya verificados en el catálogo 2026-11-06:** Animal Político
+  (B con reserva, RSS no verificado), BBC News Mundo (B vía RSS solamente,
+  sin scraping), Reuters y AP (C en la práctica por 401/Cloudflare),
+  Excélsior, El Universal (solo cita manual), EFE y El Financiero (RSS
+  válido) ya están registrados en `config/sources_medios.php`.
+- **INAI:** extinguido 2025-03-20; la PNT sigue degradada, sin rosters.
 
 ## Prueba de la suite (dry-run 2026-11-06)
 
@@ -94,6 +149,24 @@ equivalente con curl/Python y la misma pausa de 1,250 ms; evidencia en
 Prueba adicional del Sistema 3: `faltas_administrativas_graves` del
 proveedor SESEA_Morelos devolvió 2 registros con nombre, cargo, ente
 público, entidad, falta y resolución (SHA-256 en la evidencia).
+
+## Prueba de la suite — contraste contra el catálogo (dry-run 2026-11-06)
+
+Equivalente curl/Python con pausa de 1,250 ms (sin PHP en la VM; el lint
+`php -l` queda pendiente en máquina con PHP 8.1+). Evidencia en
+`storage/raw/html/dry_run_catalogo_*_2026-11-06.*`, gitignored, con SHA-256.
+Sin escribir canónicos; la pista C solo se registró, sin extraer dato.
+
+| Fuente | Nivel | Flujo | HTTP | Resultado |
+|---|---|---|---|---|
+| qroo (Congreso Quintana Roo) | A | canonico | 200 | 64,307 bytes (exacto al catálogo) |
+| chihuahua (diputadosAnteriores.php) | A | canonico | 200 | 66,916 bytes (exacto al catálogo) |
+| el-financiero (RSS) | B | contraste | 200 | 794,005 bytes |
+| excelsior (RSS) | B | contraste | 200 | 346,193 bytes |
+| eje-central | C | pista | 200 | 281,463 bytes; pista registrada, sin extraer dato |
+| sitl (listado LXVI, ruta directa) | A | canonico | 200 | 229,288 bytes; **500 enlaces `curricula.php?dipt=`** (confirma la corrección del catálogo) |
+
+6/6 con HTTP 200.
 
 ## Cómo añadir una fuente
 
