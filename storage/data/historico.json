@@ -4,7 +4,7 @@
   "corte_frescura": "2026-10-06",
   "etiqueta_frescura": "[Información Historica]",
   "nota": "Legislaturas cerradas de los 34 congresos (federal LXVI + 32 locales). No se borra ningún registro histórico, no se cambian fechas, fuente_url ni partidos. Los archivos vigentes (legislatura máxima por alias) NO están en esta lista. El builder y la web no leen este índice; es una etiqueta explícita de archivo, no un campo por registro, para no reescribir 286 archivos canónicos.",
-  "total_archivos_historicos": 286,
+  "total_archivos_historicos": 287,
   "archivos": [
     {
       "archivo": "json/congreso_aguascalientes_leg_55.json",
@@ -328,6 +328,12 @@
       "archivo": "json/congreso_cdmx_aldf_leg_6.json",
       "entidad_alias": "cdmx_aldf",
       "legislatura": 6,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_7.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 7,
       "etiqueta_frescura": "[Información Historica]"
     },
     {
