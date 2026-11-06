@@ -6,7 +6,7 @@
     "total_diputados": 525,
     "total_senadores": 115,
     "total_general": 640,
-    "fecha_sincronizacion_titulares": "2026-10-23 18:15:26"
+    "fecha_sincronizacion_titulares": "2026-11-06 14:30:00"
   },
   "diputados": [
     {
@@ -51268,7 +51268,7 @@
       "nombre_completo": "Calzada Mercado Mario",
       "camara": "Diputados",
       "legislatura": 66,
-      "partido": "PRI",
+      "partido": "MC",
       "principio_eleccion": "Mayoría Relativa",
       "entidad": "Querétaro",
       "distrito": null,
