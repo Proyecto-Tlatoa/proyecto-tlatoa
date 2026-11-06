@@ -3,19 +3,13 @@
 tools/build_mobile_db.py — Compilador de Base de Datos SQLite Ultracompacta (Proyecto Tlatoa)
 Convierte los datasets JSON en un archivo SQLite 'storage/tlatoa.db' optimizado con FTS5.
 
-Sobreescritura segura: se construye siempre en un archivo temporal
-('tlatoa.db.tmp'), se verifica con PRAGMA integrity_check y una prueba
-FTS5, se compara el total con la DB anterior (si la caida supera
---allow-drop-pct o el total es menor que --min-total, se aborta y la
-DB vieja queda intacta) y solo entonces se reemplaza, guardando antes
-una copia de seguridad de la DB anterior en storage/backup/.
+Sobreescritura segura: se construye en 'tlatoa.db.tmp', se verifica
+con integrity_check y FTS5, se compara el total (aborta si cae >5%
+o <15000) y solo entonces se reemplaza, con backup previo.
 
 Orden y fechas: los archivos se procesan por legislatura descendente
-y el primer slug visto gana (insert_record descarta duplicados). Por
-eso una sobreescritura parcial debe respetar la fecha: un registro
-nuevo solo sustituye a uno viejo si su fecha es >= a la existente
-(vease tools/safe_overwrite.py, upsert_db). Reescribir un JSON viejo
-encima de uno nuevo sin --force corrompe esa prioridad en silencio.
+y el primer slug visto gana. Por eso un registro nuevo solo sustituye
+a uno viejo si su fecha es >= a la existente (tools/safe_overwrite.py).
 """
 
 import argparse
@@ -130,6 +124,14 @@ def extract_leg_num(path: Path) -> int:
     return int(m.group(1)) if m else 0
 
 
+def historical_local_files() -> set:
+    """Rutas 'json/...' de storage/data/historico.json; vacio si falta."""
+    try:
+        data = load_json_file(BASE_DIR / "storage" / "data" / "historico.json")
+        return {x["archivo"] for x in data.get("archivos", [])}
+    except Exception:
+        return set()
+
 def is_federal_executive(path: Path, data: dict) -> bool:
     """True si el archivo es Ejecutivo Federal (presidencia_*.json o nivel federal)."""
     return path.name.startswith("presidencia_") or data.get("nivel") == "federal" or data.get("ambito") == "federal"
@@ -229,10 +231,8 @@ def build_database(allow_drop_pct=5.0, min_total=15000, backup=True, dry_run=Fal
         except Exception as e:
             print(f"  [Aviso] Omitiendo {fed_file.name}: {e}")
 
-    # 2. Procesar Ejecutivo Federal (presidencia_*.json, primero) y
-    # Gobernadores y Jefes de Gobierno (32 Entidades). El slug es por
-    # mandato (nombre-entidad), asi una persona tiene una fila por cargo;
-    # la invariante es una sola fila activa por persona y cargo vigente.
+    # 2. Ejecutivo Federal y Gobernadores (slug por mandato; una sola
+    # fila activa por persona y cargo vigente).
     dir_ejecutivo = DATA_DIR / "ejecutivo"
     if dir_ejecutivo.exists():
         ejec_files = sorted(dir_ejecutivo.glob("*.json"),
@@ -297,12 +297,15 @@ def build_database(allow_drop_pct=5.0, min_total=15000, backup=True, dry_run=Fal
             except Exception as e:
                 print(f"  [Aviso] Omitiendo {alc_file.name}: {e}")
 
-    # 4. Procesar Congresos Locales (32 estados, priorizando legislaturas recientes)
+    # 4. Congresos Locales: primero los vigentes (es_activo=1), luego los
+    # historicos (es_activo=0); un historico con leg alta (ALDF leg 7)
+    # ganaba el dedup y dejaba activos a ex-diputados. El cargo no cambia.
+    historical = historical_local_files()
     local_files = [
         p for p in DATA_DIR.glob("congreso_*_leg_*.json")
         if not p.name.startswith("congreso_union_")
     ]
-    local_files.sort(key=extract_leg_num, reverse=True)
+    local_files.sort(key=lambda p: (0 if f"json/{p.name}" not in historical else 1, -extract_leg_num(p)))
     for c_file in local_files:
         try:
             c_data = load_json_file(c_file)
@@ -325,7 +328,8 @@ def build_database(allow_drop_pct=5.0, min_total=15000, backup=True, dry_run=Fal
                 entidad = d.get("entidad") or meta_entidad
                 cargo = f"Diputado(a) Local ({entidad})" if entidad and entidad != "Congreso Local" else "Diputado(a) Local"
                 foto = d.get("foto_oficial_url") or d.get("foto_url") or ""
-                if insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo, "Congreso Local", entidad, 1, foto, d):
+                es_activo = 1 if f"json/{c_file.name}" not in historical else 0
+                if insert_record(cursor, politicos_vistos, slug, nombre, partido, color, cargo, "Congreso Local", entidad, es_activo, foto, d):
                     counts["locales"] += 1
         except Exception as e:
             print(f"  [Aviso] Omitiendo {c_file.name}: {e}")

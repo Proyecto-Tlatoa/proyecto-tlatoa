@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import safe_overwrite as so
-from build_mobile_db import check_counts, is_federal_executive
+from build_mobile_db import check_counts, historical_local_files, is_federal_executive
 
 LEGISLADOR = {
     "referencia_sil": "1", "nombre_completo": "Perez Lopez Ana",
@@ -247,6 +247,38 @@ class PresidenciaTests(unittest.TestCase):
         self.assertEqual(
             sheinbaum["trayectoria_administrativa"][0]["cargo"],
             "Jefa de Gobierno de la Ciudad de México")
+
+
+class EsActivoLocalTests(unittest.TestCase):
+    def test_aldf_leg7_es_historico_y_no_vigente(self):
+        hist = historical_local_files()
+        self.assertIn("json/congreso_cdmx_aldf_leg_7.json", hist)
+        self.assertNotIn("json/congreso_cdmx_leg_3.json", hist)
+
+    def test_archivos_locales_vigentes_son_36(self):
+        hist = historical_local_files()
+        base = Path(__file__).resolve().parent.parent / "storage" / "data" / "json"
+        vigentes = [p for p in base.glob("congreso_*_leg_*.json")
+                    if not p.name.startswith("congreso_union_")
+                    and f"json/{p.name}" not in hist]
+        self.assertEqual(len(vigentes), 36)
+
+    def test_diputados_vigentes_unicos_son_1122(self):
+        hist = historical_local_files()
+        base = Path(__file__).resolve().parent.parent / "storage" / "data" / "json"
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from build_mobile_db import slugify
+        seen = set()
+        for p in base.glob("congreso_*_leg_*.json"):
+            if p.name.startswith("congreso_union_"):
+                continue
+            if f"json/{p.name}" in hist:
+                continue
+            data = json.loads(p.read_text(encoding="utf-8"))
+            lst = data.get("legisladores") or data.get("diputados") or []
+            for d in lst:
+                seen.add(d.get("slug") or slugify(d.get("nombre_completo") or ""))
+        self.assertEqual(len(seen), 1122)
 
 
 if __name__ == "__main__":
