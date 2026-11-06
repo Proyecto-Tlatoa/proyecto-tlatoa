@@ -203,12 +203,19 @@ class ScraperRouter
             case 'inafed':
                 return self::scrapeInafed($config, $params);
 
+            case 'anticorrupcion':
+            case 'pdn-s3':
+            case 'pdn':
+            case 'sanciones':
+                return self::scrapeAnticorrupcion($config, $params);
+
             default:
                 return [
                     'ok' => false,
                     'error' => "Fuente de scraping '{$source}' no soportada.",
                     'available_sources' => [
                         'sil', 'votaciones', 'asistencias', 'alcaldes', 'alcaldes:inafed',
+                        'anticorrupcion', 'pdn-s3',
                         'bc', 'bcs', 'campeche', 'yucatan', 'quintanaroo', 'chiapas',
                         'sinaloa', 'sonora', 'durango', 'chihuahua', 'coahuila', 'nuevoleon',
                         'aguascalientes', 'edomex', 'guanajuato', 'hidalgo', 'jalisco',
@@ -608,6 +615,25 @@ class ScraperRouter
 
         $cvegeo = isset($params['cvegeo']) ? (string)$params['cvegeo'] : ($params['municipio'] ?? '01001');
         $res = $service->scrapeMunicipioHistorico((string)$cvegeo);
+        $res['duracion_segundos'] = round(microtime(true) - $inicio, 2);
+        return $res;
+    }
+
+    /**
+     * Fuente fundamental anticorrupción: PDN Sistema 3 (SNA).
+     * Salida SIEMPRE al dataset de contraste, nunca a canónico.
+     * Parámetros: proveedor, colecciones, max_paginas, limite, dry_run.
+     */
+    private static function scrapeAnticorrupcion(array $config, array $params): array
+    {
+        $inicio = microtime(true);
+        $logger = new Logger($config['paths']['logs'], 'SCRAPER-ANTICORRUPCION');
+        $httpConfig = $config['pdn'] ?? [];
+        $httpConfig['rate_limit_ms'] = max(1000, (int)($httpConfig['rate_limit_ms'] ?? 1250));
+        $httpClient = new HttpClient($httpConfig, $logger);
+
+        $service = new \PulsoCivico\Services\AnticorrupcionScraperService($config, $httpClient, $logger);
+        $res = $service->scrapeSanciones($params);
         $res['duracion_segundos'] = round(microtime(true) - $inicio, 2);
         return $res;
     }

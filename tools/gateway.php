@@ -76,6 +76,9 @@ switch ($action) {
                 'votaciones'  => 'Votaciones nominales del pleno (SITL)',
                 'asistencias' => 'Asistencias por sesión de diputados federales',
             ],
+            'Anticorrupción (fundamental)' => [
+                'anticorrupcion (pdn-s3)' => 'PDN Sistema 3: servidores públicos y particulares sancionados (API pública; salida a contraste)',
+            ],
             'Congresos Estatales' => [
                 'aguascalientes (ags)', 'bajacalifornia (bc)', 'bajacaliforniasur (bcs)', 'campeche (cam)',
                 'chiapas (chis)', 'chihuahua', 'coahuila', 'colima', 'cdmx', 'durango', 'edomex',
