@@ -6,8 +6,13 @@ La fuente de verdad del formato son las clases en `src/DTO/`.
 ## Reglas generales
 - **Obligatorio en todo registro o dataset**: `fuente_url` y `fecha_extraccion` (dentro de `metadata`).
 - Valores desconocidos: `null` (nunca cadenas inventadas como "N/D").
-- Nombres de partido: siglas oficiales (`MORENA`, `PAN`, `PRI`, `PVEM`, `PT`, `MC`, `PRD`…).
+- Nombres de partido: siglas oficiales (`MORENA`, `PAN`, `PRI`, `PVEM`, `PT`, `MC`, `PRD`…). Si el partido no está verificado en la fuente, se usa `Sin Partido`, nunca una sigla supuesta.
 - Entidades: nombre oficial INEGI (`Ciudad de México`, `Estado de México`, …).
+
+## Frescura y etiqueta histórica
+- **Vigente**: dato con `fecha_extraccion` o `fecha_actualizacion` no mayor a 1 mes (corte 2026-10-06 para el re-scrape de 2026-11-06), con fuente oficial `.gob.mx`.
+- **[Información Historica]**: legislaturas cerradas de los 34 congresos. No se borra ningún registro histórico, no se cambian sus fechas, `fuente_url` ni partidos, y no se marca como desactualizado. La etiqueta vive en el índice `storage/data/historico.json` (`etiqueta_frescura: "[Información Historica]"` por archivo, con su legislatura), no como campo por registro: reescribir los 286 archivos históricos solo para añadir un campo no cambia nada en el builder ni en la web (que solo leen `metadata.entidad`) y arriesga corromperlos. Los archivos vigentes (legislatura máxima por alias) no están en ese índice.
+- **Contraste**: lo vigente que la fuente oficial no entrega o entrega con más de 1 mes va solo a `storage/data/contraste/` con `[Fuente Actualizada No Oficial]`, `[Fuente Desactualizada]` o `no_verificado`, nunca sobrescribiendo un canónico con noticias.
 
 ## Legislador (`LegisladorDTO`)
 | Campo | Tipo | Req. | Descripción |
