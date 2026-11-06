@@ -7,7 +7,8 @@
     "periodo": "2024-2027",
     "generado_en": "2026-10-13T21:05:38+00:00",
     "fuente_url": "https://www.congresosinaloa.gob.mx/diputados-sinaloa/",
-    "total_legisladores": 40
+    "total_legisladores": 40,
+    "fecha_actualizacion": "2026-11-06"
   },
   "legisladores": [
     {
@@ -132,7 +133,7 @@
     },
     {
       "referencia_sil": "SIN-65-04",
-      "nombre_completo": "Genaro García Castro",
+      "nombre_completo": "Hólincer Castro Marañón",
       "camara": "Congreso Local",
       "legislatura": 65,
       "partido": "Sin Partido",
@@ -141,7 +142,7 @@
       "distrito": "4",
       "tipo_cargo": "Propietario",
       "suplente_nombre": null,
-      "fecha_toma_protesta": null,
+      "fecha_toma_protesta": "2025-05-02",
       "fecha_nacimiento": null,
       "correo_institucional": null,
       "telefono": null,
@@ -157,14 +158,21 @@
       "trayectoria_legislativa": [],
       "trayectoria_administrativa": [],
       "escolaridad_detalle": [],
-      "licencias": [],
+      "licencias": [
+        {
+          "tipo": "Licencia por tiempo indefinido",
+          "fecha_inicio": "2025-05-02",
+          "fecha_fin": null,
+          "estatus": "Baja"
+        }
+      ],
       "iniciativas": [],
       "puntos_acuerdo": [],
       "redes_sociales": [],
       "metadata": {
         "fuente_url": "https://www.congresosinaloa.gob.mx/diputados-sinaloa/",
         "sha256_evidencia": "44a6875b03836597a2a2b0bbf2f67dc54e95c89e00de00d218962a23338c3993",
-        "fecha_extraccion": "2026-10-13 21:05:38",
+        "fecha_extraccion": "2026-11-06",
         "entidad_tipo": "Congreso Local",
         "cabecera_distrital": "Ahome"
       }
@@ -754,7 +762,14 @@
       "trayectoria_legislativa": [],
       "trayectoria_administrativa": [],
       "escolaridad_detalle": [],
-      "licencias": [],
+      "licencias": [
+        {
+          "tipo": "Reincorporación",
+          "fecha_inicio": "2026-11-04",
+          "fecha_fin": null,
+          "estatus": "Activo"
+        }
+      ],
       "iniciativas": [],
       "puntos_acuerdo": [],
       "redes_sociales": [],
@@ -1086,7 +1101,7 @@
     },
     {
       "referencia_sil": "SIN-65-28",
-      "nombre_completo": "Bernardino Antelo Esper",
+      "nombre_completo": "Lauro Gallardo Castro",
       "camara": "Congreso Local",
       "legislatura": 65,
       "partido": "Sin Partido",
@@ -1118,7 +1133,7 @@
       "metadata": {
         "fuente_url": "https://www.congresosinaloa.gob.mx/diputados-sinaloa/",
         "sha256_evidencia": "44a6875b03836597a2a2b0bbf2f67dc54e95c89e00de00d218962a23338c3993",
-        "fecha_extraccion": "2026-10-13 21:05:38",
+        "fecha_extraccion": "2026-11-06",
         "entidad_tipo": "Congreso Local",
         "cabecera_distrital": null
       }
@@ -1442,7 +1457,7 @@
     },
     {
       "referencia_sil": "SIN-65-37",
-      "nombre_completo": "Almendra Ernestina Negrete Sánchez",
+      "nombre_completo": "Karina Isabel Franco Meza",
       "camara": "Congreso Local",
       "legislatura": 65,
       "partido": "Sin Partido",
@@ -1451,7 +1466,7 @@
       "distrito": null,
       "tipo_cargo": "Propietario",
       "suplente_nombre": "Karina Isabel Franco Meza",
-      "fecha_toma_protesta": null,
+      "fecha_toma_protesta": "2024-10-24",
       "fecha_nacimiento": null,
       "correo_institucional": null,
       "telefono": null,
@@ -1467,14 +1482,21 @@
       "trayectoria_legislativa": [],
       "trayectoria_administrativa": [],
       "escolaridad_detalle": [],
-      "licencias": [],
+      "licencias": [
+        {
+          "tipo": "Licencia por tiempo indefinido",
+          "fecha_inicio": "2024-10-24",
+          "fecha_fin": null,
+          "estatus": "Baja"
+        }
+      ],
       "iniciativas": [],
       "puntos_acuerdo": [],
       "redes_sociales": [],
       "metadata": {
         "fuente_url": "https://www.congresosinaloa.gob.mx/diputados-sinaloa/",
         "sha256_evidencia": "44a6875b03836597a2a2b0bbf2f67dc54e95c89e00de00d218962a23338c3993",
-        "fecha_extraccion": "2026-10-13 21:05:38",
+        "fecha_extraccion": "2026-11-06",
         "entidad_tipo": "Congreso Local",
         "cabecera_distrital": null
       }

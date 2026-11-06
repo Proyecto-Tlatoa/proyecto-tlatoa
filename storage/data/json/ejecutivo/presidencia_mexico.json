@@ -1,0 +1,89 @@
+{
+  "entidad": "México",
+  "entidad_cve": null,
+  "nivel": "federal",
+  "ambito": "federal",
+  "cargo": "Presidencia de los Estados Unidos Mexicanos",
+  "titulo": "Presidencia de los Estados Unidos Mexicanos",
+  "sede_poder_ejecutivo": "Palacio Nacional, Plaza de la Constitución s/n, Centro Histórico, Ciudad de México",
+  "portal_oficial": "https://www.gob.mx/presidencia",
+  "periodo_cobertura": "2018-2030",
+  "total_mandatarios": 2,
+  "generado_el": "2026-11-05",
+  "mandatarios": [
+    {
+      "id": "ejec_fed_pres_2018_lopez_obrador",
+      "slug": "andres-manuel-lopez-obrador-mexico",
+      "nombre_completo": "Andrés Manuel López Obrador",
+      "cargo_oficial": "Presidente de los Estados Unidos Mexicanos",
+      "tipo_mandato": "Constitucional (Elección Popular)",
+      "entidad": "México",
+      "entidad_cve": null,
+      "nivel": "federal",
+      "fecha_inicio": "2018-12-01",
+      "fecha_conclusion": "2024-09-30",
+      "fecha_toma_protesta": "2018-12-01",
+      "partido": "MORENA",
+      "partido_nombre_completo": "Movimiento Regeneración Nacional",
+      "coalicion": "Juntos Haremos Historia (MORENA-PT-PES)",
+      "votos_obtenidos": 30113483,
+      "porcentaje_votos": null,
+      "bando_solemne_decreto": null,
+      "fundamento_juridico": "Artículos 82 y 83 de la Constitución Política de los Estados Unidos Mexicanos",
+      "ubicacion_despacho": "Palacio Nacional, Plaza de la Constitución s/n, Centro Histórico, Ciudad de México",
+      "es_vigente": false,
+      "metadata": {
+        "fuente_nombre": "Presidencia de la República — gob.mx/presidencia",
+        "fuente_url": "https://www.gob.mx/presidencia",
+        "fecha_extraccion": "2026-11-05",
+        "entidad_tipo": "Poder Ejecutivo Federal"
+      }
+    },
+    {
+      "id": "ejec_fed_pres_2024_sheinbaum",
+      "slug": "claudia-sheinbaum-pardo-mexico",
+      "nombre_completo": "Claudia Sheinbaum Pardo",
+      "cargo_oficial": "Presidenta de los Estados Unidos Mexicanos",
+      "tipo_mandato": "Constitucional (Elección Popular)",
+      "entidad": "México",
+      "entidad_cve": null,
+      "nivel": "federal",
+      "fecha_inicio": "2024-10-01",
+      "fecha_conclusion": "2030-09-30",
+      "fecha_toma_protesta": "2024-10-01",
+      "partido": "MORENA",
+      "partido_nombre_completo": "Movimiento Regeneración Nacional",
+      "coalicion": "Sigamos Haciendo Historia (MORENA-PT-PVEM)",
+      "votos_obtenidos": 35924519,
+      "porcentaje_votos": 59.75,
+      "bando_solemne_decreto": "Bando Solemne de la Cámara de Diputados, LXVI Legislatura, 1 de septiembre de 2024, publicado en el Diario Oficial de la Federación el 2 de septiembre de 2024",
+      "fundamento_juridico": "Artículos 82 y 83 de la Constitución Política de los Estados Unidos Mexicanos",
+      "ubicacion_despacho": "Palacio Nacional, Plaza de la Constitución s/n, Centro Histórico, Ciudad de México",
+      "es_vigente": true,
+      "trayectoria_administrativa": [
+        {
+          "cargo": "Jefa de Gobierno de la Ciudad de México",
+          "entidad": "Ciudad de México",
+          "fecha_inicio": "2018-12-05",
+          "fecha_conclusion": "2023-06-16",
+          "tipo_mandato": "Constitucional (Elección Popular)"
+        }
+      ],
+      "mandatos_anteriores": [
+        {
+          "cargo": "Jefa de Gobierno de la Ciudad de México",
+          "entidad": "Ciudad de México",
+          "fecha_inicio": "2018-12-05",
+          "fecha_conclusion": "2023-06-16"
+        }
+      ],
+      "metadata": {
+        "fuente_nombre": "Diario Oficial de la Federación — Bando Solemne, Declaración de Presidenta Electa; Presidencia de la República — gob.mx/presidencia; Instituto Nacional Electoral — Cómputos Distritales 2024",
+        "fuente_url": "http://diariooficial.segob.gob.mx/nota_detalle.php?codigo=5737865&fecha=02/09/2024",
+        "fuente_url_2": "https://www.gob.mx/presidencia",
+        "fecha_extraccion": "2026-11-05",
+        "entidad_tipo": "Poder Ejecutivo Federal"
+      }
+    }
+  ]
+}

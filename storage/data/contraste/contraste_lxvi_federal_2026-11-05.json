@@ -1,0 +1,217 @@
+{
+  "lote": "lxvi_federal",
+  "fecha_contraste": "2026-11-05",
+  "corte_frescura": "2026-10-05",
+  "registros": [
+    {
+      "referencia_sil": "9228964",
+      "cvegeo": null,
+      "nombre_completo": "Lomelí Bolaños Carlos",
+      "cargo": "Senador propietario",
+      "entidad": "Jalisco",
+      "dato_contrastado": "licencia de senador y suplente en funciones",
+      "valor_oficial": "Propietario; última licencia registrada 2026-04-28 a 2026-04-29; reincorporación 2026-04-30",
+      "fecha_oficial": "2026-04-30",
+      "fuente_oficial_url": "http://sil.gobernacion.gob.mx/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Hoja de Ruta Digital",
+        "url": "https://hojaderutadigital.mx/senado-concede-licencia-al-senador-carlos-lomeli-bolanos/",
+        "fecha_publicacion": "2026-10-20",
+        "titulo": "Senado concede licencia al senador Carlos Lomelí Bolaños"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Licencia por tiempo indefinido a partir del 2026-10-16; suplente José Hirám Torres Salcedo reincorporado el 2026-10-20. Segunda fuente: Talla Política, 2026-10-20, mismo boletín del Senado reproducido; tercera mención: Milenio, columna La Tremenda Corte, 2026-10-20. Tlatoa no registra la licencia de octubre de 2026."
+    },
+    {
+      "referencia_sil": "9229092",
+      "cvegeo": null,
+      "nombre_completo": "González Silva Ruth Miriam",
+      "cargo": "Senadora propietaria",
+      "entidad": "San Luis Potosí",
+      "dato_contrastado": "licencia de senadora y suplente en funciones",
+      "valor_oficial": "Propietaria; última licencia registrada 2026-05-28 a 2026-05-29; reincorporación 2026-05-30",
+      "fecha_oficial": "2026-05-30",
+      "fuente_oficial_url": "http://sil.gobernacion.gob.mx/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Pulso Diario de San Luis",
+        "url": "https://pulsoslp.com.mx/slp/ruth-gonzalez-pide-licencia-por-dos-dias/2100872",
+        "fecha_publicacion": "2026-10-28",
+        "titulo": "Ruth González pide licencia por dos días"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Licencia del 2026-10-27 al 2026-10-28; suplente Virginia Zúñiga Maldonado ocupó el escaño. Segunda fuente: Acceso Informativo, 2026-10-28. Tlatoa no registra la licencia de octubre de 2026."
+    },
+    {
+      "referencia_sil": "9228944",
+      "cvegeo": null,
+      "nombre_completo": "Salgado Macedonio José Félix",
+      "cargo": "Senador titular con licencia",
+      "entidad": "Guerrero",
+      "dato_contrastado": "licencia de senador y permanencia en partido",
+      "valor_oficial": "Titular (Con Licencia); suplente Francisco Arturo Pérez Pérez",
+      "fecha_oficial": "2026-10-09",
+      "fuente_oficial_url": "http://sil.gobernacion.gob.mx/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Bajo Palabra",
+        "url": "https://www.bajopalabra.mx/felix-salgado-descarta-irse-al-pt-yo-no-me-voy-de-morena/",
+        "fecha_publicacion": "2026-10-09",
+        "titulo": "Félix Salgado descarta irse al PT: Yo no me voy de Morena"
+      },
+      "fuente_desactualizada": false,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Confirmación sin cambio: el senador declara que permanece en Morena y que continúa con licencia; su suplente ocupa el escaño. Fuente única para esta confirmación."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": null,
+      "cargo": "Diputado federal - votación en Pleno",
+      "entidad": "Nacional",
+      "dato_contrastado": "votación en lo general y en lo particular de la reforma a la Ley Federal del Derecho de Autor",
+      "valor_oficial": "No registrada en votaciones_periodo_1_leg_66.json ni votaciones_periodo_3_leg_66.json; última votación registrada en esos archivos: 2024-12-11 y 2025-04-29",
+      "fecha_oficial": "2025-04-29",
+      "fuente_oficial_url": "https://sitl.diputados.gob.mx/LXVI_leg/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Legisladores de México",
+        "url": "https://legisladoresdemexico.com.mx/diputados-aprueban-reforma-a-la-ley-federal-del-derecho-de-autor/",
+        "fecha_publicacion": "2026-10-17",
+        "titulo": "Diputados aprueban Reforma a La Ley Federal del Derecho de Autor"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Votación del 2026-10-07: 325 votos a favor, 114 en contra, 1 abstención en lo general. Versión estenográfica oficial en Crónica de la Cámara de Diputados: http://cronica.diputados.gob.mx/Ve07oct2026.html . SITL devolvió 403 el 2026-11-05, por lo que no se pudo re-scrapear el registro estructurado."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": null,
+      "cargo": "Diputado federal - votación en Pleno",
+      "entidad": "Nacional",
+      "dato_contrastado": "votación de la reforma al Impuesto Sobre la Renta, Paquete Económico 2027",
+      "valor_oficial": "No registrada en votaciones_periodo_1_leg_66.json ni votaciones_periodo_3_leg_66.json; última votación registrada: 2025-04-29",
+      "fecha_oficial": "2025-04-29",
+      "fuente_oficial_url": "https://sitl.diputados.gob.mx/LXVI_leg/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Región Global",
+        "url": "https://www.regionglobal.mx/2026/11/diputados-exceptuan-automotrices-y.html",
+        "fecha_publicacion": "2026-11-03",
+        "titulo": "Diputados exceptúan a automotrices y gasolineras del control del ISR"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Votación del 2026-10-14: 349 votos a favor y 118 en contra en lo general; 322 a favor y 115 en contra en lo particular. SITL devolvió 403 el 2026-11-05."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": null,
+      "cargo": "Diputado federal - votación en Pleno",
+      "entidad": "Nacional",
+      "dato_contrastado": "votación del dictamen de Ley de Ingresos de la Federación 2027",
+      "valor_oficial": "En Tlatoa solo está la Ley de Ingresos 2025, votada el 2024-11-26; la Ley de Ingresos 2027 no está registrada",
+      "fecha_oficial": "2024-11-26",
+      "fuente_oficial_url": "https://sitl.diputados.gob.mx/LXVI_leg/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "212 Ver Noticias",
+        "url": "https://212vernoticias.com/2026/10/16/aprueba-camara-de-diputados-en-lo-general-y-lo-particular-con-cambios-dictamen-que-expide-la-ley-de-ingresos-de-la-federacion-2027/",
+        "fecha_publicacion": "2026-10-16",
+        "titulo": "Aprueba Cámara de Diputados dictamen que expide la Ley de Ingresos de la Federación 2027"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Votación del 2026-10-09: 340 votos a favor, 109 en contra, 0 abstenciones en lo particular, según Boletín No. 4710 de la Cámara de Diputados. SITL devolvió 403 el 2026-11-05."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": null,
+      "cargo": "Diputado federal - votación en Pleno",
+      "entidad": "Nacional",
+      "dato_contrastado": "votación de la reforma a la Ley de Inversión Extranjera",
+      "valor_oficial": "No registrada en votaciones_periodo_1_leg_66.json ni votaciones_periodo_3_leg_66.json; última votación registrada: 2025-04-29",
+      "fecha_oficial": "2025-04-29",
+      "fuente_oficial_url": "https://sitl.diputados.gob.mx/LXVI_leg/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Cámara de Diputados (cuenta oficial en Facebook)",
+        "url": "https://www.facebook.com/camaradediputados/posts/pfbid02d5ZW838KctpPoEJbJfpDGaraWytUeSpTGq4LLpnyWmGPCRdJVVUWSvUspuUhY82kl",
+        "fecha_publicacion": "2026-10-28",
+        "titulo": "Votación: Ley de Inversión Extranjera"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Votación del 2026-10-27: 321 votos a favor, 0 abstenciones, 106 en contra. Fuente única: publicación oficial en red social; SITL devolvió 403 el 2026-11-05, por lo que no se pudo verificar el registro estructurado."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": null,
+      "cargo": "Diputado federal - votación en Pleno",
+      "entidad": "Nacional",
+      "dato_contrastado": "votación de la reforma al Código Penal Federal y a la Ley Federal de Protección a la Propiedad Industrial",
+      "valor_oficial": "No registrada en votaciones_periodo_1_leg_66.json ni votaciones_periodo_3_leg_66.json; última votación registrada: 2025-04-29",
+      "fecha_oficial": "2025-04-29",
+      "fuente_oficial_url": "https://sitl.diputados.gob.mx/LXVI_leg/",
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Cámara de Diputados (cuenta oficial en Threads)",
+        "url": "https://www.threads.com/@mx_diputados/post/DexSo5pEmqi",
+        "fecha_publicacion": "2026-10-21",
+        "titulo": "Votación: Código Penal Federal y Ley Federal de Protección a la Propiedad Industrial"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Votación del 2026-10-21: 312 votos a favor, 0 abstenciones, 119 en contra. Fuente única: publicación oficial en red social; SITL devolvió 403 el 2026-11-05."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": "Ruiz Karina",
+      "cargo": "Senadora",
+      "entidad": "Nacional",
+      "dato_contrastado": "licencia de senadora y registro de asistencias",
+      "valor_oficial": "No localizada en congreso_union_leg_66.json con el nombre Karina Ruiz; no hay licencia registrada para ese nombre en el archivo",
+      "fecha_oficial": null,
+      "fuente_oficial_url": "http://sil.gobernacion.gob.mx/",
+      "estado_frescura": "[Fuente Desactualizada]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "La Razón",
+        "url": "https://www.razon.com.mx/mexico/2026/11/03/exigen-que-senadora-migrante-solicite-licencia-acumula-16-faltas-consecutivas/",
+        "fecha_publicacion": "2026-11-03",
+        "titulo": "Exigen que senadora migrante solicite licencia; acumula 16 faltas consecutivas"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "La nota reporta una exigencia de licencia y 16 inasistencias consecutivas alegadas, no una licencia concedida. No se verificó la identidad en el SIL y no se usa como hecho de licencia. Fuente única; requiere verificación oficial antes de incorporar."
+    },
+    {
+      "referencia_sil": null,
+      "cvegeo": null,
+      "nombre_completo": "Taddei Zavala Guadalupe",
+      "cargo": "Consejera presidenta del INE",
+      "entidad": "Nacional",
+      "dato_contrastado": "titularidad de la presidencia del Instituto Nacional Electoral",
+      "valor_oficial": null,
+      "fecha_oficial": null,
+      "fuente_oficial_url": null,
+      "estado_frescura": "[Fuente Actualizada No Oficial]",
+      "fuente_actualizada_no_oficial": {
+        "medio": "Expansión Política",
+        "url": "https://politica.expansion.mx/mexico/2026/11/02/renuncias-ine-caso-guadalupe-taddei",
+        "fecha_publicacion": "2026-11-02",
+        "titulo": "Renuncias en el INE tras la salida de Guadalupe Taddei"
+      },
+      "fuente_desactualizada": true,
+      "fecha_contraste": "2026-11-05",
+      "notas": "Renuncia presentada el 2026-10-26; Blanca Yassahara Cruz García asumió como consejera presidenta provisional. Segunda fuente: N+, 2026-11-03, 30 renuncias reportadas al 2026-11-03: https://www.nmas.com.mx/politica/van-30-renuncias-en-el-ine-luego-de-la-salida-de-guadalupe-taddei/ . Tlatoa no tiene dataset del INE; este registro está fuera de su cobertura actual y no modifica un dato canónico."
+    }
+  ]
+}

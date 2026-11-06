@@ -6,8 +6,14 @@ La fuente de verdad del formato son las clases en `src/DTO/`.
 ## Reglas generales
 - **Obligatorio en todo registro o dataset**: `fuente_url` y `fecha_extraccion` (dentro de `metadata`).
 - Valores desconocidos: `null` (nunca cadenas inventadas como "N/D").
-- Nombres de partido: siglas oficiales (`MORENA`, `PAN`, `PRI`, `PVEM`, `PT`, `MC`, `PRD`…).
+- Nombres de partido: siglas oficiales (`MORENA`, `PAN`, `PRI`, `PVEM`, `PT`, `MC`, `PRD`…). Si el partido no está verificado en la fuente, se usa `Sin Partido`, nunca una sigla supuesta.
 - Entidades: nombre oficial INEGI (`Ciudad de México`, `Estado de México`, …).
+
+## Frescura y etiqueta histórica
+- **Vigente**: dato con `fecha_extraccion` o `fecha_actualizacion` no mayor a 1 mes (corte 2026-10-06 para el re-scrape de 2026-11-06), con fuente oficial `.gob.mx`.
+- **[Información Historica]**: legislaturas cerradas de los 34 congresos. No se borra ningún registro histórico, no se cambian sus fechas, `fuente_url` ni partidos, y no se marca como desactualizado. La etiqueta vive en el índice `storage/data/historico.json` (`etiqueta_frescura: "[Información Historica]"` por archivo, con su legislatura), no como campo por registro: reescribir los 287 archivos históricos solo para añadir un campo no cambia nada en el builder ni en la web (que solo leen `metadata.entidad`) y arriesga corromperlos. Los archivos vigentes (36 locales + LXVI federal) no están en ese índice.
+- **`es_activo` en locales**: el builder procesa primero los archivos vigentes y luego los históricos; `es_activo=1` solo para el slug visto primero en un archivo vigente, `0` para el resto. El cargo no cambia (como en federal); solo el flag. Sin este orden, un histórico con leg alta (ALDF leg 7, 2015-2018, añadido a `historico.json` el 2026-11-06) ganaba el dedup y dejaba activos a ex-diputados: antes 9,011 locales activos, después 1,122 activos y 7,889 inactivos, total sin cambio.
+- **Contraste**: lo vigente que la fuente oficial no entrega o entrega con más de 1 mes va solo a `storage/data/contraste/` con `[Fuente Actualizada No Oficial]`, `[Fuente Desactualizada]` o `no_verificado`, nunca sobrescribiendo un canónico con noticias.
 
 ## Legislador (`LegisladorDTO`)
 | Campo | Tipo | Req. | Descripción |

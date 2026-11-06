@@ -1,0 +1,1732 @@
+{
+  "lote": "historico_congresos_2026-11-06",
+  "fecha": "2026-11-06",
+  "corte_frescura": "2026-10-06",
+  "etiqueta_frescura": "[Información Historica]",
+  "nota": "Legislaturas cerradas de los 34 congresos (federal LXVI + 32 locales). No se borra ningún registro histórico, no se cambian fechas, fuente_url ni partidos. Los archivos vigentes (legislatura máxima por alias) NO están en esta lista. El builder y la web no leen este índice; es una etiqueta explícita de archivo, no un campo por registro, para no reescribir 286 archivos canónicos.",
+  "total_archivos_historicos": 287,
+  "archivos": [
+    {
+      "archivo": "json/congreso_aguascalientes_leg_55.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_56.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_57.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_58.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_59.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_60.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_61.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_62.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_63.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_64.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_aguascalientes_leg_65.json",
+      "entidad_alias": "aguascalientes",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_16.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 16,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_17.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 17,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_18.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 18,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_19.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 19,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_20.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 20,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_21.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 21,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_22.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 22,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_23.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 23,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bajacalifornia_leg_24.json",
+      "entidad_alias": "bajacalifornia",
+      "legislatura": 24,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_01.json",
+      "entidad_alias": "bcs",
+      "legislatura": 1,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_02.json",
+      "entidad_alias": "bcs",
+      "legislatura": 2,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_03.json",
+      "entidad_alias": "bcs",
+      "legislatura": 3,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_04.json",
+      "entidad_alias": "bcs",
+      "legislatura": 4,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_05.json",
+      "entidad_alias": "bcs",
+      "legislatura": 5,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_06.json",
+      "entidad_alias": "bcs",
+      "legislatura": 6,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_07.json",
+      "entidad_alias": "bcs",
+      "legislatura": 7,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_08.json",
+      "entidad_alias": "bcs",
+      "legislatura": 8,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_09.json",
+      "entidad_alias": "bcs",
+      "legislatura": 9,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_1.json",
+      "entidad_alias": "bcs",
+      "legislatura": 1,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_10.json",
+      "entidad_alias": "bcs",
+      "legislatura": 10,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_11.json",
+      "entidad_alias": "bcs",
+      "legislatura": 11,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_12.json",
+      "entidad_alias": "bcs",
+      "legislatura": 12,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_13.json",
+      "entidad_alias": "bcs",
+      "legislatura": 13,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_14.json",
+      "entidad_alias": "bcs",
+      "legislatura": 14,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_15.json",
+      "entidad_alias": "bcs",
+      "legislatura": 15,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_16.json",
+      "entidad_alias": "bcs",
+      "legislatura": 16,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_2.json",
+      "entidad_alias": "bcs",
+      "legislatura": 2,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_3.json",
+      "entidad_alias": "bcs",
+      "legislatura": 3,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_4.json",
+      "entidad_alias": "bcs",
+      "legislatura": 4,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_5.json",
+      "entidad_alias": "bcs",
+      "legislatura": 5,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_6.json",
+      "entidad_alias": "bcs",
+      "legislatura": 6,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_7.json",
+      "entidad_alias": "bcs",
+      "legislatura": 7,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_8.json",
+      "entidad_alias": "bcs",
+      "legislatura": 8,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_bcs_leg_9.json",
+      "entidad_alias": "bcs",
+      "legislatura": 9,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_campeche_leg_62.json",
+      "entidad_alias": "campeche",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_campeche_leg_63.json",
+      "entidad_alias": "campeche",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_campeche_leg_64.json",
+      "entidad_alias": "campeche",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_1.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 1,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_2.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 2,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_3.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 3,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_4.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 4,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_5.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 5,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_6.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 6,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_aldf_leg_7.json",
+      "entidad_alias": "cdmx_aldf",
+      "legislatura": 7,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_leg_1.json",
+      "entidad_alias": "cdmx",
+      "legislatura": 1,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_cdmx_leg_2.json",
+      "entidad_alias": "cdmx",
+      "legislatura": 2,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chiapas_leg_67.json",
+      "entidad_alias": "chiapas",
+      "legislatura": 67,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chiapas_leg_68.json",
+      "entidad_alias": "chiapas",
+      "legislatura": 68,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chihuahua_leg_62.json",
+      "entidad_alias": "chihuahua",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chihuahua_leg_63.json",
+      "entidad_alias": "chihuahua",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chihuahua_leg_64.json",
+      "entidad_alias": "chihuahua",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chihuahua_leg_65.json",
+      "entidad_alias": "chihuahua",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chihuahua_leg_66.json",
+      "entidad_alias": "chihuahua",
+      "legislatura": 66,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chihuahua_leg_67.json",
+      "entidad_alias": "chihuahua",
+      "legislatura": 67,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chis_leg_67.json",
+      "entidad_alias": "chis",
+      "legislatura": 67,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_chis_leg_68.json",
+      "entidad_alias": "chis",
+      "legislatura": 68,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_coahuila_leg_57.json",
+      "entidad_alias": "coahuila",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_coahuila_leg_58.json",
+      "entidad_alias": "coahuila",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_coahuila_leg_59.json",
+      "entidad_alias": "coahuila",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_coahuila_leg_60.json",
+      "entidad_alias": "coahuila",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_coahuila_leg_61.json",
+      "entidad_alias": "coahuila",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_coahuila_leg_62.json",
+      "entidad_alias": "coahuila",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_52.json",
+      "entidad_alias": "colima",
+      "legislatura": 52,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_53.json",
+      "entidad_alias": "colima",
+      "legislatura": 53,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_54.json",
+      "entidad_alias": "colima",
+      "legislatura": 54,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_55.json",
+      "entidad_alias": "colima",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_56.json",
+      "entidad_alias": "colima",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_57.json",
+      "entidad_alias": "colima",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_58.json",
+      "entidad_alias": "colima",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_59.json",
+      "entidad_alias": "colima",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_colima_leg_60.json",
+      "entidad_alias": "colima",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_61.json",
+      "entidad_alias": "durango",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_62.json",
+      "entidad_alias": "durango",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_63.json",
+      "entidad_alias": "durango",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_64.json",
+      "entidad_alias": "durango",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_65.json",
+      "entidad_alias": "durango",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_66.json",
+      "entidad_alias": "durango",
+      "legislatura": 66,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_67.json",
+      "entidad_alias": "durango",
+      "legislatura": 67,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_68.json",
+      "entidad_alias": "durango",
+      "legislatura": 68,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_durango_leg_69.json",
+      "entidad_alias": "durango",
+      "legislatura": 69,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_51.json",
+      "entidad_alias": "edomex",
+      "legislatura": 51,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_52.json",
+      "entidad_alias": "edomex",
+      "legislatura": 52,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_53.json",
+      "entidad_alias": "edomex",
+      "legislatura": 53,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_54.json",
+      "entidad_alias": "edomex",
+      "legislatura": 54,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_55.json",
+      "entidad_alias": "edomex",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_56.json",
+      "entidad_alias": "edomex",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_57.json",
+      "entidad_alias": "edomex",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_58.json",
+      "entidad_alias": "edomex",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_59.json",
+      "entidad_alias": "edomex",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_60.json",
+      "entidad_alias": "edomex",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_edomex_leg_61.json",
+      "entidad_alias": "edomex",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_55.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_56.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_57.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_58.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_59.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_60.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_61.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_62.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_63.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_64.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guanajuato_leg_65.json",
+      "entidad_alias": "guanajuato",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_56.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_57.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_58.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_59.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_60.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_61.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_62.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_guerrero_leg_63.json",
+      "entidad_alias": "guerrero",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_55.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_56.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_57.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_58.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_59.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_60.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_61.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_62.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_63.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_64.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_hidalgo_leg_65.json",
+      "entidad_alias": "hidalgo",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_55.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_56.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_57.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_58.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_59.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_60.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_61.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_62.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_jalisco_leg_63.json",
+      "entidad_alias": "jalisco",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_67.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 67,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_68.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 68,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_69.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 69,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_70.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 70,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_71.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 71,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_72.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 72,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_73.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 73,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_74.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 74,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_michoacan_leg_75.json",
+      "entidad_alias": "michoacan",
+      "legislatura": 75,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_47.json",
+      "entidad_alias": "morelos",
+      "legislatura": 47,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_48.json",
+      "entidad_alias": "morelos",
+      "legislatura": 48,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_49.json",
+      "entidad_alias": "morelos",
+      "legislatura": 49,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_50.json",
+      "entidad_alias": "morelos",
+      "legislatura": 50,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_51.json",
+      "entidad_alias": "morelos",
+      "legislatura": 51,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_52.json",
+      "entidad_alias": "morelos",
+      "legislatura": 52,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_53.json",
+      "entidad_alias": "morelos",
+      "legislatura": 53,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_54.json",
+      "entidad_alias": "morelos",
+      "legislatura": 54,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_morelos_leg_55.json",
+      "entidad_alias": "morelos",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_26.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 26,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_27.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 27,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_28.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 28,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_29.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 29,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_30.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 30,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_31.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 31,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_32.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 32,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nayarit_leg_33.json",
+      "entidad_alias": "nayarit",
+      "legislatura": 33,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nuevoleon_leg_71.json",
+      "entidad_alias": "nuevoleon",
+      "legislatura": 71,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nuevoleon_leg_72.json",
+      "entidad_alias": "nuevoleon",
+      "legislatura": 72,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nuevoleon_leg_73.json",
+      "entidad_alias": "nuevoleon",
+      "legislatura": 73,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nuevoleon_leg_74.json",
+      "entidad_alias": "nuevoleon",
+      "legislatura": 74,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nuevoleon_leg_75.json",
+      "entidad_alias": "nuevoleon",
+      "legislatura": 75,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_nuevoleon_leg_76.json",
+      "entidad_alias": "nuevoleon",
+      "legislatura": 76,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_57.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_58.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_59.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_60.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_61.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_62.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_63.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_64.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_oaxaca_leg_65.json",
+      "entidad_alias": "oaxaca",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_51.json",
+      "entidad_alias": "puebla",
+      "legislatura": 51,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_52.json",
+      "entidad_alias": "puebla",
+      "legislatura": 52,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_53.json",
+      "entidad_alias": "puebla",
+      "legislatura": 53,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_54.json",
+      "entidad_alias": "puebla",
+      "legislatura": 54,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_55.json",
+      "entidad_alias": "puebla",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_56.json",
+      "entidad_alias": "puebla",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_57.json",
+      "entidad_alias": "puebla",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_58.json",
+      "entidad_alias": "puebla",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_59.json",
+      "entidad_alias": "puebla",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_60.json",
+      "entidad_alias": "puebla",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_puebla_leg_61.json",
+      "entidad_alias": "puebla",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_qroo_leg_16.json",
+      "entidad_alias": "qroo",
+      "legislatura": 16,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_qroo_leg_17.json",
+      "entidad_alias": "qroo",
+      "legislatura": 17,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_52.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 52,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_53.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 53,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_54.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 54,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_55.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_56.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_57.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_58.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_59.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_queretaro_leg_60.json",
+      "entidad_alias": "queretaro",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_quintanaroo_leg_16.json",
+      "entidad_alias": "quintanaroo",
+      "legislatura": 16,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_quintanaroo_leg_17.json",
+      "entidad_alias": "quintanaroo",
+      "legislatura": 17,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_55.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_56.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_57.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_58.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_59.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_60.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_61.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_62.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sanluispotosi_leg_63.json",
+      "entidad_alias": "sanluispotosi",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_58.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_59.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_60.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_61.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_62.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_63.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sinaloa_leg_64.json",
+      "entidad_alias": "sinaloa",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_55.json",
+      "entidad_alias": "sonora",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_56.json",
+      "entidad_alias": "sonora",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_57.json",
+      "entidad_alias": "sonora",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_58.json",
+      "entidad_alias": "sonora",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_59.json",
+      "entidad_alias": "sonora",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_60.json",
+      "entidad_alias": "sonora",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_61.json",
+      "entidad_alias": "sonora",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_62.json",
+      "entidad_alias": "sonora",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_sonora_leg_63.json",
+      "entidad_alias": "sonora",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_56.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_57.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_58.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_59.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_60.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_61.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_62.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_63.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tabasco_leg_64.json",
+      "entidad_alias": "tabasco",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_57.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_58.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_59.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_60.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_61.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_62.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_63.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_64.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tamaulipas_leg_65.json",
+      "entidad_alias": "tamaulipas",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_56.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_57.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_58.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_59.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_60.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_61.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_62.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_63.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_tlaxcala_leg_64.json",
+      "entidad_alias": "tlaxcala",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_57.json",
+      "entidad_alias": "union",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_58.json",
+      "entidad_alias": "union",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_59.json",
+      "entidad_alias": "union",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_60.json",
+      "entidad_alias": "union",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_61.json",
+      "entidad_alias": "union",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_62.json",
+      "entidad_alias": "union",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_63.json",
+      "entidad_alias": "union",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_64.json",
+      "entidad_alias": "union",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_union_leg_65.json",
+      "entidad_alias": "union",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_veracruz_leg_58.json",
+      "entidad_alias": "veracruz",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_veracruz_leg_62.json",
+      "entidad_alias": "veracruz",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_veracruz_leg_63.json",
+      "entidad_alias": "veracruz",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_veracruz_leg_64.json",
+      "entidad_alias": "veracruz",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_veracruz_leg_65.json",
+      "entidad_alias": "veracruz",
+      "legislatura": 65,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_veracruz_leg_66.json",
+      "entidad_alias": "veracruz",
+      "legislatura": 66,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_yuc_leg_62.json",
+      "entidad_alias": "yuc",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_yuc_leg_63.json",
+      "entidad_alias": "yuc",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_yucatan_leg_62.json",
+      "entidad_alias": "yucatan",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_yucatan_leg_63.json",
+      "entidad_alias": "yucatan",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_55.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 55,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_56.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 56,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_57.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 57,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_58.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 58,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_59.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 59,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_60.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 60,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_61.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 61,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_62.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 62,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_63.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 63,
+      "etiqueta_frescura": "[Información Historica]"
+    },
+    {
+      "archivo": "json/congreso_zacatecas_leg_64.json",
+      "entidad_alias": "zacatecas",
+      "legislatura": 64,
+      "etiqueta_frescura": "[Información Historica]"
+    }
+  ]
+}
