@@ -90,6 +90,32 @@ python3 tools/core/nl_pdf_parser.py
 
 ## 📜 Lineamientos Éticos, `robots.txt` y Respeto a Servidores Públicos
 
+## 📚 Fuentes registradas y anticorrupción (fundamental)
+
+El registro ejecutable de fuentes vive en [`config/sources.php`](config/sources.php),
+ordenado por nivel de confiabilidad (A oficial/canónico, B contraste,
+C pista informativa) con su estado verificado (activa / parcial /
+bloqueada / degradada). El catálogo resumido y las decisiones están en
+[`docs/FUENTES_SCRAPEO.md`](docs/FUENTES_SCRAPEO.md).
+
+La **fuente fundamental anticorrupción** es la **Plataforma Digital Nacional,
+Sistema 3** (servidores públicos y particulares sancionados), consultada por
+API pública JSON sin autenticación:
+
+```bash
+# Listar proveedores del Sistema 3 y probar la extracción (dry-run, sin escribir datos)
+php tools/gateway.php scrape anticorrupcion "dry_run=1"
+# Extracción completa a contraste (storage/data/contraste/sanciones_pdn_YYYY-MM-DD.json)
+php tools/gateway.php scrape anticorrupcion
+# Probar las fuentes registradas sin escribir canónicos ni contraste
+php tools/dry_run_fuentes.php --fuentes=pdn-s3,gaceta,dof,expansion
+```
+
+Reglas del servicio anticorrupción: solo campos públicos del cargo (nombre,
+cargo, ente público, entidad, falta, resolución). Nunca RFC, CURP,
+domicilios, teléfonos ni montos patrimoniales; el Sistema 1 de la PDN
+(declaraciones) no se consulta. Salida siempre a contraste, nunca a canónico.
+
 Los portales gubernamentales operan con frecuencia sobre infraestructura antigua protegida por WAF (*Web Application Firewall*). Todo scraper de **Pulso Cívico** debe cumplir sin excepción las siguientes reglas:
 
 1. **Verificación de `robots.txt`**:
