@@ -112,6 +112,17 @@ class SafeOverwriteTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             so.overwrite_json(src, self.root / "dest.json")
 
+    def test_rp_sin_entidad_pasa_solo_con_circunscripcion(self):
+        data = dataset_legisladores("2026-11-06")
+        rec = data["diputados"][0]
+        rec["principio_eleccion"] = "Representación Proporcional"
+        rec["entidad"] = None
+        rec["circunscripcion"] = 4
+        self.assertEqual(so.validate_dataset(data, "rp"), [])
+        del rec["circunscripcion"]
+        errores = so.validate_dataset(data, "rp")
+        self.assertTrue(any("falta entidad" in e for e in errores))
+
     def test_escritura_atomica_no_deja_parcial(self):
         dest = self.root / "sub" / "dest.json"
         so.atomic_write(dest, b'{"a": 1}')

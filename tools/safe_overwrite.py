@@ -85,13 +85,13 @@ def _scan_personal_keys(obj, errors, where="dataset"):
 
 def _check_legislador(rec, errors, idx, top_entidad=None):
     nombre = (rec.get("nombre_completo") or rec.get("nombre") or "").strip()
-    for field, label in (("nombre_completo", nombre), ("partido", rec.get("partido")),
-                         ("camara", rec.get("camara"))):
-        if not label:
-            errors.append(f"registro {idx} ({nombre or '?'}): falta {field}")
-    if rec.get("legislatura") is None:
-        errors.append(f"registro {idx} ({nombre or '?'}): falta legislatura")
-    if not (rec.get("entidad") or top_entidad):
+    for field, label in (("nombre_completo", nombre), ("partido", rec.get("partido")), ("camara", rec.get("camara"))):
+        if not label: errors.append(f"registro {idx} ({nombre or '?'}): falta {field}")
+    if rec.get("legislatura") is None: errors.append(f"registro {idx} ({nombre or '?'}): falta legislatura")
+    # RP se elige por lista nacional y circunscripcion, no por entidad: sin entidad pasa solo con circunscripcion 1-5.
+    principio = unicodedata.normalize("NFKD", rec.get("principio_eleccion") or "").encode("ascii", "ignore").decode().lower()
+    rp = principio == "representacion proporcional" and rec.get("circunscripcion") in (1, 2, 3, 4, 5)
+    if not (rec.get("entidad") or top_entidad or rp):
         errors.append(f"registro {idx} ({nombre or '?'}): falta entidad")
 
 def _check_contraste(rec, errors, idx):
