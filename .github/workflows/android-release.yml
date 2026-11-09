@@ -86,7 +86,7 @@ jobs:
           cp ../storage/tlatoa.db ../dist/tlatoa.db
 
       - name: Subir Artefactos de Compilación (GitHub Actions)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: tlatoa-android-package
           path: dist/*

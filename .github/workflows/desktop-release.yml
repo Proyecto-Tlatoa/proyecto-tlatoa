@@ -71,7 +71,7 @@ jobs:
           rm -rf dist/portable
 
       - name: Subir Artefacto de Compilación (${{ matrix.os }})
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.bundle_stem }}
           path: dist/*
