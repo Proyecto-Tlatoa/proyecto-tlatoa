@@ -72,9 +72,9 @@ jobs:
           mkdir -p ../../android/app/src/main/jniLibs/armeabi-v7a
           mkdir -p ../../android/app/src/main/jniLibs/x86_64
 
-          cargo ndk -t arm64-v8a -o ../../android/app/src/main/jniLibs build --release || (rm -f Cargo.lock && cargo ndk -t arm64-v8a -o ../../android/app/src/main/jniLibs build --release)
-          cargo ndk -t armeabi-v7a -o ../../android/app/src/main/jniLibs build --release
-          cargo ndk -t x86_64 -o ../../android/app/src/main/jniLibs build --release
+          cargo ndk -t arm64-v8a -p 24 -o ../../android/app/src/main/jniLibs build --release || (rm -f Cargo.lock && cargo ndk -t arm64-v8a -p 24 -o ../../android/app/src/main/jniLibs build --release)
+          cargo ndk -t armeabi-v7a -p 24 -o ../../android/app/src/main/jniLibs build --release
+          cargo ndk -t x86_64 -p 24 -o ../../android/app/src/main/jniLibs build --release
 
       - name: Compilar APK Firmado con Gradle
         working-directory: android

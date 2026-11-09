@@ -35,8 +35,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Compilar sitio estático y catálogo JSON
+      - name: Compilar base de datos SQLite y catálogo estático
         run: |
+          python3 tools/build_mobile_db.py
           python3 tools/build_pages_site.py
 
       - name: Configurar GitHub Pages

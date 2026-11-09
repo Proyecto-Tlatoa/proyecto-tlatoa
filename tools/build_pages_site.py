@@ -38,8 +38,9 @@ def build():
         (ASSETS_DIR / "img").mkdir(exist_ok=True)
         shutil.copy2(src_svg, ASSETS_DIR / "img" / "tecolote.svg")
 
-    # 3. Copiar fotos locales de representantes si existen en storage/raw/photos
+    # 3. Copiar fotos locales de representantes si existen en storage/raw/photos y assets/img/presidentes
     src_photos = ROOT_DIR / "storage" / "raw" / "photos"
+    src_pres_photos = ROOT_DIR / "assets" / "img" / "presidentes"
     dest_photos = ASSETS_DIR / "photos"
     dest_photos.mkdir(parents=True, exist_ok=True)
     local_photo_files = set()
@@ -50,7 +51,14 @@ def build():
         for p_file in src_photos.glob("*.png"):
             shutil.copy2(p_file, dest_photos / p_file.name)
             local_photo_files.add(p_file.name)
-        print(f"  [+] Copiadas {len(local_photo_files)} fotos locales a pages/assets/photos/")
+    if src_pres_photos.exists():
+        for p_file in src_pres_photos.glob("*.jpg"):
+            shutil.copy2(p_file, dest_photos / p_file.name)
+            local_photo_files.add(p_file.name)
+        for p_file in src_pres_photos.glob("*.png"):
+            shutil.copy2(p_file, dest_photos / p_file.name)
+            local_photo_files.add(p_file.name)
+    print(f"  [+] Copiadas {len(local_photo_files)} fotos locales a pages/assets/photos/")
 
     output_path = DATA_DIR / "search_index.json"
 
@@ -75,14 +83,23 @@ def build():
 
             # Resolver foto: priorizar copia local en ./assets/photos/ para carga instantánea y sin fallos SSL
             final_foto = ""
+            slug_base = slug.replace("-mexico", "")
             if foto:
                 f_name = Path(foto).name
                 if f_name in local_photo_files:
                     final_foto = f"./assets/photos/{f_name}"
                 elif dj.get("referencia_sil") and f"{dj['referencia_sil']}.jpg" in local_photo_files:
                     final_foto = f"./assets/photos/{dj['referencia_sil']}.jpg"
+                elif f"{slug}.jpg" in local_photo_files:
+                    final_foto = f"./assets/photos/{slug}.jpg"
+                elif f"{slug_base}.jpg" in local_photo_files:
+                    final_foto = f"./assets/photos/{slug_base}.jpg"
                 elif foto.startswith("http://") or foto.startswith("https://"):
                     final_foto = foto.replace("http://sil.gobernacion.gob.mx", "https://sil.gobernacion.gob.mx")
+            elif f"{slug}.jpg" in local_photo_files:
+                final_foto = f"./assets/photos/{slug}.jpg"
+            elif f"{slug_base}.jpg" in local_photo_files:
+                final_foto = f"./assets/photos/{slug_base}.jpg"
             elif dj.get("referencia_sil") and f"{dj['referencia_sil']}.jpg" in local_photo_files:
                 final_foto = f"./assets/photos/{dj['referencia_sil']}.jpg"
 
@@ -93,6 +110,8 @@ def build():
                 categoria = "diputado_federal"
             elif "gobernador" in c_lower or "jefe de gobierno" in c_lower or "regente" in c_lower:
                 categoria = "gobernador"
+            elif "president" in c_lower and "municipal" not in c_lower:
+                categoria = "presidente"
             elif "municipal" in c_lower or "alcalde" in c_lower or "alcaldesa" in c_lower:
                 categoria = "alcalde"
             elif "local" in c_lower:
