@@ -1,0 +1,332 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="breadcrumb-ios mb-3">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/presidentes">Presidentes</a></li>
+        <li class="breadcrumb-item active text-dark fw-semibold" aria-current="page">{{ pres.nombre_completo }}</li>
+    </ol>
+</nav>
+
+<!-- Encabezado Principal del Presidente con Retrato 3:4 y Texto Corto -->
+<div class="card-civic p-4 p-md-4 mb-4 border bg-white shadow-2xs">
+    <div class="row align-items-center g-4">
+        <!-- Retrato en Formato 3:4 con pie de página: Nombre. Años de Sexenio -->
+        <div class="col-12 col-md-4 col-xl-3 text-center">
+            <figure class="figure mb-0 mx-auto" style="max-width: 220px;">
+                <div class="overflow-hidden rounded-4 border shadow-sm" style="width: 100%; aspect-ratio: 3 / 4; background-color: #f1f5f9;">
+                    <img src="{{ pres.foto_url }}" 
+                         alt="Retrato oficial de {{ pres.nombre_completo }}" 
+                         class="w-100 h-100" 
+                         style="object-fit: cover; object-position: top center;"
+                         onerror="this.src='/assets/img/tecolote.svg'">
+                </div>
+                <figcaption class="figure-caption text-center fw-semibold text-dark mt-2" style="font-size: 0.85rem;">
+                    {{ pres.nombre_completo }}. {{ pres.periodo }}
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Información Biográfica Inicial Concisa -->
+        <div class="col-12 col-md-8 col-xl-6">
+            <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                <span class="badge rounded-pill px-3 py-1 font-monospace fw-bold" style="background-color: {% if pres.partido_actual == 'Morena' %}#8B1C3F; color: #fff;{% elif 'PAN' in pres.partido_actual %}#003893; color: #fff;{% elif pres.partido_actual == 'PRI' %}#C8102E; color: #fff;{% else %}#64748B; color: #fff;{% endif %} font-size: 0.78rem;">
+                    {{ pres.partido_actual }}
+                </span>
+                {% if pres.es_vigente %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill small">
+                        <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> En funciones
+                    </span>
+                {% else %}
+                    <span class="badge bg-light text-secondary border rounded-pill small">
+                        Mandato Concluido
+                    </span>
+                {% endif %}
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill small">
+                    Periodo {{ pres.periodo }}
+                </span>
+            </div>
+
+            <h1 class="h3 fw-bold text-dark mb-2">{{ pres.nombre_completo }}</h1>
+            
+            <!-- Texto inicial corto y directo -->
+            <p class="text-secondary mb-3" style="font-size: 0.98rem; line-height: 1.6;">
+                {{ pres.wiki_extract }}
+            </p>
+
+            <div class="d-flex align-items-center gap-3 flex-wrap small text-muted">
+                <span>Votos: <strong>{{ '{:,}'.format(pres.votos_obtenidos) if pres.votos_obtenidos else 'N/D' }}</strong> ({{ pres.porcentaje_votos }}%)</span>
+                <span>&bull;</span>
+                <a href="{{ pres.fuente_wikipedia_url }}" target="_blank" rel="noopener" class="text-decoration-none text-primary hover-underline">
+                    <i class="bi bi-wikipedia me-1"></i>Wikipedia ↗
+                </a>
+                <span>&bull;</span>
+                <a href="{{ pres.bando_dof_url }}" target="_blank" rel="noopener" class="text-decoration-none text-primary hover-underline">
+                    <i class="bi bi-patch-check-fill text-success me-1"></i>Decreto DOF ↗
+                </a>
+            </div>
+        </div>
+
+        <!-- Resumen de Afiliación / Chapulineo -->
+        <div class="col-12 col-xl-3">
+            <div class="p-3 bg-light rounded-4 border">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="small fw-bold text-dark">
+                        <i class="bi bi-arrow-left-right text-warning me-1"></i>Militancia
+                    </span>
+                    {% if pres.chapulineo.ha_cambiado_partido %}
+                        <span class="badge bg-warning-subtle text-dark border border-warning-subtle rounded-pill font-monospace" style="font-size: 0.68rem;">
+                            {{ pres.chapulineo.veces_cambio }} {{ 'cambio' if pres.chapulineo.veces_cambio == 1 else 'cambios' }}
+                        </span>
+                    {% else %}
+                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-monospace" style="font-size: 0.68rem;">
+                            1 solo partido
+                        </span>
+                    {% endif %}
+                </div>
+                <p class="small text-muted mb-0" style="font-size: 0.74rem; line-height: 1.4;">
+                    {{ pres.chapulineo.descripcion }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Barra de Control del Semáforo de Verificación de Evidencia -->
+<div class="card-civic p-3 mb-4 bg-white border d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 shadow-2xs">
+    <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-traffic-light text-primary fs-5"></i>
+        <div>
+            <div class="fw-bold small text-dark">Filtro por Semáforo de Evidencia:</div>
+            <div class="text-muted" style="font-size: 0.72rem;">Alterna los recuadros según su grado de certeza documental</div>
+        </div>
+    </div>
+    <div class="d-flex align-items-center gap-2 flex-wrap" id="filtroSemaforoContainer">
+        <button type="button" class="btn btn-sm btn-dark rounded-pill px-3 py-1 btn-filtro-semaforo active" data-filter="todos">
+            Todos
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 btn-filtro-semaforo" data-filter="verde" title="{{ semaforo.verde }}">
+            🟢 Oficiales (DOF/gob.mx)
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-warning text-dark rounded-pill px-3 py-1 btn-filtro-semaforo" data-filter="amarillo" title="{{ semaforo.amarillo }}">
+            🟡 Citación Medios
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 btn-filtro-semaforo" data-filter="rojo" title="{{ semaforo.rojo }}">
+            🔴 Sin Respaldo Sólido
+        </button>
+    </div>
+</div>
+
+<!-- Pestañas de Navegación por Secciones -->
+<ul class="nav nav-pills nav-fill gap-2 p-1 bg-light rounded-4 border mb-4" id="presidentTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active rounded-pill fw-semibold py-2" id="tab-logros" data-bs-toggle="pill" data-bs-target="#content-logros" type="button" role="tab">
+            <i class="bi bi-award-fill me-1 text-success"></i> Logros y Obras ({{ pres.logros|length }})
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link rounded-pill fw-semibold py-2" id="tab-polemicas" data-bs-toggle="pill" data-bs-target="#content-polemicas" type="button" role="tab">
+            <i class="bi bi-exclamation-triangle-fill me-1 text-warning"></i> Polémicas y Reclamos ({{ pres.polemicas|length }})
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link rounded-pill fw-semibold py-2" id="tab-timeline" data-bs-toggle="pill" data-bs-target="#content-timeline" type="button" role="tab">
+            <i class="bi bi-clock-history me-1 text-primary"></i> Línea de Vida y Actualidad
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link rounded-pill fw-semibold py-2" id="tab-chapulineo" data-bs-toggle="pill" data-bs-target="#content-chapulineo" type="button" role="tab">
+            <i class="bi bi-diagram-3-fill me-1 text-danger"></i> Trayectoria Partidista
+        </button>
+    </li>
+</ul>
+
+<!-- Contenido de las Pestañas -->
+<div class="tab-content mb-5" id="presidentTabsContent">
+
+    <!-- 1. Pestaña: Logros y Obras de Gobierno -->
+    <div class="tab-pane fade show active" id="content-logros" role="tabpanel">
+        <div class="row g-3">
+            {% for l in pres.logros %}
+            <div class="col-12 col-md-6 claim-card" data-tipo-fuente="{{ l.fuente_tipo }}">
+                <div class="card-civic p-4 h-100 border bg-white shadow-2xs position-relative card-noticia-interactiva cursor-pointer"
+                     role="button"
+                     tabindex="0"
+                     data-titulo="{{ l.titulo }}"
+                     data-categoria="Logro de Gobierno"
+                     data-fuente-tipo="{{ l.fuente_tipo }}"
+                     data-fuente-nombre="{{ l.fuente_nombre }}"
+                     data-fuente-url="{{ l.fuente_url }}"
+                     data-aviso-veracidad="Información 100% oficial verificable en el DOF, Gob.mx y fuentes primarias gubernamentales del Estado mexicano."
+                     data-descripcion="{{ l.descripcion }}">
+                    <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 small">
+                            🟢 Verificado Oficial
+                        </span>
+                        <!-- Hipervínculo directo a la noticia o decreto citado -->
+                        <a href="{{ l.fuente_url }}" target="_blank" rel="noopener" class="badge bg-light text-primary border text-decoration-none rounded-pill px-2 py-1 hover-underline" onclick="event.stopPropagation();" title="Abrir noticia o decreto citado en pestaña nueva">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>{{ l.fuente_nombre }}
+                        </a>
+                    </div>
+                    <h2 class="h6 fw-bold text-dark mb-2">{{ l.titulo }}</h2>
+                    <p class="text-secondary small mb-3 flex-grow-1" style="line-height: 1.55;">
+                        {{ l.descripcion }}
+                    </p>
+                    <div class="pt-2 border-top d-flex align-items-center justify-content-between small text-muted">
+                        <span class="badge bg-light text-secondary border rounded-pill" style="font-size: 0.7rem;">
+                            <i class="bi bi-arrows-angle-expand me-1 text-primary"></i>Clic para ampliar noticia
+                        </span>
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 2. Pestaña: Polémicas, Reclamos y Auditoría de Sexenio -->
+    <div class="tab-pane fade" id="content-polemicas" role="tabpanel">
+        <div class="row g-3">
+            {% for p in pres.polemicas %}
+            <div class="col-12 col-md-6 claim-card" data-tipo-fuente="{{ p.fuente_tipo }}">
+                <div class="card-civic p-4 h-100 border bg-white shadow-2xs position-relative card-noticia-interactiva cursor-pointer"
+                     role="button"
+                     tabindex="0"
+                     data-titulo="{{ p.titulo }}"
+                     data-categoria="Polémica / Reclamo de Sexenio"
+                     data-fuente-tipo="{{ p.fuente_tipo }}"
+                     data-fuente-nombre="{{ p.fuente_nombre }}"
+                     data-fuente-url="{{ p.fuente_url }}"
+                     data-aviso-veracidad="{{ p.cita_medio }}"
+                     data-descripcion="{{ p.descripcion }}">
+                    <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                        {% if p.fuente_tipo == 'amarillo' %}
+                            <span class="badge bg-warning-subtle text-dark border border-warning-subtle rounded-pill px-2 py-1 small">
+                                🟡 Citación a Medios
+                            </span>
+                        {% else %}
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2 py-1 small">
+                                🔴 Sin Respaldo Sólido
+                            </span>
+                        {% endif %}
+                        <!-- Hipervínculo directo a la noticia o reporte citado -->
+                        {% if p.fuente_url and p.fuente_url != '#' %}
+                        <a href="{{ p.fuente_url }}" target="_blank" rel="noopener" class="badge bg-light text-primary border text-decoration-none rounded-pill px-2 py-1 hover-underline" onclick="event.stopPropagation();" title="Abrir noticia o reporte citado en pestaña nueva">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>{{ p.fuente_nombre }}
+                        </a>
+                        {% else %}
+                        <span class="badge bg-light text-muted border rounded-pill px-2 py-1">
+                            {{ p.fuente_nombre }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <h2 class="h6 fw-bold text-dark mb-2">{{ p.titulo }}</h2>
+                    <p class="text-secondary small mb-3 flex-grow-1" style="line-height: 1.55;">
+                        {{ p.descripcion }}
+                    </p>
+
+                    <!-- Aviso de Veracidad y Citación Neutral -->
+                    <div class="p-2 bg-light rounded-3 border mb-3">
+                        <div class="text-muted small" style="font-size: 0.72rem; line-height: 1.35;">
+                            <i class="bi bi-info-circle me-1 text-secondary"></i>
+                            <strong>Aviso de veracidad:</strong> {{ p.cita_medio }}
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-top d-flex align-items-center justify-content-between small text-muted">
+                        <span class="badge bg-light text-secondary border rounded-pill" style="font-size: 0.7rem;">
+                            <i class="bi bi-arrows-angle-expand me-1 text-primary"></i>Clic para ampliar noticia
+                        </span>
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 3. Pestaña: Línea de Tiempo Completa + Qué han hecho actualmente -->
+    <div class="tab-pane fade" id="content-timeline" role="tabpanel">
+        <div class="card-civic p-4 p-md-5 border bg-white shadow-2xs mb-4">
+            <h2 class="h5 fw-bold text-dark mb-4 d-flex align-items-center gap-2">
+                <i class="bi bi-timeline text-primary"></i>
+                Línea de Vida Política y Carrera Pública
+            </h2>
+
+            <div class="timeline-stepper position-relative ps-4 border-start border-2 border-primary border-opacity-25 ms-2">
+                {% for t in pres.linea_tiempo %}
+                <div class="timeline-item mb-4 position-relative">
+                    <div class="timeline-dot position-absolute bg-primary rounded-circle" style="width: 12px; height: 12px; left: -25px; top: 4px; border: 2px solid #fff; box-shadow: 0 0 0 3px rgba(0,122,255,0.2);"></div>
+                    <div class="fw-bold text-primary font-monospace small mb-1">{{ t.anio }}</div>
+                    <div class="text-dark fw-semibold small mb-1">{{ t.evento }}</div>
+                    <span class="badge {% if t.tipo == 'presidencia' %}bg-primary text-white{% elif t.tipo == 'post_presidencia' %}bg-dark text-white{% else %}bg-light text-secondary border{% endif %} rounded-pill" style="font-size: 0.68rem;">
+                        {{ 'Mandato Presidencial' if t.tipo == 'presidencia' else ('Actividad Post-Presidencia' if t.tipo == 'post_presidencia' else 'Trayectoria') }}
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Sección Específica: ¿Qué han hecho actualmente después de su sexenio? -->
+        <div class="card-civic p-4 border bg-light shadow-2xs">
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge bg-dark text-white rounded-pill">Post-Sexenio</span>
+                <h3 class="h6 fw-bold text-dark mb-0">¿Qué ha hecho actualmente después de su sexenio?</h3>
+            </div>
+            <div class="text-secondary small mb-2" style="line-height: 1.6;">
+                <strong>Estado actual:</strong> {{ pres.post_presidencia.estado }}
+            </div>
+            <p class="text-muted small mb-0" style="line-height: 1.6;">
+                {{ pres.post_presidencia.actividades }}
+            </p>
+        </div>
+    </div>
+
+    <!-- 4. Pestaña: Diagrama de Militancia y Afiliación ("Chapulineo") -->
+    <div class="tab-pane fade" id="content-chapulineo" role="tabpanel">
+        <div class="card-civic p-4 p-md-5 border bg-white shadow-2xs">
+            <h2 class="h5 fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+                <i class="bi bi-diagram-3 text-primary"></i>
+                Diagrama de Afiliación Partidista a lo largo de su Carrera
+            </h2>
+            <p class="text-secondary small mb-4">
+                Visualización de militancia histórica, bancadas y cambios de partido según registros del INE y gacetas oficiales.
+            </p>
+
+            <div class="d-flex flex-column flex-md-row align-items-stretch gap-3 mb-4">
+                {% for h in pres.chapulineo.historial %}
+                <div class="p-3 rounded-4 border flex-fill position-relative shadow-2xs" style="background-color: #fafafa; border-top: 5px solid {{ h.color }} !important;">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="badge text-white rounded-pill px-3 py-1 font-monospace fw-bold" style="background-color: {{ h.color }}; font-size: 0.8rem;">
+                            {{ h.partido }}
+                        </span>
+                        <span class="text-muted small font-monospace">{{ h.periodo }}</span>
+                    </div>
+                    <div class="small fw-semibold text-dark mb-1">Cargos desempeñados:</div>
+                    <div class="text-secondary small" style="line-height: 1.45;">
+                        {{ h.cargos }}
+                    </div>
+                </div>
+                {% if not loop.last %}
+                <div class="d-flex align-items-center justify-content-center text-secondary">
+                    <i class="bi bi-arrow-right fs-4 d-none d-md-block"></i>
+                    <i class="bi bi-arrow-down fs-4 d-md-none"></i>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="p-3 bg-light rounded-3 border text-muted small" style="font-size: 0.78rem;">
+                <i class="bi bi-info-circle me-1 text-primary"></i>
+                El seguimiento de afiliación partidista en Proyecto Tlatoa documenta la estabilidad o rotación política con base en registros históricos del INE, IFE y gacetas electorales oficiales.
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "partials/modal_noticia_presidente.html" %}
+
+<script src="/assets/js/presidente_detalle.js"></script>
+{% endblock %}

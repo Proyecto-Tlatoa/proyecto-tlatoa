@@ -1,0 +1,150 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="breadcrumb-ios mb-3">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item active text-dark fw-semibold" aria-current="page">Presidentes de México</li>
+    </ol>
+</nav>
+
+<!-- Encabezado de la Sección -->
+<div class="card-civic p-4 p-md-5 mb-4 text-center bg-white border">
+    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary-subtle text-primary small fw-semibold mb-3 shadow-2xs">
+        <i class="bi bi-shield-check" aria-hidden="true"></i>
+        <span>Poder Ejecutivo Federal &bull; Dossier Histórico 1988–2030</span>
+    </div>
+    <h1 class="display-6 fw-bold text-dark mb-2">Presidentes de los Estados Unidos Mexicanos</h1>
+    <p class="lead text-secondary mx-auto mb-3" style="max-width: 720px; font-size: 1rem;">
+        Dossier cívico del Poder Ejecutivo Federal (1988–2030). Logros de gobierno, polémicas documentadas, línea de vida política, cambios de partido y vida post-presidencia con trazabilidad a fuentes oficiales y periodísticas.
+    </p>
+
+    <!-- Semáforo de Verificación Explicado -->
+    <div class="p-3 bg-light rounded-4 border mx-auto text-start" style="max-width: 820px;">
+        <div class="small fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+            <i class="bi bi-traffic-light text-primary"></i>
+            <span>Criterio de Auditoría Ciudadana y Niveles de Evidencia:</span>
+        </div>
+        <div class="d-flex flex-column flex-md-row gap-2">
+            <div class="p-2 bg-white rounded-3 border flex-fill">
+                <span class="badge bg-success text-white rounded-pill mb-1">🟢 Verificado Oficial</span>
+                <p class="text-muted small mb-0" style="font-size: 0.72rem; line-height: 1.35;">
+                    Información verificable de <strong>gob.mx</strong>, Diario Oficial de la Federación (DOF), decretos y fuentes primarias.
+                </p>
+            </div>
+            <div class="p-2 bg-white rounded-3 border flex-fill">
+                <span class="badge bg-warning text-dark rounded-pill mb-1">🟡 Citación a Medios</span>
+                <p class="text-muted small mb-0" style="font-size: 0.72rem; line-height: 1.35;">
+                    Medios independientes y consolidados con respaldo sólido. Se formula con disclaimer neutral de citación.
+                </p>
+            </div>
+            <div class="p-2 bg-white rounded-3 border flex-fill">
+                <span class="badge bg-danger text-white rounded-pill mb-1">🔴 Sin Respaldo Sólido</span>
+                <p class="text-muted small mb-0" style="font-size: 0.72rem; line-height: 1.35;">
+                    Afirmaciones, rumores o señalamientos no acreditados judicialmente ni con sustento documental formal.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Listado de Mandatarios en Formato Cards Grid -->
+<div class="row g-4 mb-5">
+    {% for p in presidentes %}
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card-civic p-4 h-100 d-flex flex-column border shadow-2xs position-relative">
+            <!-- Retrato en Formato 3:4 con pie de página: Nombre. Años de Sexenio -->
+            <figure class="figure w-100 mb-3 text-center">
+                <a href="/presidentes/{{ p.slug }}" class="d-block text-decoration-none">
+                    <div class="mx-auto overflow-hidden rounded-4 border shadow-xs" style="width: 100%; max-width: 250px; aspect-ratio: 3 / 4; background-color: #f1f5f9;">
+                        <img src="{{ p.foto_url }}" 
+                             alt="Retrato oficial de {{ p.nombre_completo }}" 
+                             class="w-100 h-100" 
+                             style="object-fit: cover; object-position: top center;"
+                             loading="lazy"
+                             onerror="this.src='/assets/img/tecolote.svg'">
+                    </div>
+                </a>
+                <figcaption class="figure-caption text-center fw-semibold text-dark mt-2" style="font-size: 0.85rem;">
+                    {{ p.nombre_completo }}. {{ p.periodo }}
+                </figcaption>
+            </figure>
+
+            <!-- Distintivos de Partido y Estatus -->
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="badge rounded-pill px-3 py-1 font-monospace fw-bold" style="background-color: {% if p.partido_actual == 'Morena' %}#8B1C3F; color: #fff;{% elif 'PAN' in p.partido_actual %}#003893; color: #fff;{% elif p.partido_actual == 'PRI' %}#C8102E; color: #fff;{% else %}#64748B; color: #fff;{% endif %} font-size: 0.75rem;">
+                    {{ p.partido_actual }}
+                </span>
+                {% if p.es_vigente %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill small">
+                        <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> En funciones
+                    </span>
+                {% else %}
+                    <span class="badge bg-light text-secondary border rounded-pill small">
+                        Mandato Concluido
+                    </span>
+                {% endif %}
+            </div>
+
+            <h2 class="h5 fw-bold text-dark mb-2">
+                <a href="/presidentes/{{ p.slug }}" class="text-dark text-decoration-none hover-text-primary">
+                    {{ p.nombre_completo }}
+                </a>
+            </h2>
+
+            <!-- Extracto Biográfico Corto -->
+            <p class="text-secondary small mb-3 flex-grow-1" style="line-height: 1.55;">
+                {{ p.wiki_extract }}
+            </p>
+
+            <!-- Indicador de Militancia / Chapulineo -->
+            <div class="p-2 bg-light rounded-3 border mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="text-secondary small fw-semibold" style="font-size: 0.72rem;">Trayectoria Partidista:</span>
+                    {% if p.chapulineo.ha_cambiado_partido %}
+                        <span class="badge bg-warning-subtle text-dark border border-warning-subtle rounded-pill font-monospace" style="font-size: 0.65rem;">
+                            {{ p.chapulineo.veces_cambio }} {{ 'cambio' if p.chapulineo.veces_cambio == 1 else 'cambios' }}
+                        </span>
+                    {% else %}
+                        <span class="badge bg-light text-muted border rounded-pill font-monospace" style="font-size: 0.65rem;">
+                            Fiel a un solo partido
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="text-muted small" style="font-size: 0.74rem; line-height: 1.35;">
+                    {{ p.chapulineo.descripcion }}
+                </div>
+            </div>
+
+            <!-- Votos e Información Electoral -->
+            <div class="pt-2 border-top d-flex align-items-center justify-content-between small text-muted mb-3">
+                <span>Votos: <strong>{{ '{:,}'.format(p.votos_obtenidos) if p.votos_obtenidos else 'N/D' }}</strong></span>
+                <span>{{ p.porcentaje_votos }}% del total</span>
+            </div>
+
+            <!-- Botón CTA -->
+            <a href="/presidentes/{{ p.slug }}" class="btn btn-primary rounded-pill w-100 py-2 d-flex align-items-center justify-content-center gap-2 fw-semibold shadow-xs">
+                <span>Ver Dossier y Auditoría</span>
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Enlace a Fuentes Oficiales y Metodología -->
+<div class="card-civic p-4 bg-light text-center border shadow-2xs">
+    <h3 class="h6 fw-bold text-dark mb-1">Trazabilidad Cívica e Independencia</h3>
+    <p class="text-secondary small mb-3 mx-auto" style="max-width: 650px;">
+        Los datos de decretos de investidura y cómputos electorales provienen del Diario Oficial de la Federación e INE. Los extractos biográficos se alimentan de Wikipedia en Español y fuentes periodísticas acreditadas.
+    </p>
+    <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+        <a href="/metodologia" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-shield-check me-1"></i>Ver Metodología de Neutralidad
+        </a>
+        <a href="https://dof.gob.mx" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+            <i class="bi bi-box-arrow-up-right me-1"></i>Diario Oficial de la Federación
+        </a>
+    </div>
+</div>
+{% endblock %}

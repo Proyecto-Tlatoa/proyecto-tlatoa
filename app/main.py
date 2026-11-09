@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.routers import web, api, electoral
+from app.routers import web, api, electoral, presidentes
 
 # Candado 1: Ocultar documentación pública en producción (o si ENABLE_API_DOCS es False)
 docs_url = "/docs"
@@ -41,6 +41,7 @@ if settings.ASSETS_DIR.exists():
 
 # 4. Registrar routers
 app.include_router(web.router)
+app.include_router(presidentes.router)
 app.include_router(api.router, prefix="/api")
 app.include_router(electoral.router, prefix="/api/electoral")
 

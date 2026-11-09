@@ -1,0 +1,73 @@
+<!-- Recuadro Flotante (Modal de Noticia Completa: Título -> Fuentes Citadas -> Aviso de Veracidad -> Noticia Completa) -->
+<div class="modal fade" id="modalDetalleNoticia" tabindex="-1" aria-labelledby="modalNoticiaTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
+            <div class="modal-header border-bottom bg-light py-3 px-4">
+                <!-- 1. TÍTULO -->
+                <div class="w-100 pe-3">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <span id="modalNoticiaCategoriaBadge" class="badge rounded-pill px-2 py-1 font-monospace small"></span>
+                        <span class="badge bg-white text-secondary border rounded-pill small">Poder Ejecutivo Federal</span>
+                    </div>
+                    <h2 class="modal-title h5 fw-bold text-dark mb-0" id="modalNoticiaTitulo"></h2>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body p-4">
+                <!-- 2. FUENTES CITADAS -->
+                <div class="mb-3 p-3 bg-light rounded-3 border">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <span class="small fw-bold text-dark">
+                            <i class="bi bi-link-45deg text-primary me-1"></i>Fuentes Citadas:
+                        </span>
+                        <span class="badge bg-white text-secondary border small">Comprobable</span>
+                    </div>
+                    <div>
+                        <a href="#" id="modalNoticiaFuenteEnlace" target="_blank" rel="noopener" class="d-inline-flex align-items-center gap-1 text-primary fw-semibold text-decoration-none hover-underline">
+                            <span id="modalNoticiaFuenteNombre"></span>
+                            <i class="bi bi-box-arrow-up-right small"></i>
+                        </a>
+                        <div class="text-muted mt-1" style="font-size: 0.74rem;">
+                            Enlace directo al documento, gaceta, decreto o publicación periodística original.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. AVISO DE VERACIDAD -->
+                <div class="mb-4 p-3 rounded-3 border" id="modalNoticiaAvisoCard">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <i class="bi bi-shield-check fs-5" id="modalNoticiaAvisoIcon"></i>
+                        <span class="small fw-bold" id="modalNoticiaAvisoTitulo">Aviso de Veracidad y Nivel de Evidencia</span>
+                    </div>
+                    <p class="small mb-0" id="modalNoticiaAvisoTexto" style="line-height: 1.45;"></p>
+                </div>
+
+                <!-- 4. NOTICIA COMPLETA -->
+                <div>
+                    <h3 class="h6 fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+                        <i class="bi bi-file-earmark-text text-secondary"></i>
+                        Noticia Completa y Antecedentes
+                    </h3>
+                    <div class="p-3 bg-white rounded-3 border shadow-2xs">
+                        <p class="text-secondary mb-0" id="modalNoticiaDescripcion" style="line-height: 1.7; font-size: 0.95rem;"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer border-top bg-light py-2 px-4 d-flex justify-content-between align-items-center">
+                <span class="small text-muted" style="font-size: 0.74rem;">
+                    <i class="bi bi-shield-check text-success me-1"></i>Auditoría Cívica Ciudadana &bull; Proyecto Tlatoa
+                </span>
+                <div class="d-flex gap-2">
+                    <a href="#" id="modalNoticiaBtnAbrirFuente" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                        <i class="bi bi-box-arrow-up-right me-1"></i>Abrir noticia citada
+                    </a>
+                    <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" data-bs-dismiss="modal">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
