@@ -103,27 +103,23 @@ def build():
             if not fuente and dj.get("referencia_sil"):
                 fuente = f"https://sil.gobernacion.gob.mx/Librerias/pp_PerfilLegislador.php?Referencia={dj['referencia_sil']}"
 
-            # Resolver foto: priorizar copia local en ./assets/photos/ para carga instantánea y sin fallos SSL
+            # Resolver foto: priorizar copia local en ./assets/photos/ para carga instantánea, o asignar URL oficial de internet
             final_foto = ""
             slug_base = slug.replace("-mexico", "")
-            if foto:
-                f_name = Path(foto).name
-                if f_name in local_photo_files:
-                    final_foto = f"./assets/photos/{f_name}"
-                elif dj.get("referencia_sil") and f"{dj['referencia_sil']}.jpg" in local_photo_files:
-                    final_foto = f"./assets/photos/{dj['referencia_sil']}.jpg"
-                elif f"{slug}.jpg" in local_photo_files:
-                    final_foto = f"./assets/photos/{slug}.jpg"
-                elif f"{slug_base}.jpg" in local_photo_files:
-                    final_foto = f"./assets/photos/{slug_base}.jpg"
-                elif foto.startswith("http://") or foto.startswith("https://"):
-                    final_foto = foto.replace("http://sil.gobernacion.gob.mx", "https://sil.gobernacion.gob.mx")
+            if foto and Path(foto).name in local_photo_files:
+                final_foto = f"./assets/photos/{Path(foto).name}"
             elif f"{slug}.jpg" in local_photo_files:
                 final_foto = f"./assets/photos/{slug}.jpg"
             elif f"{slug_base}.jpg" in local_photo_files:
                 final_foto = f"./assets/photos/{slug_base}.jpg"
             elif dj.get("referencia_sil") and f"{dj['referencia_sil']}.jpg" in local_photo_files:
                 final_foto = f"./assets/photos/{dj['referencia_sil']}.jpg"
+            elif foto and (foto.startswith("http://") or foto.startswith("https://")):
+                final_foto = foto
+            elif dj.get("foto_oficial_url"):
+                final_foto = dj["foto_oficial_url"]
+            elif dj.get("referencia_sil"):
+                final_foto = f"http://sil.gobernacion.gob.mx/Archivos/Fotos/{dj['referencia_sil']}.jpg"
 
             c_lower = (cargo or "").lower()
             if "senador" in c_lower:

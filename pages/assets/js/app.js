@@ -1,6 +1,6 @@
 /**
- * Proyecto Tlatoa — Controlador de Catálogo Estático (GitHub Pages)
- * Búsqueda multi-término, descarga activa (CSV/JSON), Web Share API y modo PWA.
+ * Proyecto Tlatoa — Controlador del Catálogo Estático (GitHub Pages)
+ * Búsqueda reactiva multi-término, filtrado por cargo/estado y paginación progresiva.
  */
 
 let ALL_DATA = [];
@@ -23,14 +23,12 @@ const detailModalEl = document.getElementById('detailModal');
 const downloadsModalEl = document.getElementById('downloadsModal');
 const btnTop = document.getElementById('btnTop');
 
-// Inicializar listener de scroll para volver arriba
+// Scroll suave al inicio
 window.addEventListener('scroll', () => {
-    if (btnTop) {
-        btnTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
-    }
+    if (btnTop) btnTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
 });
 
-// Listener de cierre de modal para limpiar URL hash
+// Limpieza de hash al cerrar modal
 if (detailModalEl) {
     detailModalEl.addEventListener('hidden.bs.modal', () => {
         if (window.location.hash.startsWith('#/politico/')) {
@@ -85,7 +83,6 @@ async function loadData() {
             statusBadge.innerHTML = `<i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i> Catálogo Activo • ${ALL_DATA.length.toLocaleString()} Registros`;
         }
 
-        // Poblar select de entidades federativas
         if (stateFilter) {
             const states = [...new Set(ALL_DATA.map(d => d.e).filter(Boolean))].sort();
             states.forEach(st => {
@@ -96,7 +93,6 @@ async function loadData() {
             });
         }
 
-        // Sincronizar parámetros de URL (?q=...&cat=...&estado=...)
         const params = new URLSearchParams(window.location.search);
         if (params.has('q')) {
             searchInput.value = params.get('q');
@@ -116,11 +112,8 @@ async function loadData() {
         filterAndRender(true);
         updateOnlineStatus();
 
-        // Soporte para deep link en hash (#/politico/slug o #slug)
         const hash = window.location.hash.replace(/^#\/?(politico\/)?/, '');
-        if (hash) {
-            openDetails(decodeURIComponent(hash));
-        }
+        if (hash) openDetails(decodeURIComponent(hash));
     } catch (err) {
         if (resultsGrid) {
             resultsGrid.innerHTML = `
@@ -143,7 +136,6 @@ document.querySelectorAll('.filter-pill').forEach(btn => {
     });
 });
 
-// Filtro por Estado
 if (stateFilter) {
     stateFilter.addEventListener('change', (e) => {
         currentState = e.target.value;
@@ -151,7 +143,6 @@ if (stateFilter) {
     });
 }
 
-// Búsqueda en vivo con debounce de 50ms
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         clearTimeout(debounceTimer);
@@ -160,22 +151,13 @@ if (searchInput) {
     });
 }
 
-// Búsqueda inteligente multi-término (multi-token search)
 function filterAndRender(resetPagination = false) {
     const t0 = performance.now();
-    if (resetPagination) {
-        renderedCount = 60;
-    }
+    if (resetPagination) renderedCount = 60;
 
     let filtered = ALL_DATA;
-
-    if (currentCat !== 'todos') {
-        filtered = filtered.filter(item => item.k === currentCat);
-    }
-
-    if (currentState !== 'todos') {
-        filtered = filtered.filter(item => item.e === currentState);
-    }
+    if (currentCat !== 'todos') filtered = filtered.filter(item => item.k === currentCat);
+    if (currentState !== 'todos') filtered = filtered.filter(item => item.e === currentState);
 
     if (lastQuery.length > 0) {
         const tokens = lastQuery.split(/\s+/).filter(Boolean);
@@ -186,11 +168,9 @@ function filterAndRender(resetPagination = false) {
     }
 
     CURRENT_FILTERED = filtered;
-
     const elapsed = (performance.now() - t0).toFixed(1);
-    if (latencyStat) {
-        latencyStat.innerHTML = `Latencia: <strong class="text-success">${elapsed} ms</strong>`;
-    }
+
+    if (latencyStat) latencyStat.innerHTML = `Latencia: <strong class="text-success">${elapsed} ms</strong>`;
     if (resultCount) {
         resultCount.innerText = `Mostrando ${Math.min(renderedCount, filtered.length).toLocaleString()} de ${filtered.length.toLocaleString()} resultados`;
     }
@@ -206,36 +186,6 @@ function loadMore() {
     }
 }
 
-function getInitials(name) {
-    if (!name) return '🦉';
-    const words = name.trim().split(/\s+/).filter(w => w.length > 0);
-    if (words.length >= 2) {
-        return (words[0][0] + words[1][0]).toUpperCase();
-    }
-    return name.substring(0, 2).toUpperCase();
-}
-
-function renderAvatarHtml(name, color, size, extraStyle = '') {
-    const initials = getInitials(name);
-    const bg = color ? color + '1F' : '#EFF6FF';
-    const fg = color || '#1D4ED8';
-    const border = color ? color + '40' : '#BFDBFE';
-    const fontSize = Math.round(size * 0.38);
-    return `<div style="width:${size}px;height:${size}px;min-width:${size}px;border-radius:50%;background:${bg};color:${fg};border:1.5px solid ${border};display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:${fontSize}px;flex-shrink:0;user-select:none;${extraStyle}">${escapeHtml(initials)}</div>`;
-}
-
-window.handleImgError = function(img) {
-    const name = img.getAttribute('data-name') || '';
-    const color = img.getAttribute('data-color') || '#4B5563';
-    const size = parseInt(img.getAttribute('data-size') || '44', 10);
-    const extraStyle = img.getAttribute('data-style') || '';
-    const div = document.createElement('div');
-    div.innerHTML = renderAvatarHtml(name, color, size, extraStyle);
-    if (div.firstElementChild) {
-        img.replaceWith(div.firstElementChild);
-    }
-};
-
 function renderGrid(items, totalCount) {
     if (!resultsGrid) return;
 
@@ -249,11 +199,22 @@ function renderGrid(items, totalCount) {
         return;
     }
 
-    let html = items.map(p => {
+    let html = items.map((p, idx) => {
         const color = p.c || '#4B5563';
-        const fotoHtml = p.f 
-            ? `<img src="${encodeURI(p.f)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="44" data-style="margin-right:12px;" loading="lazy" referrerpolicy="no-referrer" style="width:44px;height:44px;border-radius:50%;object-fit:cover;margin-right:12px;flex-shrink:0;background:#E5E7EB;" onerror="handleImgError(this)">` 
-            : renderAvatarHtml(p.n, color, 44, 'margin-right:12px;');
+        const photoUrl = resolvePhotoUrl(p.f, 160);
+        const imgId = `card_img_${idx}`;
+        
+        let fotoHtml = '';
+        if (photoUrl) {
+            fotoHtml = `<img id="${imgId}" src="${encodeURI(photoUrl)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="46" data-style="margin-right:12px;" loading="lazy" referrerpolicy="no-referrer" style="width:46px;height:46px;border-radius:50%;object-fit:cover;margin-right:12px;flex-shrink:0;background:#E5E7EB;border:1.5px solid rgba(0,0,0,0.08);" onerror="handleImgError(this)">`;
+        } else {
+            fotoHtml = `<img id="${imgId}" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='46' height='46'></svg>" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="46" data-style="margin-right:12px;" loading="lazy" style="width:46px;height:46px;border-radius:50%;object-fit:cover;margin-right:12px;flex-shrink:0;background:${color}15;border:1.5px solid ${color}35;" onerror="handleImgError(this)">`;
+            setTimeout(() => {
+                const el = document.getElementById(imgId);
+                if (el) fetchWikipediaPhoto(p.n, el, 160);
+            }, 10);
+        }
+
         return `
         <div class="col">
             <div class="card-pol" onclick="openDetails('${escapeHtml(p.s)}')">
@@ -311,9 +272,19 @@ function openDetails(slug) {
     window.location.hash = `#/politico/${encodeURIComponent(slug)}`;
 
     const color = p.c || '#007AFF';
-    const fotoHtml = p.f 
-        ? `<img src="${encodeURI(p.f)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="76" data-style="margin:0 auto 12px auto;display:flex;" loading="lazy" referrerpolicy="no-referrer" style="width:76px;height:76px;border-radius:50%;object-fit:cover;margin:0 auto 12px auto;display:block;background:#E5E7EB;border:2px solid #FFFFFF;box-shadow:0 4px 12px rgba(0,0,0,0.1);" onerror="handleImgError(this)">`
-        : renderAvatarHtml(p.n, color, 76, 'margin:0 auto 12px auto;display:flex;');
+    const photoUrl = resolvePhotoUrl(p.f, 320);
+    const modalImgId = 'modal_pol_img';
+
+    let fotoHtml = '';
+    if (photoUrl) {
+        fotoHtml = `<img id="${modalImgId}" src="${encodeURI(photoUrl)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="84" data-style="margin:0 auto 12px auto;display:flex;" loading="lazy" referrerpolicy="no-referrer" style="width:84px;height:84px;border-radius:50%;object-fit:cover;margin:0 auto 12px auto;display:block;background:#E5E7EB;border:3px solid #FFFFFF;box-shadow:0 4px 16px rgba(0,0,0,0.12);" onerror="handleImgError(this)">`;
+    } else {
+        fotoHtml = `<img id="${modalImgId}" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84'></svg>" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="84" data-style="margin:0 auto 12px auto;display:flex;" style="width:84px;height:84px;border-radius:50%;object-fit:cover;margin:0 auto 12px auto;display:block;background:${color}15;border:3px solid #FFFFFF;box-shadow:0 4px 16px rgba(0,0,0,0.12);" onerror="handleImgError(this)">`;
+        setTimeout(() => {
+            const el = document.getElementById(modalImgId);
+            if (el) fetchWikipediaPhoto(p.n, el, 320);
+        }, 10);
+    }
 
     const modalHeader = document.getElementById('modalPolHeader');
     if (modalHeader) {
@@ -372,67 +343,6 @@ function openDetails(slug) {
 
     const modal = getModalInstance();
     if (modal) modal.show();
-}
-
-// Módulo de Descarga Activa: Exportación de datos en cliente
-function exportCurrentCSV() {
-    if (!CURRENT_FILTERED.length) return;
-    const headers = ["Nombre", "Cargo", "Entidad", "Partido", "Estatus", "Fuente_URL", "Slug"];
-    const rows = CURRENT_FILTERED.map(p => [
-        `"${(p.n || '').replace(/"/g, '""')}"`,
-        `"${(p.r || '').replace(/"/g, '""')}"`,
-        `"${(p.e || '').replace(/"/g, '""')}"`,
-        `"${(p.p || '').replace(/"/g, '""')}"`,
-        p.a ? '"Activo"' : '"Histórico"',
-        `"${(p.u || '').replace(/"/g, '""')}"`,
-        `"${(p.s || '')}"`
-    ]);
-    const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\r\n");
-    triggerBlobDownload(csvContent, `tlatoa_${currentCat}_${currentState}.csv`, "text/csv;charset=utf-8;");
-}
-
-function exportCurrentJSON() {
-    if (!CURRENT_FILTERED.length) return;
-    const jsonContent = JSON.stringify(CURRENT_FILTERED, null, 2);
-    triggerBlobDownload(jsonContent, `tlatoa_${currentCat}_${currentState}.json`, "application/json;charset=utf-8;");
-}
-
-function triggerBlobDownload(content, filename, mimeType) {
-    const blob = new Blob([content], { type: mimeType });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// Módulo Web Share API nativo / Copiar enlace permanente
-function sharePolitico(slug, name, cargo) {
-    const fullUrl = `${window.location.origin}${window.location.pathname}#/politico/${encodeURIComponent(slug)}`;
-    if (navigator.share) {
-        navigator.share({
-            title: `${name} — Proyecto Tlatoa`,
-            text: `Consulta la ficha oficial de ${name} (${cargo}) en Proyecto Tlatoa:`,
-            url: fullUrl
-        }).catch(() => {});
-    } else if (navigator.clipboard) {
-        navigator.clipboard.writeText(fullUrl).then(() => {
-            alert('Enlace cívico copiado al portapapeles');
-        });
-    }
-}
-
-function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
 }
 
 loadData();
