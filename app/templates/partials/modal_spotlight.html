@@ -1,0 +1,15 @@
+<!-- Modal Spotlight Search Universal (Accesible WCAG) -->
+<div class="spotlight-backdrop" id="spotlightModal" role="dialog" aria-modal="true" aria-label="Búsqueda rápida en el observatorio" aria-hidden="true">
+    <div class="spotlight-card">
+        <div class="p-3 border-bottom d-flex align-items-center gap-2">
+            <i class="bi bi-search text-secondary fs-5" aria-hidden="true"></i>
+            <input type="text" id="spotlightInput" class="form-control border-0 shadow-none fs-6" placeholder="Escribe el nombre de un legislador, estado o comisión..." autocomplete="off" aria-label="Buscar servidor público, estado o comisión">
+            <button type="button" class="btn btn-sm btn-light rounded-circle" id="btnCloseSpotlight" aria-label="Cerrar búsqueda">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="p-2" id="spotlightResults" style="max-height: 380px; overflow-y: auto;" aria-live="polite">
+            <div class="text-center text-muted p-4 small">Comienza a escribir para buscar...</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<footer class="bg-white border-top pt-5 pb-4 mt-auto" role="contentinfo">
+    <div class="container">
+        <div class="row g-4 mb-4 text-start">
+            <!-- Columna 1: Identidad & Comunidad -->
+            <div class="col-12 col-md-4">
+                <a class="d-flex align-items-center gap-2 fw-bold text-dark text-decoration-none mb-2" href="/" aria-label="Inicio {{ app_name }}">
+                    <img src="/assets/img/tecolote.svg" alt="Tecolote de la Transparencia" style="width: 30px; height: 30px; object-fit: contain;" onerror="this.src='/assets/img/tecolote.png'">
+                    <span>{{ app_name }}</span>
+                </a>
+                <div class="mb-2">
+                    <span class="badge bg-light text-secondary border rounded-pill" style="font-size: 0.7rem;">Fork Libre y Soberano • Tecolote de la Transparencia</span>
+                </div>
+                <p class="text-secondary small mb-2" style="line-height: 1.6;">
+                    Observatorio ciudadano independiente de datos abiertos sobre el poder público en México. Monitoreo, trazabilidad y rendición de cuentas de más de 4,300 servidores públicos en los 32 estados.
+                </p>
+                <div class="text-muted small" style="font-size: 0.72rem;">
+                    Sin financiamiento gubernamental ni fines partidistas.
+                </div>
+            </div>
+
+            <!-- Columna 2: Exploración Cívica -->
+            <div class="col-6 col-md-3">
+                <h2 class="fw-bold text-dark text-uppercase small mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Exploración Cívica
+                </h2>
+                <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                    <li><a href="/politicos" class="text-secondary text-decoration-none hover-text-primary">Directorio de Políticos (+4,380)</a></li>
+                    <li><a href="/politicos?cargo=gobernador" class="text-secondary text-decoration-none hover-text-primary">Gobernadores y Jefes de Gobierno</a></li>
+                    <li><a href="/politicos?cargo=alcalde" class="text-secondary text-decoration-none hover-text-primary">Alcaldes y Cabildos</a></li>
+                    <li><a href="/legislaturas/{{ legislatura if legislatura else 66 }}" class="text-secondary text-decoration-none hover-text-primary">Congreso de la Unión (LXVI)</a></li>
+                    <li><a href="/comisiones" class="text-secondary text-decoration-none hover-text-primary">Comisiones Ordinarias (136)</a></li>
+                    <li><a href="/estudios" class="text-secondary text-decoration-none hover-text-primary">Nivel de Escolaridad</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Transparencia & Fuentes -->
+            <div class="col-6 col-md-2">
+                <h2 class="fw-bold text-dark text-uppercase small mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Transparencia
+                </h2>
+                <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                    <li>
+                        <a href="/metodologia" class="text-secondary text-decoration-none hover-text-primary">
+                            <i class="bi bi-shield-check text-primary me-1" aria-hidden="true"></i>Metodología y Fuentes
+                        </a>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-link p-0 text-secondary text-decoration-none small text-start btn-reportar-anomalia hover-text-danger" data-origen-tipo="general" data-origen-id="sitio-web" data-origen-nombre="{{ app_name }}">
+                            <i class="bi bi-flag text-danger me-1" aria-hidden="true"></i>Reportar corrección
+                        </button>
+                    </li>
+                    <li><a href="http://sil.gobernacion.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">SEGOB &bull; SIL ↗</a></li>
+                    <li><a href="https://www.diputados.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">Cámara de Diputados ↗</a></li>
+                    <li><a href="https://www.senado.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">Senado de la República ↗</a></li>
+                    <li><a href="https://www.ine.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">INE Oficial ↗</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Datos & Tecnología -->
+            <div class="col-12 col-md-3">
+                <h2 class="fw-bold text-dark text-uppercase small mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Datos Abiertos
+                </h2>
+                <ul class="list-unstyled small d-flex flex-column gap-2 mb-3">
+                    <li><a href="/explorador" class="text-secondary text-decoration-none hover-text-primary"><i class="bi bi-table me-1" aria-hidden="true"></i>Explorador de Datos</a></li>
+                    <li><a href="/legislaturas" class="text-secondary text-decoration-none hover-text-primary"><i class="bi bi-clock-history me-1" aria-hidden="true"></i>Archivo Histórico (1997–2027)</a></li>
+                    <li><a href="/desarrolladores" class="text-secondary text-decoration-none hover-text-primary"><i class="bi bi-terminal me-1" aria-hidden="true"></i>Desarrolladores y Agentes IA</a></li>
+                    <li><a href="/docs" target="_blank" class="text-secondary text-decoration-none hover-text-primary"><i class="bi bi-code-slash me-1" aria-hidden="true"></i>API REST Documentation</a></li>
+                    <li><a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary"><i class="bi bi-github me-1" aria-hidden="true"></i>Repositorio del código (Tlatoa)</a></li>
+                    <li><a href="https://github.com/elpulsocivico/pulso-civico" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary"><i class="bi bi-box-arrow-up-right me-1" aria-hidden="true"></i>Proyecto Original (pulso-civico)</a></li>
+                </ul>
+                <div class="p-2 bg-light rounded-3 border">
+                    <span class="d-block text-dark fw-semibold" style="font-size: 0.75rem;">
+                        <i class="bi bi-patch-check-fill text-success me-1" aria-hidden="true"></i> Datos Comprobables
+                    </span>
+                    <span class="text-muted" style="font-size: 0.7rem; line-height: 1.4; display: block;">
+                        Toda información cuenta con trazabilidad directa a fichas curriculares oficiales del Estado Mexicano.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub-footer Bottom Bar -->
+        <div class="border-top pt-3 d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 text-muted" style="font-size: 0.75rem;">
+            <div>
+                &copy; 2026 <strong>{{ app_name }}</strong> &bull; Datos públicos bajo el Artículo 6° Constitucional Mexicano.
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="/" class="text-muted text-decoration-none hover-text-primary">Inicio</a>
+                <a href="/#seccion-mapa" class="text-muted text-decoration-none hover-text-primary">Mapa</a>
+                <a href="/politicos" class="text-muted text-decoration-none hover-text-primary">Políticos</a>
+                <a href="/docs" class="text-muted text-decoration-none hover-text-primary">API</a>
+                <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa" target="_blank" rel="noopener" class="text-muted text-decoration-none hover-text-primary"><i class="bi bi-diagram-3 me-1" aria-hidden="true"></i>Fork Soberano</a>
+            </div>
+        </div>
+    </div>
+</footer>

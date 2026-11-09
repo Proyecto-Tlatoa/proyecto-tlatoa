@@ -1,0 +1,211 @@
+<nav class="navbar navbar-expand-lg navbar-ios py-2" aria-label="Navegación principal">
+    <div class="container-fluid px-3 px-xl-4">
+        <!-- Marca / Logo -->
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark me-3" href="/" aria-label="Inicio {{ app_name }}">
+            <img src="/assets/img/tecolote.svg" alt="Tecolote de la Transparencia" style="width: 36px; height: 36px; object-fit: contain;" onerror="this.src='/assets/img/tecolote.png'">
+            <span>{{ app_name }}</span>
+            <span class="badge bg-dark text-warning border ms-1 d-none d-sm-inline-block" style="font-size:0.65rem;">Fork Soberano</span>
+        </a>
+
+        <!-- Botón Hamburguesa Móvil (Touch target amigable) -->
+        <button class="navbar-toggler border-0 shadow-none px-2 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Abrir menú de navegación" style="min-width: 44px; min-height: 44px;">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <!-- Menú Central Limpio -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1">
+                <li class="nav-item">
+                    <a class="nav-link-ios {% if request.url.path.startswith('/politicos') %}active{% endif %}" href="/politicos">
+                        <i class="bi bi-people" aria-hidden="true"></i>
+                        <span>Directorio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-ios {% if request.url.path.startswith('/presidentes') %}active{% endif %}" href="/presidentes">
+                        <i class="bi bi-person-badge" aria-hidden="true"></i>
+                        <span>Presidentes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-ios {% if request.url.path.startswith('/estados') %}active{% endif %}" href="/#seccion-mapa">
+                        <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                        <span>Estados</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link-ios dropdown-toggle {% if request.url.path.startswith('/comisiones') or request.url.path.startswith('/legislaturas') %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCongreso">
+                        <i class="bi bi-bank" aria-hidden="true"></i>
+                        <span>Congreso</span>
+                    </a>
+                    <ul class="dropdown-menu shadow-lg border-0 rounded-3 p-2 mt-1" aria-labelledby="dropdownCongreso">
+                        <li>
+                            <a class="dropdown-item rounded-2 py-2 small d-flex align-items-center gap-2" href="/legislaturas/{{ legislatura if legislatura else 66 }}">
+                                <i class="bi bi-buildings text-primary" aria-hidden="true"></i>
+                                <span>Congreso de la Unión (LXVI)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-2 py-2 small d-flex align-items-center gap-2" href="/comisiones">
+                                <i class="bi bi-briefcase text-secondary" aria-hidden="true"></i>
+                                <span>Comisiones Ordinarias (136)</span>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li>
+                            <a class="dropdown-item rounded-2 py-2 small d-flex align-items-center gap-2" href="/legislaturas">
+                                <i class="bi bi-clock-history text-muted" aria-hidden="true"></i>
+                                <span>Archivo Histórico (1997–2027)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-ios {% if request.url.path.startswith('/estudios') %}active{% endif %}" href="/estudios">
+                        <i class="bi bi-mortarboard" aria-hidden="true"></i>
+                        <span>Escolaridad</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-ios {% if request.url.path.startswith('/explorador') or request.url.path.startswith('/reportes') %}active{% endif %}" href="/explorador">
+                        <i class="bi bi-table" aria-hidden="true"></i>
+                        <span>Explorador</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Herramientas a la Derecha: Selector de Legislatura + Buscador Compacto -->
+            <div class="d-flex align-items-center gap-2 pt-2 pt-lg-0 flex-nowrap ms-auto">
+                <!-- Dropdown Cambiar Legislatura -->
+                <div class="dropdown flex-shrink-0">
+                    <button class="btn btn-sm btn-light border rounded-pill px-2 px-md-3 d-inline-flex align-items-center gap-1 gap-md-2 text-dark shadow-xs text-nowrap flex-shrink-0" type="button" id="btnCambiarLegislatura" data-bs-toggle="dropdown" aria-expanded="false" title="Cambiar periodo de Legislatura" aria-label="Cambiar Legislatura seleccionada">
+                        <i class="bi bi-clock-history text-primary" aria-hidden="true"></i>
+                        <span class="d-none d-sm-inline small text-secondary">Leg:</span>
+                        <span class="badge bg-primary text-white rounded-pill px-2 py-0 fw-bold" style="font-size: 0.75rem;">{{ meta_legislatura.romano if meta_legislatura else 'LXVI' }}</span>
+                        <i class="bi bi-chevron-down text-muted" style="font-size: 0.65rem;" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2 mt-2" aria-labelledby="btnCambiarLegislatura" style="min-width: 295px; max-width: 330px; max-height: 420px; overflow-y: auto;">
+                        <li class="px-2 py-1 mb-1 border-bottom sticky-top bg-white" style="top: -8px; z-index: 2;">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span class="text-uppercase text-secondary fw-bold" style="font-size: 0.68rem; letter-spacing: 0.05em;">
+                                    <i class="bi bi-clock-history me-1 text-primary" aria-hidden="true"></i> Cambiar Legislatura
+                                </span>
+                                <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">H. Congreso</span>
+                            </div>
+                        </li>
+                        {% set is_comisiones_page = request.url.path.startswith('/comisiones') %}
+                        {% set is_estudios_page = request.url.path.startswith('/estudios') %}
+                        {% set is_estado_page = request.url.path.startswith('/estados/') %}
+                        {% for leg_num, leg_info in [
+                            (66, {'romano': 'LXVI', 'periodo': '2024–2027', 'activa': True}),
+                            (65, {'romano': 'LXV', 'periodo': '2021–2024', 'activa': False}),
+                            (64, {'romano': 'LXIV', 'periodo': '2018–2021', 'activa': False}),
+                            (63, {'romano': 'LXIII', 'periodo': '2015–2018', 'activa': False}),
+                            (62, {'romano': 'LXII', 'periodo': '2012–2015', 'activa': False}),
+                            (61, {'romano': 'LXI', 'periodo': '2009–2012', 'activa': False}),
+                            (60, {'romano': 'LX', 'periodo': '2006–2009', 'activa': False}),
+                            (59, {'romano': 'LIX', 'periodo': '2003–2006', 'activa': False}),
+                            (58, {'romano': 'LVIII', 'periodo': '2000–2003', 'activa': False}),
+                            (57, {'romano': 'LVII', 'periodo': '1997–2000', 'activa': False})
+                        ] %}
+                        <li>
+                            {% if is_estado_page %}
+                                {% set leg_target_url = request.url.path ~ ('?leg=' ~ leg_num if leg_num != 66 else '') %}
+                            {% elif is_comisiones_page %}
+                                {% if request.url.path != '/comisiones' %}
+                                    {% set leg_target_url = request.url.path ~ ('?leg=' ~ leg_num if leg_num != 66 else '') %}
+                                {% else %}
+                                    {% set leg_target_url = '/comisiones' ~ ('?leg=' ~ leg_num if leg_num != 66 else '') %}
+                                {% endif %}
+                            {% elif request.url.path == '/politicos' %}
+                                {% set leg_target_url = '/politicos' ~ ('?leg=' ~ leg_num if leg_num != 66 else '') %}
+                            {% elif is_estudios_page %}
+                                {% set leg_target_url = '/estudios' ~ ('?leg=' ~ leg_num if leg_num != 66 else '') %}
+                            {% else %}
+                                {% set leg_target_url = '/legislaturas/' ~ leg_num %}
+                            {% endif %}
+                            <a class="dropdown-item rounded-3 py-2 px-2 d-flex align-items-center justify-content-between {% if legislatura == leg_num %}bg-primary-subtle text-primary fw-bold{% else %}text-dark{% endif %}" href="{{ leg_target_url }}">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge {% if legislatura == leg_num %}bg-primary text-white{% elif leg_info.activa %}bg-success text-white{% else %}bg-light text-secondary border{% endif %} rounded-pill" style="min-width: 44px; font-size: 0.72rem;">{{ leg_info.romano }}</span>
+                                    <div>
+                                        <div class="small fw-semibold leading-tight">{{ leg_info.romano }} Legislatura</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">{{ leg_info.periodo }}</div>
+                                    </div>
+                                </div>
+                                {% if legislatura == leg_num %}
+                                    <i class="bi bi-check2 text-primary fs-6" aria-label="Seleccionada"></i>
+                                {% elif leg_info.activa %}
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill" style="font-size: 0.62rem;">Activa</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                        {% endfor %}
+                        {% if is_comisiones_page %}
+                        <li><hr class="dropdown-divider my-2"></li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-2 d-flex align-items-center justify-content-between {% if legislatura == 0 %}bg-primary-subtle text-primary fw-bold{% else %}text-dark{% endif %}" href="{% if request.url.path != '/comisiones' and request.url.path.startswith('/comisiones/') %}{{ request.url.path }}?leg=0{% else %}/comisiones?leg=0{% endif %}">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge {% if legislatura == 0 %}bg-primary text-white{% else %}bg-light text-secondary border{% endif %} rounded-pill" style="min-width: 44px; font-size: 0.72rem;">TODO</span>
+                                    <div>
+                                        <div class="small fw-semibold leading-tight">Archivo Histórico Completo</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">546 comisiones (1997–2027)</div>
+                                    </div>
+                                </div>
+                                {% if legislatura == 0 %}<i class="bi bi-check2 text-primary fs-6"></i>{% endif %}
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <!-- Buscador Rápido Compacto -->
+                <button class="btn btn-sm btn-light border rounded-pill px-3 d-inline-flex align-items-center gap-2 text-secondary shadow-xs flex-shrink-0 text-nowrap" id="btnOpenSpotlight" type="button" title="Búsqueda rápida en todo el observatorio (Ctrl+K)" aria-label="Búsqueda rápida universal">
+                    <i class="bi bi-search text-dark" aria-hidden="true"></i>
+                    <span class="d-none d-xl-inline small">Buscar...</span>
+                    <kbd class="bg-white border text-muted px-1" style="font-size: 0.65rem;">Ctrl+K</kbd>
+                </button>
+
+                <!-- Menú Repositorios GitHub -->
+                <div class="dropdown flex-shrink-0">
+                    <button class="btn btn-sm btn-dark text-white rounded-pill px-2 px-md-3 d-inline-flex align-items-center gap-1 gap-md-2 shadow-xs text-nowrap flex-shrink-0" type="button" id="dropdownGithub" data-bs-toggle="dropdown" aria-expanded="false" title="Repositorios de GitHub" aria-label="Repositorios de código abierto">
+                        <i class="bi bi-github fs-6" aria-hidden="true"></i>
+                        <span class="d-none d-md-inline small fw-medium">GitHub</span>
+                        <i class="bi bi-chevron-down text-white-50" style="font-size: 0.65rem;" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2 mt-2" aria-labelledby="dropdownGithub" style="min-width: 275px; z-index: 1060;">
+                        <li class="px-2 py-1 mb-1 border-bottom">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span class="text-uppercase text-secondary fw-bold" style="font-size: 0.65rem; letter-spacing: 0.05em;">
+                                    <i class="bi bi-git me-1 text-primary" aria-hidden="true"></i> Repositorios
+                                </span>
+                                <span class="badge bg-light text-muted border" style="font-size: 0.62rem;">Código Abierto</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-2 d-flex align-items-start gap-2 text-dark" href="https://github.com/elpulsocivico/pulso-civico" target="_blank" rel="noopener">
+                                <div class="bg-primary-subtle text-primary rounded-circle p-1 d-inline-flex align-items-center justify-content-center mt-1" style="width: 26px; height: 26px;">
+                                    <i class="bi bi-box-arrow-up-right" style="font-size: 0.75rem;" aria-hidden="true"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold small leading-tight">Proyecto Original</div>
+                                    <div class="text-muted" style="font-size: 0.72rem;">elpulsocivico/pulso-civico</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-2 d-flex align-items-start gap-2 text-dark" href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa" target="_blank" rel="noopener">
+                                <div class="bg-dark text-white rounded-circle p-1 d-inline-flex align-items-center justify-content-center mt-1" style="width: 26px; height: 26px;">
+                                    <i class="bi bi-github" style="font-size: 0.75rem;" aria-hidden="true"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold small leading-tight">Repositorio del código</div>
+                                    <div class="text-muted" style="font-size: 0.72rem;">Proyecto-Tlatoa/proyecto-tlatoa (Este observatorio)</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

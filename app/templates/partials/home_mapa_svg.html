@@ -1,0 +1,33 @@
+<svg viewBox="0 0 960 600" class="w-100 h-auto" id="mexicoSvgMap" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.06));" aria-label="Mapa interactivo de la República Mexicana por entidad federativa" role="img">
+    {% set gov_init = capas_mapa.gobernadores.estados if capas_mapa and capas_mapa.gobernadores else {} %}
+    {% for st in mexico_paths %}
+        {% set slug = st.slug %}
+        {% set est = gov_init.get(slug) %}
+        {% set party = est.partido_mayoria if est else "Morena" %}
+        {% set color = est.color_mayoria if est else party_color_func(party) %}
+        <path d="{{ st.d }}"
+              id="state-{{ slug }}"
+              class="state-path state-active {% if slug == 'baja-california' %}state-selected{% endif %}"
+              data-slug="{{ slug }}"
+              data-name="{{ st.name }}"
+              data-abbr="{{ est.abbr if est else 'MEX' }}"
+              data-party="{{ party }}"
+              data-reps="{{ est.total_representantes if est else 1 }}"
+              data-url="{{ est.boton_url if est else '/estados/' ~ slug }}"
+              data-conteo='{{ est.conteo_partidos|tojson if est else "{}" }}'
+              data-titular="{{ est.titular if est and est.titular else '' }}"
+              data-cargo="{{ est.cargo if est and est.cargo else '' }}"
+              data-periodo="{{ est.periodo if est and est.periodo else '' }}"
+              data-label="{{ est.mayoria_label if est and est.mayoria_label else '' }}"
+              data-subtitle="{{ est.subtitulo_card if est and est.subtitulo_card else '' }}"
+              data-btntext="{{ est.boton_text if est and est.boton_text else '' }}"
+              fill="{{ color }}"
+              stroke="#FFFFFF"
+              stroke-width="1.2"
+              stroke-linejoin="round"
+              tabindex="0"
+              role="button"
+              aria-label="{{ st.name }}: {{ party }}">
+        </path>
+    {% endfor %}
+</svg>
