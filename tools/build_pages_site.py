@@ -25,7 +25,7 @@ def build():
     nojekyll_file.touch()
     print("  [+] Creado pages/.nojekyll")
 
-    # 2. Copiar assets esenciales
+    # 2. Copiar assets esenciales, vendor y hojas de estilo
     src_assets = ROOT_DIR / "assets"
     for filename in ["banner.png", "tecolote.png", "favicon.svg", "favicon.ico"]:
         src_file = src_assets / filename
@@ -33,10 +33,32 @@ def build():
             shutil.copy2(src_file, ASSETS_DIR / filename)
             print(f"  [+] Copiado asset: {filename}")
 
-    src_svg = src_assets / "img" / "tecolote.svg"
-    if src_svg.exists():
-        (ASSETS_DIR / "img").mkdir(exist_ok=True)
-        shutil.copy2(src_svg, ASSETS_DIR / "img" / "tecolote.svg")
+    # Copiar vendor (Bootstrap 5.3 + Bootstrap Icons)
+    src_vendor = src_assets / "vendor"
+    dest_vendor = ASSETS_DIR / "vendor"
+    if src_vendor.exists():
+        if dest_vendor.exists():
+            shutil.rmtree(dest_vendor)
+        shutil.copytree(src_vendor, dest_vendor)
+        print("  [+] Sincronizado assets/vendor/ para GitHub Pages")
+
+    # Copiar hojas de estilo de la plataforma (tlatoa.css, mapa.css)
+    src_css = src_assets / "css"
+    dest_css = ASSETS_DIR / "css"
+    dest_css.mkdir(parents=True, exist_ok=True)
+    if src_css.exists():
+        for css_file in src_css.glob("*.css"):
+            shutil.copy2(css_file, dest_css / css_file.name)
+            print(f"  [+] Sincronizado CSS: {css_file.name}")
+
+    # Copiar imágenes e iconos
+    src_img = src_assets / "img"
+    dest_img = ASSETS_DIR / "img"
+    dest_img.mkdir(parents=True, exist_ok=True)
+    if src_img.exists():
+        for img_file in src_img.glob("*.*"):
+            shutil.copy2(img_file, dest_img / img_file.name)
+            print(f"  [+] Sincronizada imagen: {img_file.name}")
 
     # 3. Copiar fotos locales de representantes si existen en storage/raw/photos y assets/img/presidentes
     src_photos = ROOT_DIR / "storage" / "raw" / "photos"

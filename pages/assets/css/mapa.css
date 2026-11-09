@@ -1,0 +1,110 @@
+/**
+ * Proyecto Tlatoa — Estilos del Mapa Interactivo SVG y Filtros Estatales
+ */
+
+.state-path {
+    cursor: pointer;
+    transition: fill 0.2s ease, filter 0.2s ease, stroke-width 0.2s ease;
+}
+
+.state-path:hover {
+    filter: brightness(1.12);
+    stroke: #1C1C1E;
+    stroke-width: 1.8;
+}
+
+.state-selected {
+    stroke: #1C1C1E !important;
+    stroke-width: 2.2 !important;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25)) !important;
+}
+
+.party-distribution-bar {
+    background-color: #F8F9FA !important;
+    border: 1px solid rgba(60, 60, 67, 0.08) !important;
+}
+
+.party-kpi-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px 6px 10px; /* Ergonomía táctil mejorada */
+    min-height: 36px;
+    border-radius: 9999px;
+    background: #FFFFFF;
+    border: 1px solid rgba(60, 60, 67, 0.12);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #1C1C1E;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    line-height: 1.4;
+    user-select: none;
+}
+
+.party-kpi-chip:hover {
+    background: #FFFFFF;
+    border-color: rgba(60, 60, 67, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.party-kpi-chip.chip-active {
+    background: #1C1C1E !important;
+    color: #FFFFFF !important;
+    border-color: #1C1C1E !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+}
+
+.party-kpi-chip.chip-active .party-kpi-count {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: #FFFFFF !important;
+}
+
+.party-kpi-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.party-kpi-name {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.party-kpi-count {
+    background: #F2F2F7;
+    color: #48484A;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 12px;
+}
+
+.state-path.state-dimmed {
+    opacity: 0.22 !important;
+    filter: grayscale(85%) !important;
+}
+
+.state-path.state-highlighted {
+    opacity: 1 !important;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)) brightness(1.05) !important;
+    stroke: #FFFFFF !important;
+    stroke-width: 1.6 !important;
+}
+
+.map-tooltip {
+    position: absolute;
+    display: none;
+    background: rgba(28, 28, 30, 0.94);
+    color: #FFFFFF;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    pointer-events: none;
+    z-index: 100;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+}

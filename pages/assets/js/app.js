@@ -1,8 +1,14 @@
+/**
+ * Proyecto Tlatoa — Controlador de Catálogo Estático (GitHub Pages)
+ * Renderizado de alta velocidad con filtrado reactivo del lado del cliente.
+ */
+
 let ALL_DATA = [];
 let currentCat = 'todos';
 let currentState = 'todos';
 let debounceTimer = null;
 let lastQuery = '';
+let bsModalInstance = null;
 
 const resultsGrid = document.getElementById('resultsGrid');
 const searchInput = document.getElementById('searchInput');
@@ -10,38 +16,58 @@ const resultCount = document.getElementById('resultCount');
 const latencyStat = document.getElementById('latencyStat');
 const statusBadge = document.getElementById('statusBadge');
 const stateFilter = document.getElementById('stateFilter');
-const detailModal = document.getElementById('detailModal');
+const detailModalEl = document.getElementById('detailModal');
 const btnTop = document.getElementById('btnTop');
 
+// Inicializar listener de scroll para volver arriba
 window.addEventListener('scroll', () => {
-    btnTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    if (btnTop) {
+        btnTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    }
 });
 
-function closeModal() {
-    detailModal.classList.remove('open');
-    if (window.location.hash.startsWith('#/politico/')) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
+// Listener de cierre de modal para limpiar URL hash
+if (detailModalEl) {
+    detailModalEl.addEventListener('hidden.bs.modal', () => {
+        if (window.location.hash.startsWith('#/politico/')) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    });
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function getModalInstance() {
+    if (!bsModalInstance && typeof bootstrap !== 'undefined' && detailModalEl) {
+        bsModalInstance = bootstrap.Modal.getOrCreateInstance(detailModalEl);
+    }
+    return bsModalInstance;
+}
+
+function closeModal() {
+    const modal = getModalInstance();
+    if (modal) modal.hide();
+}
 
 async function loadData() {
     try {
         const res = await fetch('./data/search_index.json');
         ALL_DATA = await res.json();
         
-        statusBadge.innerText = `Catálogo Activo • ${ALL_DATA.length.toLocaleString()} Registros`;
+        if (statusBadge) {
+            statusBadge.innerHTML = `<i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i> Catálogo Activo • ${ALL_DATA.length.toLocaleString()} Registros`;
+        }
 
-        // Poblar select de estados
-        const states = [...new Set(ALL_DATA.map(d => d.e).filter(Boolean))].sort();
-        states.forEach(st => {
-            const opt = document.createElement('option');
-            opt.value = st;
-            opt.textContent = st;
-            stateFilter.appendChild(opt);
-        });
+        // Poblar select de entidades federativas
+        if (stateFilter) {
+            const states = [...new Set(ALL_DATA.map(d => d.e).filter(Boolean))].sort();
+            states.forEach(st => {
+                const opt = document.createElement('option');
+                opt.value = st;
+                opt.textContent = st;
+                stateFilter.appendChild(opt);
+            });
+        }
 
-        // Soporte para parámetros de URL (?q=...&cat=...&estado=...)
+        // Sincronizar parámetros de URL (?q=...&cat=...&estado=...)
         const params = new URLSearchParams(window.location.search);
         if (params.has('q')) {
             searchInput.value = params.get('q');
@@ -53,7 +79,7 @@ async function loadData() {
                 b.classList.toggle('active', b.dataset.cat === currentCat);
             });
         }
-        if (params.has('estado')) {
+        if (params.has('estado') && stateFilter) {
             currentState = params.get('estado');
             stateFilter.value = currentState;
         }
@@ -66,12 +92,14 @@ async function loadData() {
             openDetails(decodeURIComponent(hash));
         }
     } catch (err) {
-        resultsGrid.innerHTML = `
-            <div style="grid-column:1/-1;text-align:center;padding:48px 16px;color:#DC2626;">
-                <div style="font-size:3rem;margin-bottom:8px;">🦉</div>
-                <strong>No se pudo cargar el catálogo de datos</strong>
-                <p style="font-size:0.9rem;margin-top:4px;">Verifica que el archivo <code>data/search_index.json</code> esté disponible.</p>
-            </div>`;
+        if (resultsGrid) {
+            resultsGrid.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div style="font-size:3rem;margin-bottom:8px;">🦉</div>
+                    <h5 class="fw-bold text-danger">No se pudo cargar el catálogo de datos</h5>
+                    <p class="text-muted small">Verifica que el archivo <code>data/search_index.json</code> esté disponible.</p>
+                </div>`;
+        }
     }
 }
 
@@ -86,17 +114,21 @@ document.querySelectorAll('.filter-pill').forEach(btn => {
 });
 
 // Filtro por Estado
-stateFilter.addEventListener('change', (e) => {
-    currentState = e.target.value;
-    filterAndRender();
-});
+if (stateFilter) {
+    stateFilter.addEventListener('change', (e) => {
+        currentState = e.target.value;
+        filterAndRender();
+    });
+}
 
-// Búsqueda con debounce
-searchInput.addEventListener('input', (e) => {
-    clearTimeout(debounceTimer);
-    lastQuery = e.target.value.trim().toLowerCase();
-    debounceTimer = setTimeout(filterAndRender, 80);
-});
+// Búsqueda en vivo con debounce de 60ms
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        lastQuery = e.target.value.trim().toLowerCase();
+        debounceTimer = setTimeout(filterAndRender, 60);
+    });
+}
 
 function filterAndRender() {
     const t0 = performance.now();
@@ -120,8 +152,12 @@ function filterAndRender() {
     }
 
     const elapsed = (performance.now() - t0).toFixed(1);
-    latencyStat.innerHTML = `Latencia: <strong style="color:#059669;">${elapsed} ms</strong>`;
-    resultCount.innerText = `Mostrando ${filtered.length.toLocaleString()} resultados de ${ALL_DATA.length.toLocaleString()}`;
+    if (latencyStat) {
+        latencyStat.innerHTML = `Latencia: <strong class="text-success">${elapsed} ms</strong>`;
+    }
+    if (resultCount) {
+        resultCount.innerText = `Mostrando ${filtered.length.toLocaleString()} resultados de ${ALL_DATA.length.toLocaleString()}`;
+    }
 
     const toRender = filtered.slice(0, 120);
     renderGrid(toRender, filtered.length);
@@ -142,13 +178,13 @@ function renderAvatarHtml(name, color, size, extraStyle = '') {
     const fg = color || '#1D4ED8';
     const border = color ? color + '40' : '#BFDBFE';
     const fontSize = Math.round(size * 0.38);
-    return `<div class="avatar-badge" style="width:${size}px;height:${size}px;min-width:${size}px;border-radius:50%;background:${bg};color:${fg};border:1.5px solid ${border};display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:${fontSize}px;flex-shrink:0;user-select:none;${extraStyle}">${escapeHtml(initials)}</div>`;
+    return `<div style="width:${size}px;height:${size}px;min-width:${size}px;border-radius:50%;background:${bg};color:${fg};border:1.5px solid ${border};display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:${fontSize}px;flex-shrink:0;user-select:none;${extraStyle}">${escapeHtml(initials)}</div>`;
 }
 
 window.handleImgError = function(img) {
     const name = img.getAttribute('data-name') || '';
     const color = img.getAttribute('data-color') || '#4B5563';
-    const size = parseInt(img.getAttribute('data-size') || '42', 10);
+    const size = parseInt(img.getAttribute('data-size') || '44', 10);
     const extraStyle = img.getAttribute('data-style') || '';
     const div = document.createElement('div');
     div.innerHTML = renderAvatarHtml(name, color, size, extraStyle);
@@ -158,12 +194,14 @@ window.handleImgError = function(img) {
 };
 
 function renderGrid(items, totalCount) {
+    if (!resultsGrid) return;
+
     if (items.length === 0) {
         resultsGrid.innerHTML = `
-            <div style="grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--text-muted);">
+            <div class="col-12 text-center py-5">
                 <div style="font-size:3rem;margin-bottom:8px;">🦉</div>
-                <strong style="color:var(--text-main);">Sin coincidencias</strong>
-                <p style="font-size:0.9rem;margin-top:4px;">No se encontraron registros para tu búsqueda o filtros actuales.</p>
+                <h5 class="fw-bold text-dark">Sin coincidencias</h5>
+                <p class="text-muted small">No se encontraron representantes para tu búsqueda o filtros seleccionados.</p>
             </div>`;
         return;
     }
@@ -171,21 +209,39 @@ function renderGrid(items, totalCount) {
     let html = items.map(p => {
         const color = p.c || '#4B5563';
         const fotoHtml = p.f 
-            ? `<img src="${encodeURI(p.f)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="42" data-style="margin-right:12px;" loading="lazy" referrerpolicy="no-referrer" style="width:42px;height:42px;border-radius:50%;object-fit:cover;margin-right:12px;flex-shrink:0;background:#E5E7EB;" onerror="handleImgError(this)">` 
-            : renderAvatarHtml(p.n, color, 42, 'margin-right:12px;');
+            ? `<img src="${encodeURI(p.f)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="44" data-style="margin-right:12px;" loading="lazy" referrerpolicy="no-referrer" style="width:44px;height:44px;border-radius:50%;object-fit:cover;margin-right:12px;flex-shrink:0;background:#E5E7EB;" onerror="handleImgError(this)">` 
+            : renderAvatarHtml(p.n, color, 44, 'margin-right:12px;');
         return `
-        <div class="card-pol" onclick="openDetails('${escapeHtml(p.s)}')">
-            <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <span class="badge-party" style="background-color:${color}18;color:${color};">${escapeHtml(p.p)}</span>
-                    <span style="color:var(--text-muted);font-size:0.8rem;">${escapeHtml(p.e)}</span>
-                </div>
-                <div style="display:flex;align-items:center;">
-                    ${fotoHtml}
-                    <div style="overflow:hidden;">
-                        <div style="font-weight:700;font-size:0.95rem;margin-bottom:2px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${escapeHtml(p.n)}</div>
-                        <div style="color:var(--text-muted);font-size:0.82rem;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${escapeHtml(p.r)}</div>
+        <div class="col">
+            <div class="card-pol" onclick="openDetails('${escapeHtml(p.s)}')">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge rounded-pill fw-semibold" style="background-color:${color}18;color:${color};border:1px solid ${color}40;font-size:0.75rem;">
+                            ${escapeHtml(p.p)}
+                        </span>
+                        <span class="text-secondary small d-flex align-items-center gap-1" style="font-size:0.78rem;">
+                            <i class="bi bi-geo-alt"></i>${escapeHtml(p.e)}
+                        </span>
                     </div>
+                    <div class="d-flex align-items-center">
+                        ${fotoHtml}
+                        <div style="overflow:hidden;flex-grow:1;">
+                            <div class="fw-bold text-dark text-truncate" style="font-size:0.92rem;" title="${escapeHtml(p.n)}">
+                                ${escapeHtml(p.n)}
+                            </div>
+                            <div class="text-secondary small text-truncate" style="font-size:0.8rem;" title="${escapeHtml(p.r)}">
+                                ${escapeHtml(p.r)}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-top d-flex justify-content-between align-items-center">
+                    <span class="badge ${p.a ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary'} rounded-pill" style="font-size:0.68rem;">
+                        ${p.a ? '● En funciones' : '○ Histórico'}
+                    </span>
+                    <span class="text-primary small fw-semibold" style="font-size:0.78rem;">
+                        Ver ficha <i class="bi bi-chevron-right" style="font-size:0.7rem;"></i>
+                    </span>
                 </div>
             </div>
         </div>`;
@@ -193,8 +249,8 @@ function renderGrid(items, totalCount) {
 
     if (totalCount > 120) {
         html += `
-        <div style="grid-column:1/-1;text-align:center;padding:16px;color:var(--text-muted);font-size:0.85rem;">
-            <em>(Mostrando los primeros 120 de ${totalCount.toLocaleString()} resultados. Escribe más letras en el buscador para filtrar con precisión).</em>
+        <div class="col-12 text-center py-3 text-muted small">
+            <em>(Mostrando 120 de ${totalCount.toLocaleString()} resultados. Escribe más letras en el buscador para acotar con precisión).</em>
         </div>`;
     }
 
@@ -207,35 +263,63 @@ function openDetails(slug) {
 
     window.location.hash = '#/politico/' + encodeURIComponent(slug);
 
-    const color = p.c || '#2563EB';
+    const color = p.c || '#007AFF';
     const fotoHtml = p.f 
-        ? `<img src="${encodeURI(p.f)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="68" data-style="margin:0 auto 12px auto;display:flex;" loading="lazy" referrerpolicy="no-referrer" style="width:68px;height:68px;border-radius:50%;object-fit:cover;margin:0 auto 12px auto;display:block;background:#E5E7EB;" onerror="handleImgError(this)">`
-        : renderAvatarHtml(p.n, color, 68, 'margin:0 auto 12px auto;display:flex;');
+        ? `<img src="${encodeURI(p.f)}" alt="${escapeHtml(p.n)}" data-name="${escapeHtml(p.n)}" data-color="${escapeHtml(color)}" data-size="76" data-style="margin:0 auto 12px auto;display:flex;" loading="lazy" referrerpolicy="no-referrer" style="width:76px;height:76px;border-radius:50%;object-fit:cover;margin:0 auto 12px auto;display:block;background:#E5E7EB;border:2px solid #FFFFFF;box-shadow:0 4px 12px rgba(0,0,0,0.1);" onerror="handleImgError(this)">`
+        : renderAvatarHtml(p.n, color, 76, 'margin:0 auto 12px auto;display:flex;');
 
-    document.getElementById('modalPolHeader').innerHTML = `
-        <div style="text-align:center;border-bottom:1px solid var(--border);padding-bottom:16px;">
-            ${fotoHtml}
-            <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:4px;">${escapeHtml(p.n)}</h3>
-            <span class="badge-party" style="background:${color}20;color:${color};font-size:0.85rem;padding:4px 12px;">${escapeHtml(p.p)}</span>
-        </div>
-    `;
-
-    document.getElementById('modalPolBody').innerHTML = `
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:0.9rem;">
-            <div><strong>Cargo Oficial:</strong> ${escapeHtml(p.r)}</div>
-            <div><strong>Entidad Federativa:</strong> ${escapeHtml(p.e)}</div>
-            <div><strong>Identificador Único (Slug):</strong> <code>${escapeHtml(p.s)}</code></div>
-            <div><strong>Estatus:</strong> ${p.a ? '✅ Activo / Vigente' : '📜 Histórico'}</div>
-            <div style="background:#F9FAFB;border:1px solid var(--border);border-radius:10px;padding:12px;margin-top:8px;">
-                <strong style="display:block;margin-bottom:4px;color:var(--text-main);">Fuente Gubernamental Oficial:</strong>
-                <a href="${escapeHtml(p.u)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);word-break:break-all;font-size:0.85rem;text-decoration:underline;">
-                    ${escapeHtml(p.u)} &rarr;
-                </a>
+    const modalHeader = document.getElementById('modalPolHeader');
+    if (modalHeader) {
+        modalHeader.innerHTML = `
+            <div class="text-center w-100 pb-2">
+                ${fotoHtml}
+                <h5 class="fw-bold text-dark mb-1">${escapeHtml(p.n)}</h5>
+                <div class="d-flex justify-content-center gap-2 mt-2">
+                    <span class="badge rounded-pill fw-semibold" style="background-color:${color}20;color:${color};border:1px solid ${color}40;padding:4px 12px;">
+                        ${escapeHtml(p.p)}
+                    </span>
+                    <span class="badge ${p.a ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-secondary-subtle text-secondary border'} rounded-pill px-3 py-1">
+                        ${p.a ? '✅ Activo / Vigente' : '📜 Histórico'}
+                    </span>
+                </div>
             </div>
-        </div>
-    `;
+        `;
+    }
 
-    detailModal.classList.add('open');
+    const modalBody = document.getElementById('modalPolBody');
+    if (modalBody) {
+        modalBody.innerHTML = `
+            <div class="d-flex flex-column gap-2 text-start small">
+                <div class="p-2 rounded-3 bg-light border">
+                    <div class="text-muted" style="font-size:0.75rem;">CARGO OFICIAL REGISTRADO</div>
+                    <div class="fw-semibold text-dark">${escapeHtml(p.r)}</div>
+                </div>
+                <div class="p-2 rounded-3 bg-light border">
+                    <div class="text-muted" style="font-size:0.75rem;">ENTIDAD FEDERATIVA</div>
+                    <div class="fw-semibold text-dark">${escapeHtml(p.e)}</div>
+                </div>
+                <div class="p-2 rounded-3 bg-light border">
+                    <div class="text-muted" style="font-size:0.75rem;">IDENTIFICADOR CANÓNICO (SLUG)</div>
+                    <code class="text-primary">${escapeHtml(p.s)}</code>
+                </div>
+                <div class="p-3 rounded-3 border mt-1" style="background:#F8FAFC;">
+                    <div class="d-flex align-items-center gap-1 text-success fw-bold mb-1">
+                        <i class="bi bi-patch-check-fill"></i> Fuente Gubernamental Oficial (.gob.mx)
+                    </div>
+                    <p class="text-muted mb-2" style="font-size:0.8rem;">
+                        Registro cotejado contra portales oficiales de transparencia gubernamental:
+                    </p>
+                    <a href="${escapeHtml(p.u)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary w-100 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                        <span>Verificar documento oficial</span>
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
+    const modal = getModalInstance();
+    if (modal) modal.show();
 }
 
 function escapeHtml(str) {

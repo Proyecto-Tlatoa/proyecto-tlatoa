@@ -3,87 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Tlatoa — Observatorio Ciudadano</title>
-    <meta name="description" content="Observatorio ciudadano independiente de datos abiertos sobre el poder público en México. Consulta 16,634 registros con fuentes oficiales .gob.mx.">
+    <title>Proyecto Tlatoa — Observatorio Ciudadano de México</title>
+    <meta name="description" content="Observatorio ciudadano independiente de datos abiertos sobre el poder público en México. Monitorea y audita más de 16,634 representantes públicos con fuentes oficiales .gob.mx.">
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="./assets/favicon.ico">
+
+    <!-- Bootstrap 5.3 & Bootstrap Icons (100% Offline Local) -->
+    <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+
+    <!-- Sistema de Diseño Cívico de la Plataforma -->
+    <link rel="stylesheet" href="./assets/css/tlatoa.css">
     <link rel="stylesheet" href="./assets/css/app.css">
 </head>
 <body>
 
-    <nav class="navbar-desktop">
-        <a href="./" class="brand-container">
-            <span class="mascot-icon">
-                <img src="./assets/tecolote.png" alt="Tecolote" style="width:34px;height:34px;object-fit:cover;" onerror="this.outerHTML='<span>🦉</span>'">
-            </span>
-            <div>
-                <strong style="font-size:1.15rem;display:block;line-height:1.2;">Proyecto Tlatoa</strong>
-                <span style="color:var(--text-muted);font-size:0.8rem;">Observatorio Ciudadano de México</span>
+    <!-- Enlace accesible para saltar al contenido -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Barra de Navegación Principal (Diseño iOS / Clean Civic) -->
+    <nav class="navbar navbar-expand-lg navbar-ios py-2 border-bottom bg-white sticky-top shadow-2xs" aria-label="Navegación principal">
+        <div class="container-fluid px-3 px-xl-4">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark me-3" href="./" aria-label="Inicio Proyecto Tlatoa">
+                <img src="./assets/img/tecolote.svg" alt="Tecolote de la Transparencia" style="width: 36px; height: 36px; object-fit: contain;" onerror="this.src='./assets/tecolote.png'">
+                <span>Proyecto Tlatoa</span>
+                <span class="badge bg-dark text-warning border ms-1 d-none d-sm-inline-block" style="font-size:0.65rem;">Fork Soberano</span>
+            </a>
+
+            <!-- Badge Live con estatus del catálogo -->
+            <div id="statusBadge" class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small d-none d-md-inline-flex align-items-center">
+                <i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i> Cargando catálogo...
             </div>
-        </a>
-        <div id="statusBadge" class="badge-live">Cargando catálogo...</div>
+
+            <!-- Accesos Rápidos de Navegación -->
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark rounded-pill px-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-github"></i>
+                    <span class="d-none d-sm-inline">GitHub</span>
+                    <i class="bi bi-box-arrow-up-right" style="font-size:0.7rem;"></i>
+                </a>
+            </div>
+        </div>
     </nav>
 
+    <!-- Banner Institucional Opcional -->
     <div class="banner-container">
-        <img src="./assets/banner.png" alt="Proyecto Tlatoa Banner" class="banner-img" onerror="this.style.display='none'">
+        <img src="./assets/banner.png" alt="Proyecto Tlatoa Banner" class="banner-img" onerror="this.parentElement.style.display='none'">
     </div>
 
-    <main class="main-content">
-        <section class="about-card" style="background:#FFFFFF;border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;margin-bottom:24px;box-shadow:var(--card-shadow);">
-            <h1 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main);">¿Qué es Proyecto Tlatoa?</h1>
-            <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 8px; color: var(--text-muted);">Proyecto Tlatoa es una bifurcación independiente de <a href="https://github.com/elpulsocivico/pulso-civico" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">Pulso Cívico</a>, el cual se enfoca en expandir el proyecto a distintos entornos y reestructurando todo para que sea fácil de entender y fácil de colaborar sin necesidad de ser programador o tener instalada una terminal.</p>
-            <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0; color: var(--text-muted);">Se enfoca en expandir la visión original de Pulso Cívico a Android, macOS, Windows, Linux, etc., a través de compilaciones independientes enfocadas en la rapidez y accesibilidad para cualquier usuario.</p>
-        </section>
+    <!-- Contenedor Principal -->
+    <main id="main-content" class="container py-4 flex-grow-1">
 
-        <div class="search-box-container">
-            <div class="search-input-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre, estado, cargo o partido (ej. Garcia, Jalisco, PRI, Senador)..." autocomplete="off" autofocus>
+        <!-- Hero Section: Comunidad Cívica + Datos Verificables -->
+        <div class="text-center py-3 py-md-4 mb-4">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary-subtle text-primary small fw-semibold mb-3 shadow-2xs">
+                <i class="bi bi-people-fill"></i> Iniciativa cívica mantenida por la comunidad &bull; Datos 100% oficiales y verificables
             </div>
-            <div class="filters-row">
-                <div class="filter-pills">
-                    <button class="filter-pill active" data-cat="todos">Todos</button>
-                    <button class="filter-pill" data-cat="presidente">Presidentes</button>
-                    <button class="filter-pill" data-cat="diputado_federal">Diputados Federales</button>
-                    <button class="filter-pill" data-cat="senador">Senadores</button>
-                    <button class="filter-pill" data-cat="gobernador">Gobernadores</button>
-                    <button class="filter-pill" data-cat="alcalde">Alcaldes</button>
-                    <button class="filter-pill" data-cat="diputado_local">Congresos Locales</button>
+            <h1 class="display-6 fw-bold text-dark mb-2">
+                Proyecto Tlatoa
+            </h1>
+            <p class="fs-5 text-dark fw-semibold mb-2" style="letter-spacing: -0.02em;">
+                Radiografía ciudadana de Gobernadores, Alcaldes, Diputados y Senadores
+            </p>
+            <p class="lead text-secondary mx-auto mb-3" style="max-width: 760px; font-size: 0.98rem; line-height: 1.6;">
+                Plataforma independiente de datos abiertos mantenida por la comunidad cívica. Monitorea y audita la trayectoria, bancadas y representación de más de <strong>16,634 servidores públicos</strong> en los 32 estados de México. Información extraída exclusivamente de fuentes oficiales primarias (.gob.mx, SIL, DOF).
+            </p>
+
+            <!-- Tira de Fuentes Primarias Verificables (Trust Strip) -->
+            <div class="d-flex align-items-center justify-content-center gap-2 gap-md-3 flex-wrap text-muted small mt-2" style="font-size: 0.78rem;">
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-patch-check-fill text-success"></i> <strong>SIL / SEGOB</strong></span>
+                <span class="text-muted opacity-50">&bull;</span>
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-bank text-primary"></i> <strong>Congreso de la Unión</strong></span>
+                <span class="text-muted opacity-50">&bull;</span>
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-building text-info"></i> <strong>INE Oficial</strong></span>
+                <span class="text-muted opacity-50">&bull;</span>
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-journal-text text-danger"></i> <strong>DOF</strong></span>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda y Filtros Reactivos -->
+        <div class="card card-civic p-3 p-md-4 mb-4 bg-white shadow-sm border rounded-4">
+            <!-- Buscador de Texto Libre -->
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-light border-end-0 text-muted rounded-start-pill ps-3">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" id="searchInput" class="form-control bg-light border-start-0 rounded-end-pill py-2 shadow-none" placeholder="Buscar por nombre, estado, cargo o partido (ej. Garcia, Jalisco, PRI, Senador)..." autocomplete="off" autofocus>
+            </div>
+
+            <!-- Fila de Filtros por Categoría y Entidad -->
+            <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+                <div class="filter-pills-scroll">
+                    <button class="filter-pill active" data-cat="todos"><i class="bi bi-collection"></i> Todos</button>
+                    <button class="filter-pill" data-cat="presidente"><i class="bi bi-person-badge text-dark"></i> Presidentes</button>
+                    <button class="filter-pill" data-cat="gobernador"><i class="bi bi-shield-shaded text-danger"></i> Gobernadores</button>
+                    <button class="filter-pill" data-cat="senador"><i class="bi bi-bank text-info"></i> Senadores</button>
+                    <button class="filter-pill" data-cat="diputado_federal"><i class="bi bi-buildings text-primary"></i> Dip. Federales</button>
+                    <button class="filter-pill" data-cat="alcalde"><i class="bi bi-houses text-warning-emphasis"></i> Alcaldes</button>
+                    <button class="filter-pill" data-cat="diputado_local"><i class="bi bi-geo-alt text-secondary"></i> Congresos Locales</button>
                 </div>
-                <select id="stateFilter" class="state-select">
-                    <option value="todos">Todos los Estados (32)</option>
-                </select>
+                <div style="min-width: 220px;">
+                    <select id="stateFilter" class="form-select bg-light rounded-pill py-1 px-3 text-secondary shadow-none" style="font-size:0.85rem;">
+                        <option value="todos">Todos los Estados (32)</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="results-meta">
-            <span id="resultCount">Cargando catálogo oficial...</span>
-            <span id="latencyStat">Latencia: <strong>0 ms</strong></span>
+        <!-- Metadatos de Resultados y Latencia Instantánea -->
+        <div class="d-flex justify-content-between align-items-center mb-3 px-1 small">
+            <span id="resultCount" class="text-secondary fw-semibold">Cargando catálogo oficial...</span>
+            <span id="latencyStat" class="badge bg-white text-secondary border rounded-pill px-3 py-1">Latencia: <strong class="text-success">0 ms</strong></span>
         </div>
 
-        <div id="resultsGrid" class="grid-cards">
-            <div class="loading-spinner">
-                <div style="font-size:2.5rem;margin-bottom:8px;">🦉</div>
-                <p>Descargando catálogo oficial de 16,634 representantes públicos...</p>
+        <!-- Rejilla Reactiva de Representantes -->
+        <div id="resultsGrid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 2.5rem; height: 2.5rem;">
+                    <span class="visually-hidden">Cargando catálogo...</span>
+                </div>
+                <div class="fs-4">🦉</div>
+                <h5 class="fw-bold text-dark mt-2">Cargando catálogo cívico nacional</h5>
+                <p class="text-muted small">Indexando más de 16,634 representantes públicos...</p>
             </div>
         </div>
     </main>
 
-    <button id="btnTop" class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">↑</button>
+    <!-- Botón Volver Arriba -->
+    <button id="btnTop" class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+        <i class="bi bi-arrow-up"></i>
+    </button>
 
-    <!-- Modal Detalle -->
-    <div id="detailModal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <div id="modalPolHeader"></div>
-            <div id="modalPolBody" style="margin-top:16px;"></div>
+    <!-- Modal Detalle del Servidor Público (Bootstrap 5) -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body px-4 pt-0">
+                    <div id="modalPolHeader"></div>
+                    <div id="modalPolBody" class="mt-3"></div>
+                </div>
+                <div class="modal-footer border-0 pt-0 px-4 pb-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4 small w-100" data-bs-dismiss="modal">Cerrar ficha</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <p><strong>Proyecto Tlatoa</strong> — Datos abiertos sobre el poder público en México.</p>
-        <p style="margin-top:4px;">100% estático, cero rastreadores, cero cookies. Licencia <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">GNU AGPL-3.0</a>.</p>
+    <!-- Pie de Página Institucional (Idéntico a la Web Activa) -->
+    <footer class="bg-white border-top pt-5 pb-4 mt-auto" role="contentinfo">
+        <div class="container">
+            <div class="row g-4 mb-4 text-start">
+                <div class="col-12 col-md-4">
+                    <a class="d-flex align-items-center gap-2 fw-bold text-dark text-decoration-none mb-2" href="./">
+                        <img src="./assets/img/tecolote.svg" alt="Tecolote de la Transparencia" style="width: 30px; height: 30px; object-fit: contain;" onerror="this.src='./assets/tecolote.png'">
+                        <span>Proyecto Tlatoa</span>
+                    </a>
+                    <div class="mb-2">
+                        <span class="badge bg-light text-secondary border rounded-pill" style="font-size: 0.7rem;">Fork Libre y Soberano • Tecolote de la Transparencia</span>
+                    </div>
+                    <p class="text-secondary small mb-2" style="line-height: 1.6;">
+                        Observatorio ciudadano independiente de datos abiertos sobre el poder público en México. Monitoreo, trazabilidad y rendición de cuentas de más de 16,600 servidores públicos en los 32 estados.
+                    </p>
+                    <div class="text-muted small" style="font-size: 0.72rem;">
+                        Sin financiamiento gubernamental ni fines partidistas.
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <h2 class="fw-bold text-dark text-uppercase small mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                        Exploración Cívica
+                    </h2>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                        <li><a href="javascript:void(0)" onclick="document.querySelector('[data-cat=presidente]').click();window.scrollTo({top:400,behavior:'smooth'});" class="text-secondary text-decoration-none hover-text-primary">Presidentes de México</a></li>
+                        <li><a href="javascript:void(0)" onclick="document.querySelector('[data-cat=gobernador]').click();window.scrollTo({top:400,behavior:'smooth'});" class="text-secondary text-decoration-none hover-text-primary">Gobernadores de los 32 Estados</a></li>
+                        <li><a href="javascript:void(0)" onclick="document.querySelector('[data-cat=alcalde]').click();window.scrollTo({top:400,behavior:'smooth'});" class="text-secondary text-decoration-none hover-text-primary">Alcaldes y Presidentes Municipales</a></li>
+                        <li><a href="javascript:void(0)" onclick="document.querySelector('[data-cat=senador]').click();window.scrollTo({top:400,behavior:'smooth'});" class="text-secondary text-decoration-none hover-text-primary">Senado de la República</a></li>
+                        <li><a href="javascript:void(0)" onclick="document.querySelector('[data-cat=diputado_federal]').click();window.scrollTo({top:400,behavior:'smooth'});" class="text-secondary text-decoration-none hover-text-primary">Cámara de Diputados Federal</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-2">
+                    <h2 class="fw-bold text-dark text-uppercase small mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                        Fuentes Primarias
+                    </h2>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                        <li><a href="http://sil.gobernacion.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">SEGOB &bull; SIL ↗</a></li>
+                        <li><a href="https://www.diputados.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">Diputados ↗</a></li>
+                        <li><a href="https://www.senado.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">Senado ↗</a></li>
+                        <li><a href="https://www.ine.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">INE Oficial ↗</a></li>
+                        <li><a href="https://dof.gob.mx" target="_blank" rel="noopener" class="text-secondary text-decoration-none hover-text-primary">DOF Oficial ↗</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <h2 class="fw-bold text-dark text-uppercase small mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                        Soberanía de Datos
+                    </h2>
+                    <p class="text-secondary small mb-2" style="line-height: 1.6;">
+                        100% estático, cero rastreadores, cero cookies comerciales. Software libre bajo licencia <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none">GNU AGPL-3.0</a>.
+                    </p>
+                    <div class="mt-2">
+                        <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark rounded-pill px-3 small">
+                            <i class="bi bi-star-fill text-warning me-1"></i> Estrella en GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top pt-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 small text-muted">
+                <div>&copy; 2026 Proyecto Tlatoa &bull; Observatorio Ciudadano de Datos Abiertos</div>
+                <div class="d-flex gap-3">
+                    <span class="text-secondary"><i class="bi bi-shield-check text-success me-1"></i>100% Fuentes Oficiales</span>
+                    <span class="text-secondary"><i class="bi bi-code-slash text-primary me-1"></i>Open Source</span>
+                </div>
+            </div>
+        </div>
     </footer>
 
+    <!-- Bootstrap 5 Bundle JS y Controlador de Catálogo -->
+    <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/app.js"></script>
 </body>
 </html>

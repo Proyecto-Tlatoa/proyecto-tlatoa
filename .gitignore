@@ -152,4 +152,8 @@ storage/data/backup/
 bundle/
 *.bundle
 
+# --- Material de difusión y publicidad cívica local ---
+publicidad/
+
+
 
