@@ -1,14 +1,17 @@
 /**
  * Proyecto Tlatoa — Controlador de Catálogo Estático (GitHub Pages)
- * Renderizado de alta velocidad con filtrado reactivo del lado del cliente.
+ * Búsqueda multi-término, descarga activa (CSV/JSON), Web Share API y modo PWA.
  */
 
 let ALL_DATA = [];
+let CURRENT_FILTERED = [];
 let currentCat = 'todos';
 let currentState = 'todos';
 let debounceTimer = null;
 let lastQuery = '';
+let renderedCount = 60;
 let bsModalInstance = null;
+let bsDownloadsModal = null;
 
 const resultsGrid = document.getElementById('resultsGrid');
 const searchInput = document.getElementById('searchInput');
@@ -17,6 +20,7 @@ const latencyStat = document.getElementById('latencyStat');
 const statusBadge = document.getElementById('statusBadge');
 const stateFilter = document.getElementById('stateFilter');
 const detailModalEl = document.getElementById('detailModal');
+const downloadsModalEl = document.getElementById('downloadsModal');
 const btnTop = document.getElementById('btnTop');
 
 // Inicializar listener de scroll para volver arriba
@@ -42,9 +46,34 @@ function getModalInstance() {
     return bsModalInstance;
 }
 
-function closeModal() {
-    const modal = getModalInstance();
-    if (modal) modal.hide();
+function openDownloadsModal() {
+    if (!bsDownloadsModal && typeof bootstrap !== 'undefined' && downloadsModalEl) {
+        bsDownloadsModal = bootstrap.Modal.getOrCreateInstance(downloadsModalEl);
+    }
+    if (bsDownloadsModal) bsDownloadsModal.show();
+}
+
+// Detección de conectividad PWA (Online / Offline)
+function updateOnlineStatus() {
+    const netBadge = document.getElementById('networkBadge');
+    if (netBadge) {
+        if (navigator.onLine) {
+            netBadge.innerHTML = '<i class="bi bi-wifi text-success me-1"></i> En línea';
+            netBadge.className = 'badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 small';
+        } else {
+            netBadge.innerHTML = '<i class="bi bi-wifi-off text-warning me-1"></i> Modo Offline (PWA)';
+            netBadge.className = 'badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-2 py-1 small';
+        }
+    }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+
+// Registro de Service Worker para PWA
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
 }
 
 async function loadData() {
@@ -84,7 +113,8 @@ async function loadData() {
             stateFilter.value = currentState;
         }
 
-        filterAndRender();
+        filterAndRender(true);
+        updateOnlineStatus();
 
         // Soporte para deep link en hash (#/politico/slug o #slug)
         const hash = window.location.hash.replace(/^#\/?(politico\/)?/, '');
@@ -109,7 +139,7 @@ document.querySelectorAll('.filter-pill').forEach(btn => {
         document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentCat = btn.dataset.cat;
-        filterAndRender();
+        filterAndRender(true);
     });
 });
 
@@ -117,21 +147,26 @@ document.querySelectorAll('.filter-pill').forEach(btn => {
 if (stateFilter) {
     stateFilter.addEventListener('change', (e) => {
         currentState = e.target.value;
-        filterAndRender();
+        filterAndRender(true);
     });
 }
 
-// Búsqueda en vivo con debounce de 60ms
+// Búsqueda en vivo con debounce de 50ms
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         clearTimeout(debounceTimer);
         lastQuery = e.target.value.trim().toLowerCase();
-        debounceTimer = setTimeout(filterAndRender, 60);
+        debounceTimer = setTimeout(() => filterAndRender(true), 50);
     });
 }
 
-function filterAndRender() {
+// Búsqueda inteligente multi-término (multi-token search)
+function filterAndRender(resetPagination = false) {
     const t0 = performance.now();
+    if (resetPagination) {
+        renderedCount = 60;
+    }
+
     let filtered = ALL_DATA;
 
     if (currentCat !== 'todos') {
@@ -143,24 +178,32 @@ function filterAndRender() {
     }
 
     if (lastQuery.length > 0) {
-        filtered = filtered.filter(item => 
-            item.n.toLowerCase().includes(lastQuery) ||
-            item.e.toLowerCase().includes(lastQuery) ||
-            item.p.toLowerCase().includes(lastQuery) ||
-            item.r.toLowerCase().includes(lastQuery)
-        );
+        const tokens = lastQuery.split(/\s+/).filter(Boolean);
+        filtered = filtered.filter(item => {
+            const haystack = `${item.n} ${item.e} ${item.p} ${item.r}`.toLowerCase();
+            return tokens.every(tok => haystack.includes(tok));
+        });
     }
+
+    CURRENT_FILTERED = filtered;
 
     const elapsed = (performance.now() - t0).toFixed(1);
     if (latencyStat) {
         latencyStat.innerHTML = `Latencia: <strong class="text-success">${elapsed} ms</strong>`;
     }
     if (resultCount) {
-        resultCount.innerText = `Mostrando ${filtered.length.toLocaleString()} resultados de ${ALL_DATA.length.toLocaleString()}`;
+        resultCount.innerText = `Mostrando ${Math.min(renderedCount, filtered.length).toLocaleString()} de ${filtered.length.toLocaleString()} resultados`;
     }
 
-    const toRender = filtered.slice(0, 120);
-    renderGrid(toRender, filtered.length);
+    renderGrid(filtered.slice(0, renderedCount), filtered.length);
+}
+
+function loadMore() {
+    renderedCount += 60;
+    renderGrid(CURRENT_FILTERED.slice(0, renderedCount), CURRENT_FILTERED.length);
+    if (resultCount) {
+        resultCount.innerText = `Mostrando ${Math.min(renderedCount, CURRENT_FILTERED.length).toLocaleString()} de ${CURRENT_FILTERED.length.toLocaleString()} resultados`;
+    }
 }
 
 function getInitials(name) {
@@ -247,10 +290,14 @@ function renderGrid(items, totalCount) {
         </div>`;
     }).join('');
 
-    if (totalCount > 120) {
+    if (totalCount > renderedCount) {
+        const remaining = totalCount - renderedCount;
         html += `
-        <div class="col-12 text-center py-3 text-muted small">
-            <em>(Mostrando 120 de ${totalCount.toLocaleString()} resultados. Escribe más letras en el buscador para acotar con precisión).</em>
+        <div class="col-12 text-center py-4">
+            <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2 shadow-2xs fw-semibold small" onclick="loadMore()">
+                <i class="bi bi-plus-circle me-1"></i> Cargar más representantes (+${Math.min(60, remaining).toLocaleString()})
+            </button>
+            <div class="text-muted mt-2" style="font-size:0.75rem;">Quedan ${remaining.toLocaleString()} resultados por mostrar.</div>
         </div>`;
     }
 
@@ -261,7 +308,7 @@ function openDetails(slug) {
     const p = ALL_DATA.find(item => item.s === slug);
     if (!p) return;
 
-    window.location.hash = '#/politico/' + encodeURIComponent(slug);
+    window.location.hash = `#/politico/${encodeURIComponent(slug)}`;
 
     const color = p.c || '#007AFF';
     const fotoHtml = p.f 
@@ -309,10 +356,15 @@ function openDetails(slug) {
                     <p class="text-muted mb-2" style="font-size:0.8rem;">
                         Registro cotejado contra portales oficiales de transparencia gubernamental:
                     </p>
-                    <a href="${escapeHtml(p.u)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary w-100 rounded-pill d-flex align-items-center justify-content-center gap-2">
-                        <span>Verificar documento oficial</span>
-                        <i class="bi bi-box-arrow-up-right"></i>
-                    </a>
+                    <div class="d-flex gap-2">
+                        <a href="${escapeHtml(p.u)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary flex-grow-1 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                            <span>Verificar documento oficial</span>
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="sharePolitico('${escapeHtml(p.s)}', '${escapeHtml(p.n)}', '${escapeHtml(p.r)}')" title="Compartir ficha cívica">
+                            <i class="bi bi-share"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -320,6 +372,57 @@ function openDetails(slug) {
 
     const modal = getModalInstance();
     if (modal) modal.show();
+}
+
+// Módulo de Descarga Activa: Exportación de datos en cliente
+function exportCurrentCSV() {
+    if (!CURRENT_FILTERED.length) return;
+    const headers = ["Nombre", "Cargo", "Entidad", "Partido", "Estatus", "Fuente_URL", "Slug"];
+    const rows = CURRENT_FILTERED.map(p => [
+        `"${(p.n || '').replace(/"/g, '""')}"`,
+        `"${(p.r || '').replace(/"/g, '""')}"`,
+        `"${(p.e || '').replace(/"/g, '""')}"`,
+        `"${(p.p || '').replace(/"/g, '""')}"`,
+        p.a ? '"Activo"' : '"Histórico"',
+        `"${(p.u || '').replace(/"/g, '""')}"`,
+        `"${(p.s || '')}"`
+    ]);
+    const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\r\n");
+    triggerBlobDownload(csvContent, `tlatoa_${currentCat}_${currentState}.csv`, "text/csv;charset=utf-8;");
+}
+
+function exportCurrentJSON() {
+    if (!CURRENT_FILTERED.length) return;
+    const jsonContent = JSON.stringify(CURRENT_FILTERED, null, 2);
+    triggerBlobDownload(jsonContent, `tlatoa_${currentCat}_${currentState}.json`, "application/json;charset=utf-8;");
+}
+
+function triggerBlobDownload(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Módulo Web Share API nativo / Copiar enlace permanente
+function sharePolitico(slug, name, cargo) {
+    const fullUrl = `${window.location.origin}${window.location.pathname}#/politico/${encodeURIComponent(slug)}`;
+    if (navigator.share) {
+        navigator.share({
+            title: `${name} — Proyecto Tlatoa`,
+            text: `Consulta la ficha oficial de ${name} (${cargo}) en Proyecto Tlatoa:`,
+            url: fullUrl
+        }).catch(() => {});
+    } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(fullUrl).then(() => {
+            alert('Enlace cívico copiado al portapapeles');
+        });
+    }
 }
 
 function escapeHtml(str) {

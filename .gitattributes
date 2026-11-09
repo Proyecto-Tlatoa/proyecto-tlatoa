@@ -1,0 +1,30 @@
+# ============================================
+# Proyecto Tlatoa — .gitattributes
+# ============================================
+
+# Normalización de saltos de línea LF
+* text=auto eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf
+
+# Binarios no alterables
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.db binary
+*.apk binary
+*.so binary
+*.woff binary
+*.woff2 binary
+
+# Excluir pages/ y publicidad/ de las descargas de código fuente (git archive / releases en GitHub)
+# Permite mantener el sitio estático de GitHub Pages desacoplado de las descargas para desarrolladores.
+pages export-ignore
+pages/** export-ignore
+publicidad export-ignore
+publicidad/** export-ignore

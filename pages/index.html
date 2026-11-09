@@ -7,6 +7,21 @@
     <meta name="description" content="Observatorio ciudadano independiente de datos abiertos sobre el poder público en México. Monitorea y audita más de 16,634 representantes públicos con fuentes oficiales .gob.mx.">
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
     <link rel="alternate icon" type="image/x-icon" href="./assets/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/img/tecolote.svg">
+    <meta name="theme-color" content="#007AFF">
+
+    <!-- Open Graph / Redes Sociales (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Proyecto Tlatoa — Observatorio Ciudadano de México">
+    <meta property="og:description" content="Datos abiertos y comprobables sobre más de 16,600 servidores públicos en México. Fuentes 100% oficiales (.gob.mx, SIL, DOF).">
+    <meta property="og:image" content="./assets/banner.png">
+    <meta property="og:url" content="https://proyecto-tlatoa.github.io/proyecto-tlatoa/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Proyecto Tlatoa — Observatorio Ciudadano de México">
+    <meta name="twitter:description" content="Auditoría cívica e información pública transparente sobre gobernadores, alcaldes, diputados y senadores.">
+    <meta name="twitter:image" content="./assets/banner.png">
 
     <!-- Bootstrap 5.3 & Bootstrap Icons (100% Offline Local) -->
     <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -24,19 +39,28 @@
     <!-- Barra de Navegación Principal (Diseño iOS / Clean Civic) -->
     <nav class="navbar navbar-expand-lg navbar-ios py-2 border-bottom bg-white sticky-top shadow-2xs" aria-label="Navegación principal">
         <div class="container-fluid px-3 px-xl-4">
-            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark me-3" href="./" aria-label="Inicio Proyecto Tlatoa">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark me-2" href="./" aria-label="Inicio Proyecto Tlatoa">
                 <img src="./assets/img/tecolote.svg" alt="Tecolote de la Transparencia" style="width: 36px; height: 36px; object-fit: contain;" onerror="this.src='./assets/tecolote.png'">
                 <span>Proyecto Tlatoa</span>
                 <span class="badge bg-dark text-warning border ms-1 d-none d-sm-inline-block" style="font-size:0.65rem;">Fork Soberano</span>
             </a>
 
-            <!-- Badge Live con estatus del catálogo -->
-            <div id="statusBadge" class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small d-none d-md-inline-flex align-items-center">
-                <i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i> Cargando catálogo...
+            <!-- Badge de Red PWA & Estatus del Catálogo -->
+            <div class="d-flex align-items-center gap-2 me-auto ms-2 d-none d-md-flex">
+                <div id="statusBadge" class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small">
+                    <i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i> Cargando...
+                </div>
+                <div id="networkBadge" class="badge bg-light text-secondary border rounded-pill px-2 py-1 small">
+                    <i class="bi bi-wifi text-success me-1"></i> En línea
+                </div>
             </div>
 
-            <!-- Accesos Rápidos de Navegación -->
+            <!-- Accesos Rápidos de Navegación y Descargas Activas -->
             <div class="d-flex align-items-center gap-2 ms-auto">
+                <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 d-flex align-items-center gap-1 shadow-2xs" onclick="openDownloadsModal()">
+                    <i class="bi bi-cloud-arrow-down-fill"></i>
+                    <span>Descargas & APK</span>
+                </button>
                 <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark rounded-pill px-3 d-flex align-items-center gap-2">
                     <i class="bi bi-github"></i>
                     <span class="d-none d-sm-inline">GitHub</span>
@@ -57,7 +81,7 @@
         <!-- Hero Section: Comunidad Cívica + Datos Verificables -->
         <div class="text-center py-3 py-md-4 mb-4">
             <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary-subtle text-primary small fw-semibold mb-3 shadow-2xs">
-                <i class="bi bi-people-fill"></i> Iniciativa cívica mantenida por la comunidad &bull; Datos 100% oficiales y verificables
+                <i class="bi bi-people-fill"></i> Iniciativa cívica comunitaria &bull; Datos 100% oficiales y verificables
             </div>
             <h1 class="display-6 fw-bold text-dark mb-2">
                 Proyecto Tlatoa
@@ -66,7 +90,7 @@
                 Radiografía ciudadana de Gobernadores, Alcaldes, Diputados y Senadores
             </p>
             <p class="lead text-secondary mx-auto mb-3" style="max-width: 760px; font-size: 0.98rem; line-height: 1.6;">
-                Plataforma independiente de datos abiertos mantenida por la comunidad cívica. Monitorea y audita la trayectoria, bancadas y representación de más de <strong>16,634 servidores públicos</strong> en los 32 estados de México. Información extraída exclusivamente de fuentes oficiales primarias (.gob.mx, SIL, DOF).
+                Plataforma independiente de datos abiertos. Monitorea y audita la representación y trayectoria de más de <strong>16,634 servidores públicos</strong> en las 32 entidades federativas. Información cotejada contra fuentes oficiales primarias (.gob.mx, SIL, DOF).
             </p>
 
             <!-- Tira de Fuentes Primarias Verificables (Trust Strip) -->
@@ -83,12 +107,12 @@
 
         <!-- Barra de Búsqueda y Filtros Reactivos -->
         <div class="card card-civic p-3 p-md-4 mb-4 bg-white shadow-sm border rounded-4">
-            <!-- Buscador de Texto Libre -->
+            <!-- Buscador de Texto Libre Multi-término -->
             <div class="input-group mb-3">
                 <span class="input-group-text bg-light border-end-0 text-muted rounded-start-pill ps-3">
                     <i class="bi bi-search"></i>
                 </span>
-                <input type="text" id="searchInput" class="form-control bg-light border-start-0 rounded-end-pill py-2 shadow-none" placeholder="Buscar por nombre, estado, cargo o partido (ej. Garcia, Jalisco, PRI, Senador)..." autocomplete="off" autofocus>
+                <input type="text" id="searchInput" class="form-control bg-light border-start-0 rounded-end-pill py-2 shadow-none" placeholder="Buscar por varias palabras (ej. morena jalisco, pan senador, garcia)..." autocomplete="off" autofocus>
             </div>
 
             <!-- Fila de Filtros por Categoría y Entidad -->
@@ -110,10 +134,24 @@
             </div>
         </div>
 
-        <!-- Metadatos de Resultados y Latencia Instantánea -->
-        <div class="d-flex justify-content-between align-items-center mb-3 px-1 small">
-            <span id="resultCount" class="text-secondary fw-semibold">Cargando catálogo oficial...</span>
-            <span id="latencyStat" class="badge bg-white text-secondary border rounded-pill px-3 py-1">Latencia: <strong class="text-success">0 ms</strong></span>
+        <!-- Módulo de Descarga Activa y Metadatos de Latencia -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 px-1 gap-2 small">
+            <div class="d-flex align-items-center gap-2">
+                <span id="resultCount" class="text-secondary fw-semibold">Cargando catálogo oficial...</span>
+                <span id="latencyStat" class="badge bg-white text-secondary border rounded-pill px-3 py-1">Latencia: <strong class="text-success">0 ms</strong></span>
+            </div>
+
+            <!-- Botones de Descarga Activa Instantánea (CSV y JSON en navegador) -->
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 d-inline-flex align-items-center gap-1" onclick="exportCurrentCSV()" title="Descargar resultados actuales en formato CSV para Excel">
+                    <i class="bi bi-file-earmark-spreadsheet text-success"></i>
+                    <span>Exportar CSV</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 d-inline-flex align-items-center gap-1" onclick="exportCurrentJSON()" title="Descargar resultados en formato JSON de datos abiertos">
+                    <i class="bi bi-filetype-json text-primary"></i>
+                    <span>Exportar JSON</span>
+                </button>
+            </div>
         </div>
 
         <!-- Rejilla Reactiva de Representantes -->
@@ -134,6 +172,63 @@
         <i class="bi bi-arrow-up"></i>
     </button>
 
+    <!-- Modal Centro de Descargas y Releases Oficiales -->
+    <div class="modal fade" id="downloadsModal" tabindex="-1" aria-labelledby="downloadsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-bottom pb-3">
+                    <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2" id="downloadsModalLabel">
+                        <i class="bi bi-cloud-arrow-down-fill text-primary"></i>
+                        <span>Centro de Descargas Cívicas</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4 small">
+                    <p class="text-secondary mb-3">
+                        Todos los datasets y aplicaciones son libres (AGPL-3.0), sin rastreadores y operan 100% desconectadas:
+                    </p>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa/releases/latest" target="_blank" rel="noopener noreferrer" class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-light border text-decoration-none text-dark hover-shadow-sm">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-android2 fs-3 text-success"></i>
+                                <div>
+                                    <div class="fw-bold">Aplicación Móvil Android (APK)</div>
+                                    <div class="text-muted small">100% offline nativa con motor Rust embebido</div>
+                                </div>
+                            </div>
+                            <i class="bi bi-download text-primary"></i>
+                        </a>
+
+                        <a href="https://github.com/Proyecto-Tlatoa/proyecto-tlatoa/releases/latest" target="_blank" rel="noopener noreferrer" class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-light border text-decoration-none text-dark hover-shadow-sm">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-laptop fs-3 text-primary"></i>
+                                <div>
+                                    <div class="fw-bold">App de Escritorio (Desktop)</div>
+                                    <div class="text-muted small">Binarios portables para Windows, Linux y macOS</div>
+                                </div>
+                            </div>
+                            <i class="bi bi-download text-primary"></i>
+                        </a>
+
+                        <a href="./data/search_index.json" download="tlatoa_search_index.json" class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-light border text-decoration-none text-dark hover-shadow-sm">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-filetype-json fs-3 text-warning-emphasis"></i>
+                                <div>
+                                    <div class="fw-bold">Catálogo Completo JSON (4.5 MB)</div>
+                                    <div class="text-muted small">16,634 registros consolidados con enlaces .gob.mx</div>
+                                </div>
+                            </div>
+                            <i class="bi bi-download text-primary"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0 px-4 pb-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4 small w-100" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Detalle del Servidor Público (Bootstrap 5) -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -152,7 +247,7 @@
         </div>
     </div>
 
-    <!-- Pie de Página Institucional (Idéntico a la Web Activa) -->
+    <!-- Pie de Página Institucional -->
     <footer class="bg-white border-top pt-5 pb-4 mt-auto" role="contentinfo">
         <div class="container">
             <div class="row g-4 mb-4 text-start">
